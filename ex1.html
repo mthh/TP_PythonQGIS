@@ -156,21 +156,32 @@
 </pre></div>
 </div>
 </li>
-<li><p class="first">Afficher le nom des champs de la couche :</p>
+<li><p class="first">Afficher le nom de chacun des champs de la couche :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">fields</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span> <span class="n">field</span><span class="o">.</span><span class="n">typeName</span><span class="p">())</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Obtenir les modes de rendu possible dans QGIS :</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">QgsRendererRegistry</span><span class="p">()</span><span class="o">.</span><span class="n">renderersList</span><span class="p">()</span>
+<li><p class="first">Obtenir les modes de rendu disponibles dans QGIS :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># QGIS 3</span>
+<span class="n">QgsRendererRegistry</span><span class="p">()</span><span class="o">.</span><span class="n">renderersList</span><span class="p">()</span>
+
+<span class="c1"># QGIS 2</span>
+<span class="n">QgsRendererV2Registry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">renderersList</span><span class="p">()</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Lister les couches du projet et leur type :</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayers</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># QGIS 3</span>
+<span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayers</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
     <span class="n">geom_type</span> <span class="o">=</span> <span class="n">QgsWkbTypes</span><span class="o">.</span><span class="n">displayString</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">wkbType</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">geom_type</span><span class="p">))</span>
+
+<span class="c1"># QGIS 2</span>
+<span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">QgsMapLayerRegistry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayers</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
+    <span class="n">geom_type</span> <span class="o">=</span> <span class="n">QgsWKBTypes</span><span class="o">.</span><span class="n">displayString</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">wkbType</span><span class="p">()))</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">geom_type</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -180,13 +191,32 @@
 <span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
 <span class="n">name</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
 <span class="n">nb</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">featureCount</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La couche </span><span class="si">{}</span><span class="s2"> compte </span><span class="si">{}</span><span class="s2"> entités&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;La couche </span><span class="si">{}</span><span class="s2"> compte </span><span class="si">{}</span><span class="s2"> entités&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">nb</span><span class="p">))</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><strong>Sélectionner une partie de ce bloc de code dans l’éditeur et appuyer sur</strong> <code class="docutils literal notranslate"><span class="pre">CTRL-E</span></code> <strong>pour éxécuter seulement les insctructions sélectionnées</strong>.</li>
-<li><strong>Enregistrer le script `nb_features.py` et l’exécuter.</strong></li>
-</ul>
+</li>
+<li><p class="first"><strong>Sélectionner une partie de ce bloc de code dans l’éditeur et appuyer sur</strong> <code class="docutils literal notranslate"><span class="pre">CTRL-E</span></code> <strong>pour éxécuter seulement les insctructions sélectionnées</strong>.</p>
+</li>
+<li><p class="first"><strong>Enregistrer le script avec le nom</strong> <code class="docutils literal notranslate"><span class="pre">nb_features.py</span></code> <strong>et l’exécuter.</strong></p>
+</li>
+<li><p class="first">On a vu que notre couche avait de nombreux champs. <strong>Quelle instruction doit être saisie pour savoir combien de champs possède une couche ?</strong></p>
+<p><strong>Par ailleurs, quelle instruction doit être saisie pour savoir de combien de couches se compose le projet en cours ?</strong></p>
+<div class="spoiler blq docutils container">
+<p>Solution :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Nombre de champs pour la couche active</span>
+<span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
+<span class="n">nb_fields</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">fields</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La couche </span><span class="si">{}</span><span class="s2"> compte </span><span class="si">{}</span><span class="s2"> champs&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span> <span class="n">nb_fields</span><span class="p">))</span>
+
+<span class="c1"># Nombre de couches du projet en cours</span>
+<span class="c1"># (dans les deux cas l&#39;objet retourné est un dictionnaire et</span>
+<span class="c1">#  on peut utiliser la fonction native len() pour savoir le nombre</span>
+<span class="c1">#  d&#39;entrées qu&#39;il contient)</span>
+<span class="n">nb_layers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayers</span><span class="p">())</span> <span class="c1"># QGIS 3</span>
+<span class="n">nb_layers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">QgsMapLayerRegistry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayers</span><span class="p">())</span> <span class="c1"># QGIS 2</span>
+</pre></div>
+</div>
+</div>
 </li>
 </ul>
 <p class="rubric">Footnotes</p>

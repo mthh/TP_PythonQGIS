@@ -29,7 +29,7 @@ Dans la console:
 
 
 Dans le fichier qui s'ouvre décommenter les lignes :
-  - qui commencent par **'deb'** et qui contiennent le mot **'bionic'** et qui contiennent le mot **'universe'** :)
+  - qui, à la fois, commencent par **'deb'**, contiennent le mot **'bionic'** et contiennent le mot **'universe'** :)
 
 Puis mettre à jour la listes des packages :
 
@@ -86,7 +86,7 @@ Configurer la build
   ccmake ..
 
 | Là une fenêtre interative s'ouvre. Elle est normalement vide.
-| Appuyer une premiere fois sur [c] (et donc attendre qu'elle se remplisse).
+| Appuyer une premiere fois sur [c] (et attendre qu'elle se remplisse).
 | Une fois les options affichées, modifier la clé ``CMAKE_INSTALL_PREFIX`` pour lui donner la valeur correspondant au dossier d'installation souhaité et créer précédemment par exemple ``/home/mthh/apps``.
 | Valider ce changement en apuyant à nouveau sur [c].
 | Appuyer sur [g] pour générer le fichier de configuration.

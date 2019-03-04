@@ -50,20 +50,30 @@ Cet exerice mobilise plusieurs notions nouvelles :
       # Au début de l'édition :
       layer.startEditing()
 
-      # À la fin de l'édition :
+      # À la fin de l'édition pour valider :
       layer.commitChanges()
 
+      # Pour abandonner les changements en cours :
+      layer.rollBack()
 
     - création de nouveaux champs attributaires
 
     ::
 
+      # QGIS 3 :
+      from PyQt5.QtCore import QVariant
+      # QGIS 2 :
+      from PyQt4.QtCore import QVariant
+
       # La couche `layer` doit être en cours d'édition !
-      # Création d'un champ de type "Chaine de caractère" et d'un champ "entier"
+      # Création d'un champ de chacun des 3 principaux types
+      # qui seront utilisés :
       layer.dataProvider().addAttributes(
-              [QgsField("Champ_1", QVariant.String),
-               QgsField("Champ_2", QVariant.Int)])
+          [QgsField("Champ_1", QVariant.String),
+           QgsField("Champ_2", QVariant.Int),
+           QgsField("Champ_3", QVariant.Double)])
       layer.updateFields()
+
 
     - utilisation de prédicats spatiaux (intersects, disjoint, etc.)
 
@@ -99,7 +109,7 @@ Cet exerice mobilise plusieurs notions nouvelles :
 
 .. container:: spoiler blq
 
-   Solution :
+   Solution **QGIS 3**:
 
    ::
 
@@ -143,23 +153,19 @@ Cet exerice mobilise plusieurs notions nouvelles :
           # sur les entités qui intersectent sa bbox et non pas sur l'ensemble
           # des entités.
           intersecting_ids = index.intersects(geom.boundingBox())
-
           # Pour stocker la liste des voisins :
           neighbors = []
           neighbors_sum = 0
-
           for intersecting_id in intersecting_ids:
-              # Look up the feature from the dictionary
+              # Récupération de l'entité dans le dictionnaire
               intersecting_f = feature_dict[intersecting_id]
-
-              # Ici on considère qu'un entité est voisine si elle touche ou intersecte
+              # Ici on considère qu'une entité est voisine si elle touche ou intersecte
               # l'entité en cours. Nous utilisons donc le prédicat spatial
               # 'disjoint' pour vérifier cela:
               if (f != intersecting_f and
                   not intersecting_f.geometry().disjoint(geom)):
                   neighbors.append(intersecting_f[_NAME_FIELD])
                   neighbors_sum += intersecting_f[_SUM_FIELD]
-
           f[_NEW_NEIGHBORS_FIELD] = ','.join(neighbors)
           f[_NEW_SUM_FIELD] = neighbors_sum
           # Mise à jour de l'entité modifiée :
@@ -167,6 +173,72 @@ Cet exerice mobilise plusieurs notions nouvelles :
 
       layer.commitChanges()
 
+
+.. container:: spoiler blq
+
+   Solution **QGIS 2**:
+
+   ::
+
+     from qgis.utils import iface
+     from PyQt4.QtCore import QVariant
+
+     # Nom des champs à utiliser :
+     _NAME_FIELD = 'NAME'
+     _SUM_FIELD = 'POP_EST'
+
+     # Nom des champs à créer
+     _NEW_NEIGHBORS_FIELD = 'NEIGHBORS'
+     _NEW_SUM_FIELD = 'SUM'
+
+     layer = iface.activeLayer()
+
+     # Création des deux nouveaux champs après avoir activé le mode édition
+     layer.startEditing()
+     layer.dataProvider().addAttributes(
+         [QgsField(_NEW_NEIGHBORS_FIELD, QVariant.String),
+          QgsField(_NEW_SUM_FIELD, QVariant.Int)])
+     layer.updateFields()
+
+     # Creation d'un dictionnaire contenant nos entités
+     # (cela va permettre d'avoir un mappage rapide entre un id et l'entité
+     # correspondante, et également de parcourir plusieurs fois la liste
+     # des entités sans appeler à nouveau la méthode `getFeatures`
+     feature_dict = {f.id(): f for f in layer.getFeatures()}
+
+
+     # Construction d'un index spatial :
+     index = QgsSpatialIndex()
+     for f in feature_dict.values():
+         index.insertFeature(f)
+
+     # Parcours de l'ensemble de nos entités :
+     for f in feature_dict.values():
+         # print('Calcul en cours pour {}'.format(f[_NAME_FIELD]))
+         geom = f.geometry()
+         # Recherche des entités qui intersectent la bbox de l'entité courrante
+         # L'utilisation d'un index spatial permet à ce moment de n'itérer que
+         # sur les entités qui intersectent sa bbox et non pas sur l'ensemble
+         # des entités.
+         intersecting_ids = index.intersects(geom.boundingBox())
+         # Pour stocker la liste des voisins :
+         neighbors = []
+         neighbors_sum = 0
+         for intersecting_id in intersecting_ids:
+             intersecting_f = feature_dict[intersecting_id]
+             # Ici on considère qu'une entité est voisine si elle touche ou intersecte
+             # l'entité en cours. Nous utilisons donc le prédicat spatial
+             # 'disjoint' pour vérifier cela:
+             if (f != intersecting_f and
+                 not intersecting_f.geometry().disjoint(geom)):
+                 neighbors.append(intersecting_f[_NAME_FIELD])
+                 neighbors_sum += intersecting_f[_SUM_FIELD]
+         f[_NEW_NEIGHBORS_FIELD] = ','.join(neighbors)
+         f[_NEW_SUM_FIELD] = neighbors_sum
+         # Mise à jour de l'entité modifiée :
+         layer.updateFeature(f)
+
+     layer.commitChanges()
 
 
 .. rubric:: Footnotes

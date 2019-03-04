@@ -78,7 +78,7 @@ les imports suivants sont réalisés :
 ::
 
   from qgis.core import *
-  import qgis.util
+  import qgis.utils
 
 
 Lors de l'utilisation interactive de la console Python, la fonction native ``dir()`` pourra s'avérer très utile : en
@@ -110,7 +110,7 @@ la fonction native ``type()`` :
 
 ::
 
-  >>> type(iface)
+  type(iface)
   # <class 'qgis._gui.QgisInterface'>
 
 Cette fonctionnalité pourra être utile pour aller chercher des informations

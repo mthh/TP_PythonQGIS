@@ -43,25 +43,36 @@ Tester les actions suivantes dans la console
     layer = iface.activeLayer()
     print(layer.featureCount())
 
-- Afficher le nom des champs de la couche :
+- Afficher le nom de chacun des champs de la couche :
   ::
 
     for field in layer.fields():
         print(field.name(), field.typeName())
 
 
-- Obtenir les modes de rendu possible dans QGIS :
+- Obtenir les modes de rendu disponibles dans QGIS :
   ::
 
+    # QGIS 3
     QgsRendererRegistry().renderersList()
+
+    # QGIS 2
+    QgsRendererV2Registry.instance().renderersList()
 
 
 - Lister les couches du projet et leur type :
   ::
 
+    # QGIS 3
     for layer in QgsProject.instance().mapLayers().values():
         name = layer.name()
         geom_type = QgsWkbTypes.displayString(layer.wkbType())
+        print('{}: {}'.format(name, geom_type))
+
+    # QGIS 2
+    for layer in QgsMapLayerRegistry.instance().mapLayers().values():
+        name = layer.name()
+        geom_type = QgsWKBTypes.displayString(int(layer.wkbType()))
         print('{}: {}'.format(name, geom_type))
 
 
@@ -72,11 +83,35 @@ Tester les actions suivantes dans la console
     layer = iface.activeLayer()
     name = layer.name()
     nb = layer.featureCount()
-    print("La couche {} compte {} entités")
+    print(u"La couche {} compte {} entités".format(name, nb))
 
 
-  * **Sélectionner une partie de ce bloc de code dans l'éditeur et appuyer sur** ``CTRL-E`` **pour éxécuter seulement les insctructions sélectionnées**.
-  * **Enregistrer le script `nb_features.py` et l'exécuter.**
+- **Sélectionner une partie de ce bloc de code dans l'éditeur et appuyer sur** ``CTRL-E`` **pour éxécuter seulement les insctructions sélectionnées**.
+
+- **Enregistrer le script avec le nom** ``nb_features.py`` **et l'exécuter.**
+
+- On a vu que notre couche avait de nombreux champs. **Quelle instruction doit être saisie pour savoir combien de champs possède une couche ?**
+
+  **Par ailleurs, quelle instruction doit être saisie pour savoir de combien de couches se compose le projet en cours ?**
+
+
+  .. container:: spoiler blq
+
+     Solution :
+
+     ::
+
+       # Nombre de champs pour la couche active
+       layer = iface.activeLayer()
+       nb_fields = len(layer.fields())
+       print("La couche {} compte {} champs".format(layer.name(), nb_fields))
+
+       # Nombre de couches du projet en cours
+       # (dans les deux cas l'objet retourné est un dictionnaire et
+       #  on peut utiliser la fonction native len() pour savoir le nombre
+       #  d'entrées qu'il contient)
+       nb_layers = len(QgsProject.instance().mapLayers()) # QGIS 3
+       nb_layers = len(QgsMapLayerRegistry.instance().mapLayers()) # QGIS 2
 
 
 

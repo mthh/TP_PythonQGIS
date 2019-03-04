@@ -98,11 +98,10 @@ Procédure
 
       layer = iface.activeLayer()
       for ft in layer.getFeatures():
-          geom = f.geometry()
+          geom = ft.geometry()
           geom_point = geom.asPoint()
-          print(geom_point)
           # L'objet `QgsPoint` a notamment une méthode `x` et une méthode `y`
-          print(geom_point.x(), geom_point.y())
+          print(geom_point, geom_point.x(), geom_point.y())
 
 
   * Obtenir les différentes modalités du champ ``type`` en parcourant les
@@ -118,47 +117,67 @@ Procédure
   * Nous savons donc comment accéder aux différentes informations nécessaires pour réaliser l'export souhaité.
     L'export au format CSV va nécessiter de structurer les valeurs relatives à
     chaque enregistrement (ici à chaque aéroport) sous forme d'une liste.
-    Le module ``csv`` de la bibliothèque standard[#f2]_ se chargera d'écrire
+    Le module ``csv`` de la bibliothèque standard [#f2]_ se chargera d'écrire
     correctement les valeurs de chaque enregistrement selon le type de fichier CSV souhaité.
     ::
 
       layer = iface.activeLayer()
       for ft in layer.getFeatures():
-          geom_point = f.geometry().asPoint()
-          print("{}, {}, {}, {}".format(
-              ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()))
+          geom_point = ft.geometry().asPoint()
           # Nos enregistrements seront donc de la forme suivante
-          # [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()]
+          row = [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()]
 
 
   * Il suffit de quelques lignes supplémentaires pour écrire ces informations dans un fichier :
 
+    QGIS 2 / Python 2
     ::
 
       import csv
 
-      output_file = open('/home/matt/airports.csv', 'w', newline='')
+      output_file = open('/home/mthh/airports.csv', 'w')
       csv_writer = csv.writer(output_file)
 
-      header = ["Nom", "Code_IATA", "Latitude", "Longitude"]
+      header_line = ["Nom", "Code_IATA", "Latitude", "Longitude"]
       csv_writer.writerow(header_line)
 
       result = []
       for ft in layer.getFeatures():
           # Les résultats ne sont pas encore filtrés selon le type d'aeroport !
-          geom_point = f.geometry().asPoint()
+          geom_point = ft.geometry().asPoint()
+          csv_writer.writerow(
+              [ft['name'].encode('utf-8'), ft['iata_code'], geom_point.x(), geom_point.y()])
+
+      output_file.close()
+
+
+    QGIS 3 / Python 3
+    ::
+
+      import csv
+
+      output_file = open('/home/mthh/airports.csv', 'w', newline='')
+      csv_writer = csv.writer(output_file)
+
+      header_line = ["Nom", "Code_IATA", "Latitude", "Longitude"]
+      csv_writer.writerow(header_line)
+
+      result = []
+      for ft in layer.getFeatures():
+          # Les résultats ne sont pas encore filtrés selon le type d'aeroport !
+          geom_point = ft.geometry().asPoint()
           csv_writer.writerow(
               [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()])
 
       output_file.close()
 
 
-  * | À vous de jouer !
-    | Reprendre les étapes qui viennent d'être vues et les synthétiser sous forme d'un script.
-    | *Attention* : seuls les aéroports de type 'major' et 'major and military' doivent être exportés.
-    | Enregistrer le script sous le nom `export_txt.py` dans le dossier TP.
+  * | **À vous de jouer !**
+    | Reprendre le script précédent et faire en sorte de n'exporter que les aéroports de type 'major' et 'major and military'.
+    | Enregistrer ce script sous le nom `export_txt.py`.
     | Exécuter le script pour vérifier de son bon fonctionnement.
-    | **Combien d'aéroport ont été enregistrés ?**
+    | Le fichier CSV exporté doit être reconnu correctement par l'OS et s'ouvrir dans le tableur habituel (Calc, Excel, etc.).
+    | **Combien de lignes contient ce nouveau fichier CSV ?**
 
 
 

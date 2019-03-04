@@ -179,7 +179,7 @@ autres parties de l’application QGIS ouverte.
 De même lors du démarrage d’une session interactive dans cette console,
 les imports suivants sont réalisés :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qgis.core</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">qgis.util</span>
+<span class="kn">import</span> <span class="nn">qgis.utils</span>
 </pre></div>
 </div>
 <p>Lors de l’utilisation interactive de la console Python, la fonction native <code class="docutils literal notranslate"><span class="pre">dir()</span></code> pourra s’avérer très utile : en
@@ -204,8 +204,8 @@ l’objet <code class="docutils literal notranslate"><span class="pre">iface</sp
 </div>
 <p>Par ailleurs il est possible de connaitre le type de cette variable en utilisant
 la fonction native <code class="docutils literal notranslate"><span class="pre">type()</span></code> :</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">iface</span><span class="p">)</span>
-<span class="go"># &lt;class &#39;qgis._gui.QgisInterface&#39;&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">iface</span><span class="p">)</span>
+<span class="c1"># &lt;class &#39;qgis._gui.QgisInterface&#39;&gt;</span>
 </pre></div>
 </div>
 <p>Cette fonctionnalité pourra être utile pour aller chercher des informations
