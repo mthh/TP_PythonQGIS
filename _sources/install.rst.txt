@@ -1,0 +1,100 @@
+Hello,
+
+Avec ubuntu 18.04 (*Bionic Beaver*).
+Matériel nécessaire :
+
+  - Avoir une console ouverte
+
+Objectif :
+  - Compiler QGIS 3 et l'installer dans ${HOME}/apps (pour ne pas créer de conflits
+    avec un éventuel QGIS installé par Ubuntu)
+
+.. figure:: img/00xx.png
+  :width: 40%
+  :align: center
+  :figwidth: 98%
+
+Installer les dépendances
+-------------------------
+
+Dans la console:
+::
+
+  sudo gedit /etc/apt/sources.list
+
+
+Dans le fichier qui s'ouvre décommenter les lignes :
+  - qui commencent par **'deb'** et qui contiennent le mot **'bionic'** et qui contiennent le mot **'universe'** :)
+
+Puis mettre à jour la listes des packages :
+::
+
+  sudo apt update
+
+Puis installer les dépendances attendues :
+::
+
+  sudo apt-get install bison ca-certificates ccache cmake cmake-curses-gui \
+  dh-python doxygen expect flex gdal-bin git graphviz grass-dev libexiv2-dev \
+  libexpat1-dev libfcgi-dev libgdal-dev libgeos-dev libgsl-dev libosgearth-dev \
+  libpq-dev libproj-dev libqca-qt5-2-dev libqca-qt5-2-plugins libqt5opengl5-dev \
+  libqt5scintilla2-dev libqt5serialport5-dev libqt5sql5-sqlite libqt5svg5-dev \
+  libqt5webkit5-dev libqwt-qt5-dev libspatialindex-dev libspatialite-dev \
+  libsqlite3-dev libsqlite3-mod-spatialite libyaml-tiny-perl libzip-dev \
+  lighttpd locales ninja-build ocl-icd-opencl-dev opencl-headers \
+  pkg-config poppler-utils pyqt5-dev pyqt5-dev-tools pyqt5.qsci-dev \
+  python-autopep8 python3-all-dev python3-dateutil python3-dev python3-future \
+  python3-gdal python3-httplib2 python3-jinja2 python3-markupsafe python3-mock \
+  python3-nose2 python3-owslib python3-plotly python3-psycopg2 python3-pygments \
+  python3-pyproj python3-pyqt5 python3-pyqt5.qsci python3-pyqt5.qtsql \
+  python3-pyqt5.qtsvg python3-pyqt5.qtwebkit python3-requests python3-sip \
+  python3-sip-dev python3-six python3-termcolor python3-tz python3-yaml \
+  qt3d-assimpsceneimport-plugin qt3d-defaultgeometryloader-plugin \
+  qt3d-gltfsceneio-plugin qt3d-scene2d-plugin qt3d5-dev qt5-default \
+  qt5keychain-dev qtbase5-dev qtbase5-private-dev qtpositioning5-dev \
+  qttools5-dev qttools5-dev-tools saga spawn-fcgi txt2tags xauth xfonts-100dpi \
+  xfonts-75dpi xfonts-base xfonts-scalable xvfb
+
+
+Récupérer le code source
+------------------------
+
+::
+
+  mkdir ~/dev
+  cd ~/dev
+  git clone https://github.com/qgis/QGIS/
+  cd QGIS
+
+
+Configurer la build
+-------------------
+
+::
+
+  mkdir build-master
+  cd build-master
+  mkdir ${HOME}/apps
+  ccmake ..
+
+| Là une fenêtre interative s'ouvre. Elle est normalement vide.
+| Il faut soit attendre qu'elle se remplise soit appuyer une premiere fois sur [c] (et donc attendre qu'elle se remplisse).
+| Une fois les options affichées, modifier la clé ``CMAKE_INSTALL_PREFIX`` pour lui donner la valeur correspondant au dossier d'installation souhaité et créer précédemment par exemple ``/home/mthh/apps``.
+| Valider ce changement puis appuyé sur [g] pour générer le fichier de configuration.
+| Une fois cette étape terminée, le shell est de nouveaux accessible.
+
+On veut maintenant compiler QGIS. Attention cette opération peut prendre une ou plusieurs dizaines de minutes.
+::
+
+  make -j8 # Remplacer 8 par le nombre de coeurs à utiliser
+
+Une fois l'opération terminée avec succès, on peut vérifier que QGIS 3 fonctionne correctement :
+::
+
+  ./output/bin/qgis
+
+
+Si c'est le cas on peut l'installer dans le dossier définir précédemment (${HOME}/apps) :
+::
+
+  make install
