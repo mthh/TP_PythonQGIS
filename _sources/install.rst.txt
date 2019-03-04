@@ -88,7 +88,8 @@ Configurer la build
 | Là une fenêtre interative s'ouvre. Elle est normalement vide.
 | Appuyer une premiere fois sur [c] (et donc attendre qu'elle se remplisse).
 | Une fois les options affichées, modifier la clé ``CMAKE_INSTALL_PREFIX`` pour lui donner la valeur correspondant au dossier d'installation souhaité et créer précédemment par exemple ``/home/mthh/apps``.
-| Valider ce changement puis appuyé sur [g] pour générer le fichier de configuration.
+| Valider ce changement en apuyant à nouveau sur [c].
+| Appuyer sur [g] pour générer le fichier de configuration.
 | Une fois cette étape terminée, le shell est de nouveaux accessible.
 
 Compiler le code

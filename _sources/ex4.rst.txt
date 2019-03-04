@@ -50,7 +50,7 @@ On va tout effectuer en Python pour voir le gain de temps que ça peut représen
 Procédure
 ---------
 
-- Rappel concernant les chemins et les chaines de caractères en Python
+- Rappels concernant les chemins et les chaines de caractères en Python
   ::
 
     # On accède à la majorité des fonctions relatives à la navigation
@@ -78,7 +78,7 @@ Procédure
     name.replace('.svg', '.png')  # 'filename.png'
 
 
-- Nouvelles notions en PyQgis concernant le projet en cours :
+- Nouvelles notions en PyQgis concernant le projet (``QgsProject``) en cours
 
   ::
 

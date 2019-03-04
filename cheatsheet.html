@@ -187,6 +187,17 @@
     <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">sub_vlayer</span><span class="p">)</span>
 </pre></div>
 </div>
+<p><strong>Réorganiser les couches en utilisant ``QgsLayerTree``</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># &#39;layer&#39; is the layer to be moved to at position 0</span>
+<span class="c1"># in the layer tree :</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">layerTreeRoot</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">children</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">ch</span><span class="o">.</span><span class="n">name</span><span class="p">()</span> <span class="o">==</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">():</span>
+        <span class="n">_ch</span> <span class="o">=</span> <span class="n">ch</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">insertChildNode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">_ch</span><span class="p">)</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">removeChildNode</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="couches-vecteurs">
 <h2>Couches vecteurs<a class="headerlink" href="#couches-vecteurs" title="Lien permanent vers ce titre">¶</a></h2>

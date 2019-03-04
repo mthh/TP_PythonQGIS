@@ -22,9 +22,9 @@ de plugins (tels que les outils ``Qt Designer`` et ``pyuic5``) et d'accéder
 Données et outils nécessaires
 -----------------------------
 
-| -> **Qt Designer 5** (normallement installé lors d'une nouvelle installation de QGIS)
-| -> Plugin QGIS ``Plugin Builder``
-
+| -> **Qt Designer 5** (normallement installé lors d'une nouvelle installation de QGIS).
+| -> Plugin QGIS ``Plugin Builder``.
+| -> Couche des départements français (``TP_Python_Qgis/data/ex7/departements2015.shp``) pour vérifier le fonctionnement du plugin.
 
 Mise en situation
 -----------------

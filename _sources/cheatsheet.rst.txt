@@ -94,6 +94,19 @@ Manipulation des couches de données
       QgsProject.instance().addMapLayer(sub_vlayer)
 
 
+**Réorganiser les couches en utilisant ``QgsLayerTree``**
+::
+
+  # 'layer' is the layer to be moved to at position 0
+  # in the layer tree :
+  tree = QgsProject.instance().layerTreeRoot()
+  for ch in tree.children():
+      if ch.name() == layer.name():
+          _ch = ch.clone()
+          tree.insertChildNode(0, _ch)
+          tree.removeChildNode(ch)
+
+
 Couches vecteurs
 ^^^^^^^^^^^^^^^^
 
