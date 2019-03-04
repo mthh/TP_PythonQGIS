@@ -1,6 +1,8 @@
-Hello,
+Compiler QGIS 3 depuis son code source
+======================================
 
 Avec ubuntu 18.04 (*Bionic Beaver*).
+
 Matériel nécessaire :
 
   - Avoir une console ouverte
@@ -10,15 +12,16 @@ Objectif :
     avec un éventuel QGIS installé par Ubuntu)
 
 .. figure:: img/00xx.png
-  :width: 40%
+  :width: 40  %
   :align: center
   :figwidth: 98%
+
 
 Installer les dépendances
 -------------------------
 
 Dans la console:
-::
+.. code-block:: bash
 
   sudo gedit /etc/apt/sources.list
 
@@ -27,12 +30,13 @@ Dans le fichier qui s'ouvre décommenter les lignes :
   - qui commencent par **'deb'** et qui contiennent le mot **'bionic'** et qui contiennent le mot **'universe'** :)
 
 Puis mettre à jour la listes des packages :
-::
+.. code-block:: bash
 
   sudo apt update
 
-Puis installer les dépendances attendues :
-::
+Puis installer les dépendances attendues (la liste est importante mais une grande
+partie de ces packages est normalement déjà installée) :
+.. code-block:: bash
 
   sudo apt-get install bison ca-certificates ccache cmake cmake-curses-gui \
   dh-python doxygen expect flex gdal-bin git graphviz grass-dev libexiv2-dev \
@@ -59,7 +63,7 @@ Puis installer les dépendances attendues :
 Récupérer le code source
 ------------------------
 
-::
+.. code-block:: bash
 
   mkdir ~/dev
   cd ~/dev
@@ -70,7 +74,7 @@ Récupérer le code source
 Configurer la build
 -------------------
 
-::
+.. code-block:: bash
 
   mkdir build-master
   cd build-master
@@ -83,18 +87,22 @@ Configurer la build
 | Valider ce changement puis appuyé sur [g] pour générer le fichier de configuration.
 | Une fois cette étape terminée, le shell est de nouveaux accessible.
 
+Compiler le code
+----------------
+
+
 On veut maintenant compiler QGIS. Attention cette opération peut prendre une ou plusieurs dizaines de minutes.
-::
+.. code-block:: bash
 
   make -j8 # Remplacer 8 par le nombre de coeurs à utiliser
 
 Une fois l'opération terminée avec succès, on peut vérifier que QGIS 3 fonctionne correctement :
-::
+.. code-block:: bash
 
   ./output/bin/qgis
 
 
-Si c'est le cas on peut l'installer dans le dossier définir précédemment (${HOME}/apps) :
-::
+Si c'est le cas on peut l'installer dans le dossier définir précédemment (``${HOME}/apps`` dans notre cas) :
+.. code-block:: bash
 
   make install

@@ -15,7 +15,7 @@
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>Installer les dépendances &#8212; Documentation PythonQGIS_TP </title>
+    <title>Compiler QGIS 3 depuis son code source &#8212; Documentation PythonQGIS_TP </title>
     <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
@@ -53,9 +53,13 @@
     <h2>Contenu</h2>
     <div class="sidebar-localtoc">
       <ul>
-<li><a class="reference internal" href="#">Installer les dépendances</a></li>
+<li><a class="reference internal" href="#">Compiler QGIS 3 depuis son code source</a><ul>
+<li><a class="reference internal" href="#installer-les-dependances">Installer les dépendances</a></li>
 <li><a class="reference internal" href="#recuperer-le-code-source">Récupérer le code source</a></li>
 <li><a class="reference internal" href="#configurer-la-build">Configurer la build</a></li>
+<li><a class="reference internal" href="#compiler-le-code">Compiler le code</a></li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -90,15 +94,16 @@
             <ol class="breadcrumb">
               <li><a href="index.html">Docs</a></li>
               
-              <li>Installer les dépendances</li>
+              <li>Compiler QGIS 3 depuis son code source</li>
             </ol>
           </div>
           
           <div class="document clearer body">
             
-  <p>Hello,</p>
-<p>Avec ubuntu 18.04 (<em>Bionic Beaver</em>).
-Matériel nécessaire :</p>
+  <div class="section" id="compiler-qgis-3-depuis-son-code-source">
+<h1>Compiler QGIS 3 depuis son code source<a class="headerlink" href="#compiler-qgis-3-depuis-son-code-source" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Avec ubuntu 18.04 (<em>Bionic Beaver</em>).</p>
+<p>Matériel nécessaire :</p>
 <blockquote>
 <div><ul class="simple">
 <li>Avoir une console ouverte</li>
@@ -116,11 +121,11 @@ avec un éventuel QGIS installé par Ubuntu)</li>
 <a class="reference internal image-reference" href="_images/00xx.png"><img alt="_images/00xx.png" src="_images/00xx.png" style="width: 40%;" /></a>
 </div>
 <div class="section" id="installer-les-dependances">
-<h1>Installer les dépendances<a class="headerlink" href="#installer-les-dependances" title="Lien permanent vers ce titre">¶</a></h1>
-<p>Dans la console:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">gedit</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span>
-</pre></div>
-</div>
+<h2>Installer les dépendances<a class="headerlink" href="#installer-les-dependances" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Dans la console:
+.. code-block:: bash</p>
+<blockquote>
+<div>sudo gedit /etc/apt/sources.list</div></blockquote>
 <dl class="docutils">
 <dt>Dans le fichier qui s’ouvre décommenter les lignes :</dt>
 <dd><ul class="first last simple">
@@ -128,48 +133,30 @@ avec un éventuel QGIS installé par Ubuntu)</li>
 </ul>
 </dd>
 </dl>
-<p>Puis mettre à jour la listes des packages :</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">update</span>
-</pre></div>
-</div>
-<p>Puis installer les dépendances attendues :</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">bison</span> <span class="n">ca</span><span class="o">-</span><span class="n">certificates</span> <span class="n">ccache</span> <span class="n">cmake</span> <span class="n">cmake</span><span class="o">-</span><span class="n">curses</span><span class="o">-</span><span class="n">gui</span> \
-<span class="n">dh</span><span class="o">-</span><span class="n">python</span> <span class="n">doxygen</span> <span class="n">expect</span> <span class="n">flex</span> <span class="n">gdal</span><span class="o">-</span><span class="nb">bin</span> <span class="n">git</span> <span class="n">graphviz</span> <span class="n">grass</span><span class="o">-</span><span class="n">dev</span> <span class="n">libexiv2</span><span class="o">-</span><span class="n">dev</span> \
-<span class="n">libexpat1</span><span class="o">-</span><span class="n">dev</span> <span class="n">libfcgi</span><span class="o">-</span><span class="n">dev</span> <span class="n">libgdal</span><span class="o">-</span><span class="n">dev</span> <span class="n">libgeos</span><span class="o">-</span><span class="n">dev</span> <span class="n">libgsl</span><span class="o">-</span><span class="n">dev</span> <span class="n">libosgearth</span><span class="o">-</span><span class="n">dev</span> \
-<span class="n">libpq</span><span class="o">-</span><span class="n">dev</span> <span class="n">libproj</span><span class="o">-</span><span class="n">dev</span> <span class="n">libqca</span><span class="o">-</span><span class="n">qt5</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libqca</span><span class="o">-</span><span class="n">qt5</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="n">plugins</span> <span class="n">libqt5opengl5</span><span class="o">-</span><span class="n">dev</span> \
-<span class="n">libqt5scintilla2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libqt5serialport5</span><span class="o">-</span><span class="n">dev</span> <span class="n">libqt5sql5</span><span class="o">-</span><span class="n">sqlite</span> <span class="n">libqt5svg5</span><span class="o">-</span><span class="n">dev</span> \
-<span class="n">libqt5webkit5</span><span class="o">-</span><span class="n">dev</span> <span class="n">libqwt</span><span class="o">-</span><span class="n">qt5</span><span class="o">-</span><span class="n">dev</span> <span class="n">libspatialindex</span><span class="o">-</span><span class="n">dev</span> <span class="n">libspatialite</span><span class="o">-</span><span class="n">dev</span> \
-<span class="n">libsqlite3</span><span class="o">-</span><span class="n">dev</span> <span class="n">libsqlite3</span><span class="o">-</span><span class="n">mod</span><span class="o">-</span><span class="n">spatialite</span> <span class="n">libyaml</span><span class="o">-</span><span class="n">tiny</span><span class="o">-</span><span class="n">perl</span> <span class="n">libzip</span><span class="o">-</span><span class="n">dev</span> \
-<span class="n">lighttpd</span> <span class="n">locales</span> <span class="n">ninja</span><span class="o">-</span><span class="n">build</span> <span class="n">ocl</span><span class="o">-</span><span class="n">icd</span><span class="o">-</span><span class="n">opencl</span><span class="o">-</span><span class="n">dev</span> <span class="n">opencl</span><span class="o">-</span><span class="n">headers</span> \
-<span class="n">pkg</span><span class="o">-</span><span class="n">config</span> <span class="n">poppler</span><span class="o">-</span><span class="n">utils</span> <span class="n">pyqt5</span><span class="o">-</span><span class="n">dev</span> <span class="n">pyqt5</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span> <span class="n">pyqt5</span><span class="o">.</span><span class="n">qsci</span><span class="o">-</span><span class="n">dev</span> \
-<span class="n">python</span><span class="o">-</span><span class="n">autopep8</span> <span class="n">python3</span><span class="o">-</span><span class="nb">all</span><span class="o">-</span><span class="n">dev</span> <span class="n">python3</span><span class="o">-</span><span class="n">dateutil</span> <span class="n">python3</span><span class="o">-</span><span class="n">dev</span> <span class="n">python3</span><span class="o">-</span><span class="n">future</span> \
-<span class="n">python3</span><span class="o">-</span><span class="n">gdal</span> <span class="n">python3</span><span class="o">-</span><span class="n">httplib2</span> <span class="n">python3</span><span class="o">-</span><span class="n">jinja2</span> <span class="n">python3</span><span class="o">-</span><span class="n">markupsafe</span> <span class="n">python3</span><span class="o">-</span><span class="n">mock</span> \
-<span class="n">python3</span><span class="o">-</span><span class="n">nose2</span> <span class="n">python3</span><span class="o">-</span><span class="n">owslib</span> <span class="n">python3</span><span class="o">-</span><span class="n">plotly</span> <span class="n">python3</span><span class="o">-</span><span class="n">psycopg2</span> <span class="n">python3</span><span class="o">-</span><span class="n">pygments</span> \
-<span class="n">python3</span><span class="o">-</span><span class="n">pyproj</span> <span class="n">python3</span><span class="o">-</span><span class="n">pyqt5</span> <span class="n">python3</span><span class="o">-</span><span class="n">pyqt5</span><span class="o">.</span><span class="n">qsci</span> <span class="n">python3</span><span class="o">-</span><span class="n">pyqt5</span><span class="o">.</span><span class="n">qtsql</span> \
-<span class="n">python3</span><span class="o">-</span><span class="n">pyqt5</span><span class="o">.</span><span class="n">qtsvg</span> <span class="n">python3</span><span class="o">-</span><span class="n">pyqt5</span><span class="o">.</span><span class="n">qtwebkit</span> <span class="n">python3</span><span class="o">-</span><span class="n">requests</span> <span class="n">python3</span><span class="o">-</span><span class="n">sip</span> \
-<span class="n">python3</span><span class="o">-</span><span class="n">sip</span><span class="o">-</span><span class="n">dev</span> <span class="n">python3</span><span class="o">-</span><span class="n">six</span> <span class="n">python3</span><span class="o">-</span><span class="n">termcolor</span> <span class="n">python3</span><span class="o">-</span><span class="n">tz</span> <span class="n">python3</span><span class="o">-</span><span class="n">yaml</span> \
-<span class="n">qt3d</span><span class="o">-</span><span class="n">assimpsceneimport</span><span class="o">-</span><span class="n">plugin</span> <span class="n">qt3d</span><span class="o">-</span><span class="n">defaultgeometryloader</span><span class="o">-</span><span class="n">plugin</span> \
-<span class="n">qt3d</span><span class="o">-</span><span class="n">gltfsceneio</span><span class="o">-</span><span class="n">plugin</span> <span class="n">qt3d</span><span class="o">-</span><span class="n">scene2d</span><span class="o">-</span><span class="n">plugin</span> <span class="n">qt3d5</span><span class="o">-</span><span class="n">dev</span> <span class="n">qt5</span><span class="o">-</span><span class="n">default</span> \
-<span class="n">qt5keychain</span><span class="o">-</span><span class="n">dev</span> <span class="n">qtbase5</span><span class="o">-</span><span class="n">dev</span> <span class="n">qtbase5</span><span class="o">-</span><span class="n">private</span><span class="o">-</span><span class="n">dev</span> <span class="n">qtpositioning5</span><span class="o">-</span><span class="n">dev</span> \
-<span class="n">qttools5</span><span class="o">-</span><span class="n">dev</span> <span class="n">qttools5</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span> <span class="n">saga</span> <span class="n">spawn</span><span class="o">-</span><span class="n">fcgi</span> <span class="n">txt2tags</span> <span class="n">xauth</span> <span class="n">xfonts</span><span class="o">-</span><span class="mi">100</span><span class="n">dpi</span> \
-<span class="n">xfonts</span><span class="o">-</span><span class="mi">75</span><span class="n">dpi</span> <span class="n">xfonts</span><span class="o">-</span><span class="n">base</span> <span class="n">xfonts</span><span class="o">-</span><span class="n">scalable</span> <span class="n">xvfb</span>
-</pre></div>
-</div>
+<p>Puis mettre à jour la listes des packages :
+.. code-block:: bash</p>
+<blockquote>
+<div>sudo apt update</div></blockquote>
+<p>Puis installer les dépendances attendues (la liste est importante mais une grande
+partie de ces packages est normalement déjà installée) :
+.. code-block:: bash</p>
+<blockquote>
+<div>sudo apt-get install bison ca-certificates ccache cmake cmake-curses-gui dh-python doxygen expect flex gdal-bin git graphviz grass-dev libexiv2-dev libexpat1-dev libfcgi-dev libgdal-dev libgeos-dev libgsl-dev libosgearth-dev libpq-dev libproj-dev libqca-qt5-2-dev libqca-qt5-2-plugins libqt5opengl5-dev libqt5scintilla2-dev libqt5serialport5-dev libqt5sql5-sqlite libqt5svg5-dev libqt5webkit5-dev libqwt-qt5-dev libspatialindex-dev libspatialite-dev libsqlite3-dev libsqlite3-mod-spatialite libyaml-tiny-perl libzip-dev lighttpd locales ninja-build ocl-icd-opencl-dev opencl-headers pkg-config poppler-utils pyqt5-dev pyqt5-dev-tools pyqt5.qsci-dev python-autopep8 python3-all-dev python3-dateutil python3-dev python3-future python3-gdal python3-httplib2 python3-jinja2 python3-markupsafe python3-mock python3-nose2 python3-owslib python3-plotly python3-psycopg2 python3-pygments python3-pyproj python3-pyqt5 python3-pyqt5.qsci python3-pyqt5.qtsql python3-pyqt5.qtsvg python3-pyqt5.qtwebkit python3-requests python3-sip python3-sip-dev python3-six python3-termcolor python3-tz python3-yaml qt3d-assimpsceneimport-plugin qt3d-defaultgeometryloader-plugin qt3d-gltfsceneio-plugin qt3d-scene2d-plugin qt3d5-dev qt5-default qt5keychain-dev qtbase5-dev qtbase5-private-dev qtpositioning5-dev qttools5-dev qttools5-dev-tools saga spawn-fcgi txt2tags xauth xfonts-100dpi xfonts-75dpi xfonts-base xfonts-scalable xvfb</div></blockquote>
 </div>
 <div class="section" id="recuperer-le-code-source">
-<h1>Récupérer le code source<a class="headerlink" href="#recuperer-le-code-source" title="Lien permanent vers ce titre">¶</a></h1>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="o">~/</span><span class="n">dev</span>
-<span class="n">cd</span> <span class="o">~/</span><span class="n">dev</span>
-<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">qgis</span><span class="o">/</span><span class="n">QGIS</span><span class="o">/</span>
-<span class="n">cd</span> <span class="n">QGIS</span>
+<h2>Récupérer le code source<a class="headerlink" href="#recuperer-le-code-source" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir ~/dev
+<span class="nb">cd</span> ~/dev
+git clone https://github.com/qgis/QGIS/
+<span class="nb">cd</span> QGIS
 </pre></div>
 </div>
 </div>
 <div class="section" id="configurer-la-build">
-<h1>Configurer la build<a class="headerlink" href="#configurer-la-build" title="Lien permanent vers ce titre">¶</a></h1>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>mkdir build-master
-cd build-master
-mkdir ${HOME}/apps
+<h2>Configurer la build<a class="headerlink" href="#configurer-la-build" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir build-master
+<span class="nb">cd</span> build-master
+mkdir <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/apps
 ccmake ..
 </pre></div>
 </div>
@@ -180,17 +167,21 @@ ccmake ..
 <div class="line">Valider ce changement puis appuyé sur [g] pour générer le fichier de configuration.</div>
 <div class="line">Une fois cette étape terminée, le shell est de nouveaux accessible.</div>
 </div>
-<p>On veut maintenant compiler QGIS. Attention cette opération peut prendre une ou plusieurs dizaines de minutes.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="o">-</span><span class="n">j8</span> <span class="c1"># Remplacer 8 par le nombre de coeurs à utiliser</span>
-</pre></div>
 </div>
-<p>Une fois l’opération terminée avec succès, on peut vérifier que QGIS 3 fonctionne correctement :</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">output</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">qgis</span>
-</pre></div>
-</div>
-<p>Si c’est le cas on peut l’installer dans le dossier définir précédemment (${HOME}/apps) :</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">install</span>
-</pre></div>
+<div class="section" id="compiler-le-code">
+<h2>Compiler le code<a class="headerlink" href="#compiler-le-code" title="Lien permanent vers ce titre">¶</a></h2>
+<p>On veut maintenant compiler QGIS. Attention cette opération peut prendre une ou plusieurs dizaines de minutes.
+.. code-block:: bash</p>
+<blockquote>
+<div>make -j8 # Remplacer 8 par le nombre de coeurs à utiliser</div></blockquote>
+<p>Une fois l’opération terminée avec succès, on peut vérifier que QGIS 3 fonctionne correctement :
+.. code-block:: bash</p>
+<blockquote>
+<div>./output/bin/qgis</div></blockquote>
+<p>Si c’est le cas on peut l’installer dans le dossier définir précédemment (<code class="docutils literal notranslate"><span class="pre">${HOME}/apps</span></code> dans notre cas) :
+.. code-block:: bash</p>
+<blockquote>
+<div>make install</div></blockquote>
 </div>
 </div>
 
