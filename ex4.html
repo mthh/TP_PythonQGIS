@@ -306,8 +306,6 @@ souhaité !</p>
     <span class="p">]</span>
 </pre></div>
 </div>
-</li>
-</ul>
 <div class="spoiler blq docutils container">
 <p>Solution QGIS 3:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">layerTreeRoot</span><span class="p">()</span>
@@ -332,12 +330,11 @@ souhaité !</p>
 </pre></div>
 </div>
 </div>
-<ul class="simple">
-<li>Nous devons maintenant régler la transparence de chacune des couches de
+</li>
+<li><p class="first">Nous devons maintenant régler la transparence de chacune des couches de
 type <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> à 80%.
 <strong>À vous de jouer !</strong> <em>(La cheatsheet de ce TP, un moteur de recherche et/ou la documentation PyQgis
-seront utiles)</em></li>
-</ul>
+seront utiles)</em></p>
 <div class="spoiler blq docutils container">
 <p>Solution QGIS 2:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">layers</span><span class="p">():</span>
@@ -360,6 +357,8 @@ seront utiles)</em></li>
 </pre></div>
 </div>
 </div>
+</li>
+</ul>
 </div>
 <div class="section" id="autres-exemples">
 <h2>Autres exemples<a class="headerlink" href="#autres-exemples" title="Lien permanent vers ce titre">¶</a></h2>

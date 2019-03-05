@@ -109,7 +109,7 @@ Cet exerice mobilise plusieurs notions nouvelles :
 
 
 **À vous de jouer ! Essayer d'écrire le script permettant d'atteindre l'objectif de cet exercice**
-|   - Ajout de deux champs ``NEIGHBORS`` et ``SUM`` à la couche des pays (attention au type !)
+
 La méthode à utiliser peut être décrite de la manière suivante :
 
   Création de deux champs ``NEIGHBORS`` et ``SUM`` (attention au type !)
@@ -122,10 +122,10 @@ La méthode à utiliser peut être décrite de la manière suivante :
     - parmis ces polygones :
 
       * trouver ceux qui sont réelement voisins du pays **P**
-    - enregistrer le nom des voisins de **P** dans le champ ``NEIGHBORS``
-    - enregistrer la somme de la population de ces voisins dans le champ ``SUM``
+      * enregistrer le nom des voisins de **P** dans le champ ``NEIGHBORS``
+      * enregistrer la somme de la population de ces voisins dans le champ ``SUM``
 
-    Validation des changements effectués sur la couche.
+  Validation des changements effectués sur la couche.
 
 
 **Quelle est la population des pays voisins de la Hongrie ?**

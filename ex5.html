@@ -145,7 +145,12 @@ Une valeur d’altitude va ensuite être récupérée à partir d’un modèle n
 <li><p class="first">Ajouter les couches <code class="docutils literal notranslate"><span class="pre">Canal_Furon.shp</span></code> et <code class="docutils literal notranslate"><span class="pre">DEM_N245E395_l93.tif</span></code> puis ouvrir la console Python.</p>
 </li>
 <li><p class="first">Obtenir la référence de chacune de nos couches :</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">line_lyr</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;Canal_Furon&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># QGIS 2</span>
+<span class="n">line_lyr</span> <span class="o">=</span> <span class="n">QgsMapLayerRegistry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;Canal_Furon&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">dem</span> <span class="o">=</span> <span class="n">QgsMapLayerRegistry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;DEM_N245E395_l93&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># QGIS 3</span>
+<span class="n">line_lyr</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;Canal_Furon&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">dem</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;DEM_N245E395_l93&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -172,17 +177,18 @@ Une valeur d’altitude va ensuite être récupérée à partir d’un modèle n
 </pre></div>
 </div>
 </li>
-<li><p class="first">Récupérer la valeur de la bande unique de notre couche raster à un point donné</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_pr</span> <span class="o">=</span> <span class="n">dem</span><span class="o">.</span><span class="n">dataProvider</span><span class="p">()</span>
-
-<span class="c1"># L&#39;argument doit être de type `QgsPoint`</span>
+<li><p class="first">Récupérer la valeur de la (ou des) bande(s) raster à une coordonnées :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dem_pr</span> <span class="o">=</span> <span class="n">dem</span><span class="o">.</span><span class="n">dataProvider</span><span class="p">()</span>
 <span class="n">pt</span> <span class="o">=</span> <span class="n">QgsPoint</span><span class="p">(</span><span class="mf">12673.233</span><span class="p">,</span> <span class="mf">1332.344</span><span class="p">)</span>
-<span class="n">alt</span><span class="p">,</span> <span class="n">valid</span> <span class="o">=</span> <span class="n">data_pr</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="k">if</span> <span class="n">valid</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Altitude : </span><span class="si">{}</span><span class="s1">m&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">alt</span><span class="p">))</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">dem_pr</span><span class="o">.</span><span class="n">identify</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">isValid</span><span class="p">():</span>
+    <span class="n">_values</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">results</span><span class="p">()</span> <span class="c1"># Retourne un dictionnaire</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">_values</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># Affiche la valeur pour la première bande</span>
 </pre></div>
 </div>
 </li>
+</ul>
+<ul>
 <li><p class="first"><strong>«&nbsp;Putting it all together&nbsp;»</strong></p>
 <p>Vous disposez des briques essentielles pour créer un objet python de type <code class="docutils literal notranslate"><span class="pre">list</span></code>,
 contenant, pour chaque point, sa distance à la source et son altitude sous la forme,

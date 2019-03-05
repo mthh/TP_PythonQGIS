@@ -209,34 +209,34 @@ Procédure
         ]
 
 
-.. container:: spoiler blq
+  .. container:: spoiler blq
 
-   Solution QGIS 3:
+     Solution QGIS 3:
 
-   ::
+     ::
 
-     root = QgsProject.instance().layerTreeRoot()
-     for ix, name in enumerate(ordre):
-         layer = QgsProject.instance().mapLayersByName(name)[0]
-         layer_node = root.findLayer(layer.id())
-         node = layer_node.clone()
-         root.insertChildNode(0, node)
-         root.removeChildNode(layer_node)
+       root = QgsProject.instance().layerTreeRoot()
+       for ix, name in enumerate(ordre):
+           layer = QgsProject.instance().mapLayersByName(name)[0]
+           layer_node = root.findLayer(layer.id())
+           node = layer_node.clone()
+           root.insertChildNode(0, node)
+           root.removeChildNode(layer_node)
 
 
-.. container:: spoiler blq
+  .. container:: spoiler blq
 
-   Solution QGIS 2:
+     Solution QGIS 2:
 
-   ::
+     ::
 
-     root = QgsProject.instance().layerTreeRoot()
-     for ix, name in enumerate(ordre):
-         layer = QgsMapLayerRegistry.instance().mapLayersByName(name)[0]
-         layer_node = root.findLayer(layer.id())
-         node = layer_node.clone()
-         root.insertChildNode(0, node)
-         root.removeChildNode(layer_node)
+       root = QgsProject.instance().layerTreeRoot()
+       for ix, name in enumerate(ordre):
+           layer = QgsMapLayerRegistry.instance().mapLayersByName(name)[0]
+           layer_node = root.findLayer(layer.id())
+           node = layer_node.clone()
+           root.insertChildNode(0, node)
+           root.removeChildNode(layer_node)
 
 
 - Nous devons maintenant régler la transparence de chacune des couches de
@@ -244,32 +244,32 @@ Procédure
   **À vous de jouer !** *(La cheatsheet de ce TP, un moteur de recherche et/ou la documentation PyQgis
   seront utiles)*
 
-.. container:: spoiler blq
+  .. container:: spoiler blq
 
-   Solution QGIS 2:
+     Solution QGIS 2:
 
-   ::
+     ::
 
-      for layer in iface.mapCanvas().layers():
-          if int(layer.wkbType()) in (
-                  QgsWKBTypes.Polygon, QgsWKBTypes.MultiPolygon):
-              layer.setLayerTransparency(80)
+        for layer in iface.mapCanvas().layers():
+            if int(layer.wkbType()) in (
+                    QgsWKBTypes.Polygon, QgsWKBTypes.MultiPolygon):
+                layer.setLayerTransparency(80)
 
-      iface.mapCanvas().refresh()
+        iface.mapCanvas().refresh()
 
 
-.. container:: spoiler blq
+  .. container:: spoiler blq
 
-   Solution QGIS 3:
+     Solution QGIS 3:
 
-   ::
+     ::
 
-      for layer in iface.mapCanvas().layers():
-          if layer.wkbType() in (
-                QgsWkbTypes.Polygon, QgsWkbTypes.MultiPolygon):
-              layer.setOpacity(0.8)
+        for layer in iface.mapCanvas().layers():
+            if layer.wkbType() in (
+                  QgsWkbTypes.Polygon, QgsWkbTypes.MultiPolygon):
+                layer.setOpacity(0.8)
 
-      iface.mapCanvas().refresh()
+        iface.mapCanvas().refresh()
 
 
 

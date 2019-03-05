@@ -194,9 +194,9 @@ Procédure
                   [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()])
 
 
-Au regard des valeurs prises par le champ ``type`` il est également possible de vérifier
-que la chaine de caractère du champ type commence bien par ``major`` en utilisant
-la méthode
+  Au regard des valeurs prises par le champ ``type`` il est également possible de vérifier
+  que la chaine de caractère du champ type commence bien par ``major`` en utilisant
+  la méthode
 
   .. code-block:: python
      :emphasize-lines: 2
@@ -208,14 +208,14 @@ la méthode
                   [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()])
 
 
-Enfin, il est également possible d'utiliser une expression QGIS.
+  Enfin, il est également possible d'utiliser une expression QGIS.
 
-Avec QGIS 2 est nécessaire de créer un objet de type ``QgsExpression``.
-Cet objet sera donné en argument à un objet de type ``QgsFeatureRequest``,
-utilisé lors de l'appel de la méthode ``getFeatures`` déjà utilisée précédemment.
+  Avec QGIS 2 est nécessaire de créer un objet de type ``QgsExpression``.
+  Cet objet sera donné en argument à un objet de type ``QgsFeatureRequest``,
+  utilisé lors de l'appel de la méthode ``getFeatures`` déjà utilisée précédemment.
 
-Avec QGIS 3 il est possible de passer directement la chaine de caractère qui
-correspond à l'expression souhaitée en argument de la méthode ``getFeatures``.
+  Avec QGIS 3 il est possible de passer directement la chaine de caractère qui
+  correspond à l'expression souhaitée en argument de la méthode ``getFeatures``.
 
   .. code-block:: python
      :emphasize-lines: 2,3,9

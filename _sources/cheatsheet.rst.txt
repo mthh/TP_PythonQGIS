@@ -175,4 +175,4 @@ Couches raster
   result = layer.dataProvider().identify(pt)
   # 'result' is of type `QgsRasterIdentifyResult`
   if result.isValid():
-    print(result.results)
+      print(result.results)

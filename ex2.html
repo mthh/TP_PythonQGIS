@@ -280,28 +280,23 @@ et bien, soit <code class="docutils literal notranslate"><span class="pre">major
              <span class="p">[</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">y</span><span class="p">()])</span>
 </pre></div>
 </div>
-</li>
-</ul>
 <p>Au regard des valeurs prises par le champ <code class="docutils literal notranslate"><span class="pre">type</span></code> il est également possible de vérifier
 que la chaine de caractère du champ type commence bien par <code class="docutils literal notranslate"><span class="pre">major</span></code> en utilisant
 la méthode</p>
-<blockquote>
-<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
 <span class="hll">     <span class="k">if</span> <span class="n">ft</span><span class="o">|</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;major&#39;</span><span class="p">):</span>
 </span>         <span class="n">geom_point</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
          <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span>
              <span class="p">[</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">y</span><span class="p">()])</span>
 </pre></div>
 </div>
-</div></blockquote>
 <p>Enfin, il est également possible d’utiliser une expression QGIS.</p>
 <p>Avec QGIS 2 est nécessaire de créer un objet de type <code class="docutils literal notranslate"><span class="pre">QgsExpression</span></code>.
 Cet objet sera donné en argument à un objet de type <code class="docutils literal notranslate"><span class="pre">QgsFeatureRequest</span></code>,
 utilisé lors de l’appel de la méthode <code class="docutils literal notranslate"><span class="pre">getFeatures</span></code> déjà utilisée précédemment.</p>
 <p>Avec QGIS 3 il est possible de passer directement la chaine de caractère qui
 correspond à l’expression souhaitée en argument de la méthode <code class="docutils literal notranslate"><span class="pre">getFeatures</span></code>.</p>
-<blockquote>
-<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="c1"># QGIS 2</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="c1"># QGIS 2</span>
 <span class="hll"> <span class="n">expr</span> <span class="o">=</span> <span class="n">QgsExpression</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">type</span><span class="se">\&quot;</span><span class="s2"> LIKE &#39;major%&#39;&quot;</span><span class="p">)</span>
 </span><span class="hll"> <span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">(</span><span class="n">QgsFeatureRequest</span><span class="p">(</span><span class="n">expr</span><span class="p">)):</span>
 </span>     <span class="n">geom_point</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
@@ -315,7 +310,8 @@ correspond à l’expression souhaitée en argument de la méthode <code class="
          <span class="p">[</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">y</span><span class="p">()])</span>
 </pre></div>
 </div>
-</div></blockquote>
+</li>
+</ul>
 <p class="rubric">Footnotes</p>
 <table class="docutils footnote" frame="void" id="f1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>

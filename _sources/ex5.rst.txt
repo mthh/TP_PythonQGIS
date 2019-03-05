@@ -42,6 +42,11 @@ Procédure
 
   ::
 
+    # QGIS 2
+    line_lyr = QgsMapLayerRegistry.instance().mapLayersByName("Canal_Furon")[0]
+    dem = QgsMapLayerRegistry.instance().mapLayersByName("DEM_N245E395_l93")[0]
+
+    # QGIS 3
     line_lyr = QgsProject.instance().mapLayersByName("Canal_Furon")[0]
     dem = QgsProject.instance().mapLayersByName("DEM_N245E395_l93")[0]
 
@@ -68,17 +73,23 @@ Procédure
         # Convertit la géométrie en `QgsPoint` et l'ajoute au résultat
         result.append(interp.asPoint())
 
-- Récupérer la valeur de la bande unique de notre couche raster à un point donné
+
+- Récupérer la valeur de la (ou des) bande(s) raster à une coordonnées :
 
   ::
 
-    data_pr = dem.dataProvider()
-
-    # L'argument doit être de type `QgsPoint`
+    dem_pr = dem.dataProvider()
     pt = QgsPoint(12673.233, 1332.344)
-    alt, valid = data_pr.sample(pt, 1)
-    if valid:
-        print('Altitude : {}m'.format(alt))
+    res = dem_pr.identify(pt, 1)
+    if res.isValid():
+        _values = res.results() # Retourne un dictionnaire
+        print(_values[1]) # Affiche la valeur pour la première bande
+
+.. # L'argument doit être de type `QgsPoint`
+.. pt = QgsPoint(12673.233, 1332.344)
+.. alt, valid = dem_pr.sample(pt, 1)
+.. if valid:
+..     print('Altitude : {}m'.format(alt))
 
 
 - **"Putting it all together"**
