@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
+  
   <!-- Licensed under the Apache 2.0 License -->
   <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
   <!-- Licensed under the SIL Open Font License -->
@@ -14,7 +14,7 @@
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  
     <title>Exercice 3 : Géométries et calcul de champ &#8212; Documentation PythonQGIS_TP </title>
     <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -30,8 +30,8 @@
     <link rel="search" title="Recherche" href="search.html" />
     <link rel="next" title="Exercice 4 - Automatisation d’actions répétitives" href="ex4.html" />
     <link rel="prev" title="Exercice 2 : Manipulation des attributs d’une couche" href="ex2.html" />
-
-
+  
+   
 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="ex2.html" title="Exercice 2 : Manipulation des attributs d’une couche"
              accesskey="P">précédent</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP </a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP </a> &#187;</li> 
       </ul>
     </div>
     <div class="container-wrapper">
@@ -98,21 +98,21 @@
     </div>
   </div>
 </div>
-
+      
     </div>
   </div>
         <div id="right-column">
-
+          
           <div role="navigation" aria-label="breadcrumbs navigation">
             <ol class="breadcrumb">
               <li><a href="index.html">Docs</a></li>
-
+              
               <li>Exercice 3 : Géométries et calcul de champ</li>
             </ol>
           </div>
-
+          
           <div class="document clearer body">
-
+            
   <div class="section" id="exercice-3-geometries-et-calcul-de-champ">
 <h1>Exercice 3 : Géométries et calcul de champ<a class="headerlink" href="#exercice-3-geometries-et-calcul-de-champ" title="Lien permanent vers ce titre">¶</a></h1>
 <div class="figure align-center" style="width: 98%">
@@ -209,77 +209,37 @@ le noms des voisins et l’autre contenant la population totale de ces voisins.<
 <span class="c1"># (l&#39;argument de la méthode intersects de l&#39;index</span>
 <span class="c1">#  spatial doit être de type `QgsRectangle`)</span>
 <span class="n">intersecting_ids</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">geom</span><span class="o">.</span><span class="n">boundingBox</span><span class="p">())</span>
+
+<span class="c1"># Obtenir les entités qui correspondent à ces ids :</span>
+<span class="n">request</span> <span class="o">=</span> <span class="n">QgsFeatureRequest</span><span class="p">()</span><span class="o">.</span><span class="n">setFilterFids</span><span class="p">(</span><span class="n">intersecting_ids</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">vector_layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="c1"># ...</span>
 </pre></div>
 </div>
 </div></blockquote>
+<p><strong>À vous de jouer ! Essayer d’écrire le script permettant d’atteindre l’objectif de cet exercice</strong>
+|   - Ajout de deux champs <code class="docutils literal notranslate"><span class="pre">NEIGHBORS</span></code> et <code class="docutils literal notranslate"><span class="pre">SUM</span></code> à la couche des pays (attention au type !)
+La méthode à utiliser peut être décrite de la manière suivante :</p>
+<blockquote>
+<div><p>Création de deux champs <code class="docutils literal notranslate"><span class="pre">NEIGHBORS</span></code> et <code class="docutils literal notranslate"><span class="pre">SUM</span></code> (attention au type !)</p>
+<p>Création de l’index spatial</p>
+<p>Parcours des entités de la couche, pour chaque pays <strong>P</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li>trouver les polygones qui intersectent sa bounding box (grace à l’index spatial)</li>
+<li>parmis ces polygones :<ul>
+<li>trouver ceux qui sont réelement voisins du pays <strong>P</strong></li>
+</ul>
+</li>
+<li>enregistrer le nom des voisins de <strong>P</strong> dans le champ <code class="docutils literal notranslate"><span class="pre">NEIGHBORS</span></code></li>
+<li>enregistrer la somme de la population de ces voisins dans le champ <code class="docutils literal notranslate"><span class="pre">SUM</span></code></li>
+</ul>
+<p>Validation des changements effectués sur la couche.</p>
+</div></blockquote>
+</div></blockquote>
+<p><strong>Quelle est la population des pays voisins de la Hongrie ?</strong></p>
 <div class="line-block">
-<div class="line"><strong>À vous de jouer !</strong></div>
-<div class="line"><strong>Essayer d’écrire le script permettant d’atteindre l’objectif de cet exercice</strong></div>
 <div class="line"><strong>Ouvrir ensuite le script déjà écrit et prendre le temps de bien le comprendre avant de l’exécuter si vous n’êtes pas arrivé à l’ensemble du résultat attendu lors de cet exercice.</strong></div>
-</div>
-<div class="spoiler blq docutils container">
-<p>Solution <strong>QGIS 3</strong>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qgis.utils</span> <span class="k">import</span> <span class="n">iface</span>
-<span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="k">import</span> <span class="n">QVariant</span>
-
-<span class="c1"># Nom des champs à utiliser :</span>
-<span class="n">_NAME_FIELD</span> <span class="o">=</span> <span class="s1">&#39;NAME&#39;</span>
-<span class="n">_SUM_FIELD</span> <span class="o">=</span> <span class="s1">&#39;POP_EST&#39;</span>
-
-<span class="c1"># Nom des champs à créer</span>
-<span class="n">_NEW_NEIGHBORS_FIELD</span> <span class="o">=</span> <span class="s1">&#39;NEIGHBORS&#39;</span>
-<span class="n">_NEW_SUM_FIELD</span> <span class="o">=</span> <span class="s1">&#39;SUM&#39;</span>
-
-<span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
-
-<span class="c1"># Création des deux nouveaux champs après avoir activé le mode édition</span>
-<span class="n">layer</span><span class="o">.</span><span class="n">startEditing</span><span class="p">()</span>
-<span class="n">layer</span><span class="o">.</span><span class="n">dataProvider</span><span class="p">()</span><span class="o">.</span><span class="n">addAttributes</span><span class="p">(</span>
-        <span class="p">[</span><span class="n">QgsField</span><span class="p">(</span><span class="n">_NEW_NEIGHBORS_FIELD</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">String</span><span class="p">),</span>
-         <span class="n">QgsField</span><span class="p">(</span><span class="n">_NEW_SUM_FIELD</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">Int</span><span class="p">)])</span>
-<span class="n">layer</span><span class="o">.</span><span class="n">updateFields</span><span class="p">()</span>
-
-<span class="c1"># Creation d&#39;un dictionnaire contenant nos entités</span>
-<span class="c1"># (cela va permettre d&#39;avoir un mappage rapide entre un id et l&#39;entité</span>
-<span class="c1"># correspondante, et également de parcourir plusieurs fois la liste</span>
-<span class="c1"># des entités sans appeler à nouveau la méthode `getFeatures`</span>
-<span class="n">feature_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">f</span><span class="o">.</span><span class="n">id</span><span class="p">():</span> <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">()}</span>
-
-<span class="c1"># Construction d&#39;un index spatial :</span>
-<span class="n">index</span> <span class="o">=</span> <span class="n">QgsSpatialIndex</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">feature_dict</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-    <span class="n">index</span><span class="o">.</span><span class="n">insertFeature</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-
-<span class="c1"># Parcours de l&#39;ensemble de nos entités :</span>
-<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">feature_dict</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-    <span class="c1"># print(&#39;Calcul en cours pour {}&#39;.format(f[_NAME_FIELD]))</span>
-    <span class="n">geom</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
-    <span class="c1"># Recherche des entités qui intersectent la bbox de l&#39;entité courrante</span>
-    <span class="c1"># L&#39;utilisation d&#39;un index spatial permet à ce moment de n&#39;itérer que</span>
-    <span class="c1"># sur les entités qui intersectent sa bbox et non pas sur l&#39;ensemble</span>
-    <span class="c1"># des entités.</span>
-    <span class="n">intersecting_ids</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">geom</span><span class="o">.</span><span class="n">boundingBox</span><span class="p">())</span>
-    <span class="c1"># Pour stocker la liste des voisins :</span>
-    <span class="n">neighbors</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">neighbors_sum</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">intersecting_id</span> <span class="ow">in</span> <span class="n">intersecting_ids</span><span class="p">:</span>
-        <span class="c1"># Récupération de l&#39;entité dans le dictionnaire</span>
-        <span class="n">intersecting_f</span> <span class="o">=</span> <span class="n">feature_dict</span><span class="p">[</span><span class="n">intersecting_id</span><span class="p">]</span>
-        <span class="c1"># Ici on considère qu&#39;une entité est voisine si elle touche ou intersecte</span>
-        <span class="c1"># l&#39;entité en cours. Nous utilisons donc le prédicat spatial</span>
-        <span class="c1"># &#39;disjoint&#39; pour vérifier cela:</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">f</span> <span class="o">!=</span> <span class="n">intersecting_f</span> <span class="ow">and</span>
-            <span class="ow">not</span> <span class="n">intersecting_f</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">disjoint</span><span class="p">(</span><span class="n">geom</span><span class="p">)):</span>
-            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">intersecting_f</span><span class="p">[</span><span class="n">_NAME_FIELD</span><span class="p">])</span>
-            <span class="n">neighbors_sum</span> <span class="o">+=</span> <span class="n">intersecting_f</span><span class="p">[</span><span class="n">_SUM_FIELD</span><span class="p">]</span>
-    <span class="n">f</span><span class="p">[</span><span class="n">_NEW_NEIGHBORS_FIELD</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">neighbors</span><span class="p">)</span>
-    <span class="n">f</span><span class="p">[</span><span class="n">_NEW_SUM_FIELD</span><span class="p">]</span> <span class="o">=</span> <span class="n">neighbors_sum</span>
-    <span class="c1"># Mise à jour de l&#39;entité modifiée :</span>
-    <span class="n">layer</span><span class="o">.</span><span class="n">updateFeature</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-
-<span class="n">layer</span><span class="o">.</span><span class="n">commitChanges</span><span class="p">()</span>
-</pre></div>
-</div>
 </div>
 <div class="spoiler blq docutils container">
 <p>Solution <strong>QGIS 2</strong>:</p>
@@ -345,6 +305,70 @@ le noms des voisins et l’autre contenant la population totale de ces voisins.<
 </pre></div>
 </div>
 </div>
+<div class="spoiler blq docutils container">
+<p>Solution <strong>QGIS 3</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qgis.utils</span> <span class="k">import</span> <span class="n">iface</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="k">import</span> <span class="n">QVariant</span>
+
+<span class="c1"># Nom des champs à utiliser :</span>
+<span class="n">_NAME_FIELD</span> <span class="o">=</span> <span class="s1">&#39;NAME&#39;</span>
+<span class="n">_SUM_FIELD</span> <span class="o">=</span> <span class="s1">&#39;POP_EST&#39;</span>
+
+<span class="c1"># Nom des champs à créer</span>
+<span class="n">_NEW_NEIGHBORS_FIELD</span> <span class="o">=</span> <span class="s1">&#39;NEIGHBORS&#39;</span>
+<span class="n">_NEW_SUM_FIELD</span> <span class="o">=</span> <span class="s1">&#39;SUM&#39;</span>
+
+<span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
+
+<span class="c1"># Création des deux nouveaux champs après avoir activé le mode édition</span>
+<span class="n">layer</span><span class="o">.</span><span class="n">startEditing</span><span class="p">()</span>
+<span class="n">layer</span><span class="o">.</span><span class="n">dataProvider</span><span class="p">()</span><span class="o">.</span><span class="n">addAttributes</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">QgsField</span><span class="p">(</span><span class="n">_NEW_NEIGHBORS_FIELD</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">String</span><span class="p">),</span>
+         <span class="n">QgsField</span><span class="p">(</span><span class="n">_NEW_SUM_FIELD</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">Int</span><span class="p">)])</span>
+<span class="n">layer</span><span class="o">.</span><span class="n">updateFields</span><span class="p">()</span>
+
+<span class="c1"># Creation d&#39;un dictionnaire contenant nos entités</span>
+<span class="c1"># (cela va permettre d&#39;avoir un mappage rapide entre un id et l&#39;entité</span>
+<span class="c1"># correspondante, et également de parcourir plusieurs fois la liste</span>
+<span class="c1"># des entités sans appeler à nouveau la méthode `getFeatures`</span>
+<span class="n">feature_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">f</span><span class="o">.</span><span class="n">id</span><span class="p">():</span> <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">()}</span>
+
+<span class="c1"># Construction d&#39;un index spatial :</span>
+<span class="n">index</span> <span class="o">=</span> <span class="n">QgsSpatialIndex</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">feature_dict</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+    <span class="n">index</span><span class="o">.</span><span class="n">insertFeature</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="c1"># Parcours de l&#39;ensemble de nos entités :</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">feature_dict</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+    <span class="c1"># print(&#39;Calcul en cours pour {}&#39;.format(f[_NAME_FIELD]))</span>
+    <span class="n">geom</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+    <span class="c1"># Recherche des entités qui intersectent la bbox de l&#39;entité courrante</span>
+    <span class="c1"># L&#39;utilisation d&#39;un index spatial permet à ce moment de n&#39;itérer que</span>
+    <span class="c1"># sur les entités qui intersectent sa bbox et non pas sur l&#39;ensemble</span>
+    <span class="c1"># des entités.</span>
+    <span class="n">intersecting_ids</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">geom</span><span class="o">.</span><span class="n">boundingBox</span><span class="p">())</span>
+    <span class="c1"># Pour stocker la liste des voisins :</span>
+    <span class="n">neighbors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">neighbors_sum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">intersecting_id</span> <span class="ow">in</span> <span class="n">intersecting_ids</span><span class="p">:</span>
+        <span class="c1"># Récupération de l&#39;entité dans le dictionnaire</span>
+        <span class="n">intersecting_f</span> <span class="o">=</span> <span class="n">feature_dict</span><span class="p">[</span><span class="n">intersecting_id</span><span class="p">]</span>
+        <span class="c1"># Ici on considère qu&#39;une entité est voisine si elle touche ou intersecte</span>
+        <span class="c1"># l&#39;entité en cours. Nous utilisons donc le prédicat spatial</span>
+        <span class="c1"># &#39;disjoint&#39; pour vérifier cela:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">f</span> <span class="o">!=</span> <span class="n">intersecting_f</span> <span class="ow">and</span>
+            <span class="ow">not</span> <span class="n">intersecting_f</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">disjoint</span><span class="p">(</span><span class="n">geom</span><span class="p">)):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">intersecting_f</span><span class="p">[</span><span class="n">_NAME_FIELD</span><span class="p">])</span>
+            <span class="n">neighbors_sum</span> <span class="o">+=</span> <span class="n">intersecting_f</span><span class="p">[</span><span class="n">_SUM_FIELD</span><span class="p">]</span>
+    <span class="n">f</span><span class="p">[</span><span class="n">_NEW_NEIGHBORS_FIELD</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">neighbors</span><span class="p">)</span>
+    <span class="n">f</span><span class="p">[</span><span class="n">_NEW_SUM_FIELD</span><span class="p">]</span> <span class="o">=</span> <span class="n">neighbors_sum</span>
+    <span class="c1"># Mise à jour de l&#39;entité modifiée :</span>
+    <span class="n">layer</span><span class="o">.</span><span class="n">updateFeature</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="n">layer</span><span class="o">.</span><span class="n">commitChanges</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
 <p class="rubric">Footnotes</p>
 <table class="docutils footnote" frame="void" id="f1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
@@ -357,19 +381,19 @@ le noms des voisins et l’autre contenant la population totale de ces voisins.<
 
 
           </div>
-
+            
   <div class="footer-relations">
-
+    
       <div class="pull-left">
         <a class="btn btn-default" href="ex2.html" title="Chapitre précédent (use the left arrow)">Exercice 2 : Manipulation des attributs d’une couche</a>
       </div>
-
+    
       <div class="pull-right">
         <a class="btn btn-default" href="ex4.html" title="Chapitre suivant (use the right arrow)">Exercice 4 - Automatisation d’actions répétitives</a>
       </div>
     </div>
     <div class="clearer"></div>
-
+  
         </div>
         <div class="clearfix"></div>
     </div>
@@ -385,7 +409,7 @@ le noms des voisins et l’autre contenant la population totale de ces voisins.<
         <li class="right" >
           <a href="ex2.html" title="Exercice 2 : Manipulation des attributs d’une couche"
              >précédent</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP </a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP </a> &#187;</li> 
       </ul>
     </div>
 <script type="text/javascript">

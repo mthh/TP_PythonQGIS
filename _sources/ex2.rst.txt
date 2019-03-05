@@ -141,7 +141,6 @@ Procédure
       header_line = ["Nom", "Code_IATA", "Latitude", "Longitude"]
       csv_writer.writerow(header_line)
 
-      result = []
       for ft in layer.getFeatures():
           # Les résultats ne sont pas encore filtrés selon le type d'aeroport !
           geom_point = ft.geometry().asPoint()
@@ -162,7 +161,6 @@ Procédure
       header_line = ["Nom", "Code_IATA", "Latitude", "Longitude"]
       csv_writer.writerow(header_line)
 
-      result = []
       for ft in layer.getFeatures():
           # Les résultats ne sont pas encore filtrés selon le type d'aeroport !
           geom_point = ft.geometry().asPoint()
@@ -179,6 +177,61 @@ Procédure
     | Le fichier CSV exporté doit être reconnu correctement par l'OS et s'ouvrir dans le tableur habituel (Calc, Excel, etc.).
     | **Combien de lignes contient ce nouveau fichier CSV ?**
 
+
+* **Pour aller plus loin...**
+
+  Le résultat attendu peut être obtenu de plusieurs manière différentes.
+  En effet il est soit possible d'itérer sur l'ensemble des entités de la couche et de vérifier que le champ ``type`` de chaque entité
+  et bien, soit ``major``, soit ``major and military``.
+
+  .. code-block:: python
+     :emphasize-lines: 2
+
+      for ft in layer.getFeatures():
+          if ft|'type'] in (u'major', u'major and military'):
+              geom_point = ft.geometry().asPoint()
+              csv_writer.writerow(
+                  [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()])
+
+
+Au regard des valeurs prises par le champ ``type`` il est également possible de vérifier
+que la chaine de caractère du champ type commence bien par ``major`` en utilisant
+la méthode
+
+  .. code-block:: python
+     :emphasize-lines: 2
+
+      for ft in layer.getFeatures():
+          if ft|'type'].startswith(u'major'):
+              geom_point = ft.geometry().asPoint()
+              csv_writer.writerow(
+                  [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()])
+
+
+Enfin, il est également possible d'utiliser une expression QGIS.
+
+Avec QGIS 2 est nécessaire de créer un objet de type ``QgsExpression``.
+Cet objet sera donné en argument à un objet de type ``QgsFeatureRequest``,
+utilisé lors de l'appel de la méthode ``getFeatures`` déjà utilisée précédemment.
+
+Avec QGIS 3 il est possible de passer directement la chaine de caractère qui
+correspond à l'expression souhaitée en argument de la méthode ``getFeatures``.
+
+  .. code-block:: python
+     :emphasize-lines: 2,3,9
+
+      # QGIS 2
+      expr = QgsExpression(u"\"type\" LIKE 'major%'")
+      for ft in layer.getFeatures(QgsFeatureRequest(expr)):
+          geom_point = ft.geometry().asPoint()
+          csv_writer.writerow(
+              [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()])
+
+      # QGIS 3
+      for ft in layer.getFeatures("\"type\" LIKE 'major%'"):
+          geom_point = ft.geometry().asPoint()
+          csv_writer.writerow(
+              [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()])
 
 
 .. rubric:: Footnotes

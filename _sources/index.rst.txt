@@ -37,9 +37,10 @@ LP ESSIG - Université Grenoble Alpes
    ex3
    ex4
    ex5
+   ex6
    ex7
    cheatsheet
-   other_resources
+.. other_resources
 .. Indices and tables
 .. ==================
 ..
