@@ -162,13 +162,14 @@ La méthode à utiliser peut être décrite de la manière suivante :
      # Creation d'un dictionnaire contenant nos entités
      # (cela va permettre d'avoir un mappage rapide entre un id et l'entité
      # correspondante, et également de parcourir plusieurs fois la liste
-     # des entités sans appeler à nouveau la méthode `getFeatures`
-     feature_dict = {f.id(): f for f in layer.getFeatures()}
-     # Cette syntaxe est équivalente a la syntaxe suivante :
+     # des entités sans appeler à nouveau la méthode `getFeatures`.
+     # De façon comparable aux listes de compréhension, la syntaxe utilisée
+     # ici est équivalente a la syntaxe suivante :
      # d = {}
      # for f in layer.getFeatures():
      #     id = f.id()
      #     d[id] = f
+     feature_dict = {f.id(): f for f in layer.getFeatures()}
 
      # Construction d'un index spatial :
      index = QgsSpatialIndex()

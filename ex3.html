@@ -265,13 +265,14 @@ le noms des voisins et l’autre contenant la population totale de ces voisins.<
 <span class="c1"># Creation d&#39;un dictionnaire contenant nos entités</span>
 <span class="c1"># (cela va permettre d&#39;avoir un mappage rapide entre un id et l&#39;entité</span>
 <span class="c1"># correspondante, et également de parcourir plusieurs fois la liste</span>
-<span class="c1"># des entités sans appeler à nouveau la méthode `getFeatures`</span>
-<span class="n">feature_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">f</span><span class="o">.</span><span class="n">id</span><span class="p">():</span> <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">()}</span>
-<span class="c1"># Cette syntaxe est équivalente a la syntaxe suivante :</span>
+<span class="c1"># des entités sans appeler à nouveau la méthode `getFeatures`.</span>
+<span class="c1"># De façon comparable aux listes de compréhension, la syntaxe utilisée</span>
+<span class="c1"># ici est équivalente a la syntaxe suivante :</span>
 <span class="c1"># d = {}</span>
 <span class="c1"># for f in layer.getFeatures():</span>
 <span class="c1">#     id = f.id()</span>
 <span class="c1">#     d[id] = f</span>
+<span class="n">feature_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">f</span><span class="o">.</span><span class="n">id</span><span class="p">():</span> <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">()}</span>
 
 <span class="c1"># Construction d&#39;un index spatial :</span>
 <span class="n">index</span> <span class="o">=</span> <span class="n">QgsSpatialIndex</span><span class="p">()</span>

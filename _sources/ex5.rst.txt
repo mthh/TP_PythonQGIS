@@ -205,6 +205,7 @@ Procédure
     QgsProject.instance().addMapLayer(layer)
 
 
+
 .. note::
   L'API exposée par PyQgis n'est pas toujours très "pythonique".
   Certaines fonctions vues au cours de cet exercice ne vont pas générer une ``exception``

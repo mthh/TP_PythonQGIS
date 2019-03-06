@@ -252,6 +252,7 @@ Pour chaque Shapefile on appliquera le style approprié.</p>
 <span class="kn">import</span> <span class="nn">zipfile</span>
 
 <span class="c1"># Se rendre dans le dossier approprié</span>
+<span class="c1"># (attention au chemin qui doit etre modifié !)</span>
 <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;TP_Python_Qgis/data/ex4&#39;</span><span class="p">)</span>
 
 <span class="c1"># Extraire l&#39;archive zippée précédemment téléchargée</span>
@@ -279,6 +280,9 @@ Pour chaque Shapefile on appliquera le style approprié.</p>
     <span class="n">layer</span><span class="o">.</span><span class="n">loadNamedStyle</span><span class="p">(</span><span class="s1">&#39;Styles/&#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.qml&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">repaint</span><span class="p">:</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">triggerRepaint</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">repaint</span><span class="p">:</span>
+    <span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>

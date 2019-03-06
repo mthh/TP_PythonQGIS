@@ -156,6 +156,7 @@ Procédure
         import zipfile
 
         # Se rendre dans le dossier approprié
+        # (attention au chemin qui doit etre modifié !)
         os.chdir('TP_Python_Qgis/data/ex4')
 
         # Extraire l'archive zippée précédemment téléchargée
@@ -183,6 +184,9 @@ Procédure
             layer.loadNamedStyle('Styles/' + name + '.qml')
             if repaint:
                 layer.triggerRepaint()
+
+        if not repaint:
+            iface.mapCanvas().refresh()
 
 
 
