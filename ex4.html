@@ -187,13 +187,14 @@ commment la changer sur toutes les couches qui contiennent des polygones.</p>
 </li>
 <li><p class="first">Extraire une archive <code class="docutils literal notranslate"><span class="pre">.zip</span></code> dans le dossier courant depuis l’interpréteur Python :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">zipfile</span>
+
 <span class="n">zip_ref</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s1">&#39;malta-latest-free.shp.zip&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
 <span class="n">zip_ref</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
 <span class="n">zip_ref</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Nouvelles notions en PyQgis concernant le projet (<code class="docutils literal notranslate"><span class="pre">QgsProject</span></code>) en cours</p>
+<li><p class="first">Nouvelles notions en PyQgis concernant l’interface ou le projet (<code class="docutils literal notranslate"><span class="pre">QgsProject</span></code>) en cours</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Obtenir une référence au projet en cours :</span>
 <span class="n">project</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
 
@@ -202,9 +203,24 @@ commment la changer sur toutes les couches qui contiennent des polygones.</p>
 
 <span class="c1"># Régler la projection du projet sur &quot;Web-Mercator&quot; dans QGIS 2:</span>
 <span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">setDestinationCrs</span><span class="p">(</span><span class="n">QgsCoordinateReferenceSystem</span><span class="p">(</span><span class="s1">&#39;EPSG:3857&#39;</span><span class="p">))</span>
+<span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
 <span class="c1"># Régler la projection du projet sur &quot;Web-Mercator&quot; dans QGIS 3:</span>
 <span class="n">project</span><span class="o">.</span><span class="n">setCrs</span><span class="p">(</span><span class="n">QgsCoordinateReferenceSystem</span><span class="p">(</span><span class="s1">&#39;EPSG:3857&#39;</span><span class="p">))</span>
+<span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+
+<span class="c1"># Zoomer la carte sur une couche (ici sur la couche active), QGIS 2 et 3 :</span>
+<span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
+<span class="n">canvas</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span>
+<span class="n">canvas</span><span class="o">.</span><span class="n">setExtent</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">extent</span><span class="p">())</span>
+<span class="n">canvas</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+
+<span class="c1"># Changer l&#39;étendue du canvas en utilisant</span>
+<span class="c1"># des coordonnées xmin, ymin, xmax, ymax</span>
+<span class="c1"># (QGIS 2 et 3) :</span>
+<span class="n">rect</span> <span class="o">=</span> <span class="n">QgsRectangle</span><span class="p">(</span><span class="n">QgsRectangle</span><span class="p">(</span><span class="mi">1599940</span><span class="p">,</span> <span class="mi">4284653</span><span class="p">,</span> <span class="mi">1617650</span><span class="p">,</span> <span class="mi">4284653</span><span class="p">))</span>
+<span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">setExtent</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+<span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 </pre></div>
 </div>
 </li>
@@ -222,12 +238,6 @@ commment la changer sur toutes les couches qui contiennent des polygones.</p>
     <span class="n">layer</span><span class="o">.</span><span class="n">triggerRepaint</span><span class="p">()</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
-
-<span class="c1"># Zoomer la carte sur la couche active :</span>
-<span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
-<span class="n">canvas</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span>
-<span class="n">canvas</span><span class="o">.</span><span class="n">setExtent</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">extent</span><span class="p">())</span>
-<span class="n">canvas</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 </pre></div>
 </div>
 </li>
@@ -256,7 +266,7 @@ Pour chaque Shapefile on appliquera le style approprié.</p>
     <span class="n">repaint</span> <span class="o">=</span> <span class="kc">False</span>
 
 <span class="c1"># Enlever les couches existantes dans le projet actuel</span>
-<span class="n">project</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="p">()</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+<span class="n">project</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
 <span class="n">project</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
 <span class="c1"># Créer une liste contenant le nom de chacune</span>
@@ -269,22 +279,6 @@ Pour chaque Shapefile on appliquera le style approprié.</p>
     <span class="n">layer</span><span class="o">.</span><span class="n">loadNamedStyle</span><span class="p">(</span><span class="s1">&#39;Styles/&#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.qml&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">repaint</span><span class="p">:</span>
         <span class="n">layer</span><span class="o">.</span><span class="n">triggerRepaint</span><span class="p">()</span>
-
-<span class="c1"># Régler la projection du projet sur &quot;Web-Mercator&quot; pour QGIS 2</span>
-<span class="n">crs</span> <span class="o">=</span> <span class="n">QgsCoordinateReferenceSystem</span><span class="p">(</span><span class="s1">&#39;EPSG:3857&#39;</span><span class="p">)</span>
-<span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">setDestinationCrs</span><span class="p">(</span><span class="n">crs</span><span class="p">)</span>
-<span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
-
-<span class="c1"># Régler la projection du projet sur &quot;Web-Mercator&quot; pour QGIS 3</span>
-<span class="n">project</span><span class="o">.</span><span class="n">setCrs</span><span class="p">(</span><span class="n">QgsCoordinateReferenceSystem</span><span class="p">(</span><span class="s1">&#39;EPSG:3857&#39;</span><span class="p">))</span>
-
-<span class="c1"># Pour QGIS 3, changer l&#39;étendue du canvas en utilisant deux points connus</span>
-<span class="c1"># pour définir l&#39;emprise</span>
-<span class="n">p1</span> <span class="o">=</span> <span class="n">QgsPointXY</span><span class="p">(</span><span class="mi">1599940</span><span class="p">,</span><span class="mi">4290936</span><span class="p">)</span> <span class="c1"># Coordonnées en haut à gauche</span>
-<span class="n">p2</span> <span class="o">=</span> <span class="n">QgsPointXY</span><span class="p">(</span><span class="mi">1617650</span><span class="p">,</span><span class="mi">4284653</span><span class="p">)</span> <span class="c1"># Coordonnées en bas à droite</span>
-<span class="n">rect</span> <span class="o">=</span> <span class="n">QgsRectangle</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">)</span>
-<span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">setExtent</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
-<span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -307,10 +301,10 @@ souhaité !</p>
 </pre></div>
 </div>
 <div class="spoiler blq docutils container">
-<p>Solution QGIS 3:</p>
+<p>Solution QGIS 2:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">layerTreeRoot</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">ix</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ordre</span><span class="p">):</span>
-    <span class="n">layer</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="n">name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">layer</span> <span class="o">=</span> <span class="n">QgsMapLayerRegistry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="n">name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">layer_node</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">findLayer</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">id</span><span class="p">())</span>
     <span class="n">node</span> <span class="o">=</span> <span class="n">layer_node</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
     <span class="n">root</span><span class="o">.</span><span class="n">insertChildNode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
@@ -319,10 +313,10 @@ souhaité !</p>
 </div>
 </div>
 <div class="spoiler blq docutils container">
-<p>Solution QGIS 2:</p>
+<p>Solution QGIS 3:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">layerTreeRoot</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">ix</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ordre</span><span class="p">):</span>
-    <span class="n">layer</span> <span class="o">=</span> <span class="n">QgsMapLayerRegistry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="n">name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">layer</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="n">name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">layer_node</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">findLayer</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">id</span><span class="p">())</span>
     <span class="n">node</span> <span class="o">=</span> <span class="n">layer_node</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
     <span class="n">root</span><span class="o">.</span><span class="n">insertChildNode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>

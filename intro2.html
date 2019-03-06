@@ -152,6 +152,8 @@ il est notamment compatible avec GNU/Linux, Max OS X et Windows.</p>
 La liste des fonctionnalités ajoutées à chaque version peut être consultée en ligne : <a class="reference external" href="http://changelog.qgis.org/en/qgis/version/list/">http://changelog.qgis.org/en/qgis/version/list/</a>.</div>
 </div>
 <p>La documentation complète de l’API python qui va être utilisée est disponible en ligne : <a class="reference external" href="https://qgis.org/pyqgis/3.4/">https://qgis.org/pyqgis/3.4/</a>.</p>
+<p><em>Avant la version 3 on ne trouve de documentation de ce type pour l’API PyQgis mais il est possible de se référer à la documentation complète
+de l’API QGIS en C++ dont est dérivée l’API Python :</em> <a class="reference external" href="https://qgis.org/api/2.18/">https://qgis.org/api/2.18/</a></p>
 </div>
 <div class="section" id="console-python-dans-qgis">
 <h2>Console Python dans QGIS<a class="headerlink" href="#console-python-dans-qgis" title="Lien permanent vers ce titre">¶</a></h2>
@@ -173,7 +175,7 @@ Cela facilitera votre compréhension et vous évitera d’éventuelles erreurs d
 menu <code class="docutils literal notranslate"><span class="pre">Extension</span> <span class="pre">&gt;</span> <span class="pre">Console</span> <span class="pre">Python</span></code>, en pressant <code class="docutils literal notranslate"><span class="pre">CTRL-ALT-P</span></code> ou en appuyant
 sur l’icone qui lui est dédiée.</p>
 <p>Lors de l’utilisation de la console Python dans QGIS, une variable <code class="docutils literal notranslate"><span class="pre">iface</span></code> est
-déjà existante. Cette variable est une instance de <code class="docutils literal notranslate"><span class="pre">QgsInterface</span></code> et elle
+déjà existante. Cette variable est une instance de <code class="docutils literal notranslate"><span class="pre">QgisInterface</span></code> et elle
 permet d’accéder au canevas de la carte, aux menus, barres d’outils et aux
 autres parties de l’application QGIS ouverte.
 De même lors du démarrage d’une session interactive dans cette console,

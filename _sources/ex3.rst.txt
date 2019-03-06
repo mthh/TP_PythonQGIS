@@ -94,7 +94,7 @@ Cet exerice mobilise plusieurs notions nouvelles :
 
       # Création de l'index :
       index = QgsSpatialIndex()
-      for f in layer.getFeatures()
+      for f in layer.getFeatures():
           index.insertFeature(f)
 
       # Interrogation de l'index
@@ -102,7 +102,7 @@ Cet exerice mobilise plusieurs notions nouvelles :
       #  spatial doit être de type `QgsRectangle`)
       intersecting_ids = index.intersects(geom.boundingBox())
 
-      # Obtenir les entités qui correspondent à ces ids :
+      # Une des façon d'obtenir les entités qui correspondent à ces ids :
       request = QgsFeatureRequest().setFilterFids(intersecting_ids)
       for feature in vector_layer.getFeatures(request):
           # ...
@@ -164,7 +164,11 @@ La méthode à utiliser peut être décrite de la manière suivante :
      # correspondante, et également de parcourir plusieurs fois la liste
      # des entités sans appeler à nouveau la méthode `getFeatures`
      feature_dict = {f.id(): f for f in layer.getFeatures()}
-
+     # Cette syntaxe est équivalente a la syntaxe suivante :
+     # d = {}
+     # for f in layer.getFeatures():
+     #     id = f.id()
+     #     d[id] = f
 
      # Construction d'un index spatial :
      index = QgsSpatialIndex()

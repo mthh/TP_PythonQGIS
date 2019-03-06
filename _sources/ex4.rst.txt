@@ -77,16 +77,18 @@ Procédure
     name.replace('.svg', '')  # 'filename'
     name.replace('.svg', '.png')  # 'filename.png'
 
+
 - Extraire une archive ``.zip`` dans le dossier courant depuis l'interpréteur Python :
   ::
 
     import zipfile
+
     zip_ref = zipfile.ZipFile('malta-latest-free.shp.zip', 'r')
     zip_ref.extractall('.')
     zip_ref.close()
 
 
-- Nouvelles notions en PyQgis concernant le projet (``QgsProject``) en cours
+- Nouvelles notions en PyQgis concernant l'interface ou le projet (``QgsProject``) en cours
 
   ::
 
@@ -98,9 +100,24 @@ Procédure
 
     # Régler la projection du projet sur "Web-Mercator" dans QGIS 2:
     iface.mapCanvas().setDestinationCrs(QgsCoordinateReferenceSystem('EPSG:3857'))
+    iface.mapCanvas().refresh()
 
     # Régler la projection du projet sur "Web-Mercator" dans QGIS 3:
     project.setCrs(QgsCoordinateReferenceSystem('EPSG:3857'))
+    iface.mapCanvas().refresh()
+
+    # Zoomer la carte sur une couche (ici sur la couche active), QGIS 2 et 3 :
+    layer = iface.activeLayer()
+    canvas = iface.mapCanvas()
+    canvas.setExtent(layer.extent())
+    canvas.refresh()
+
+    # Changer l'étendue du canvas en utilisant
+    # des coordonnées xmin, ymin, xmax, ymax
+    # (QGIS 2 et 3) :
+    rect = QgsRectangle(QgsRectangle(1599940, 4284653, 1617650, 4284653))
+    iface.mapCanvas().setExtent(rect)
+    iface.mapCanvas().refresh()
 
 
 - Nouvelles notions en PyQgis concernant les couches vecteurs (``QgsVectorLayer``)
@@ -120,12 +137,6 @@ Procédure
         layer.triggerRepaint()
     else:
         iface.mapCanvas().refresh()
-
-    # Zoomer la carte sur la couche active :
-    layer = iface.activeLayer()
-    canvas = iface.mapCanvas()
-    canvas.setExtent(layer.extent())
-    canvas.refresh()
 
 
 - **À vous de jouer !**
@@ -159,7 +170,7 @@ Procédure
             repaint = False
 
         # Enlever les couches existantes dans le projet actuel
-        project = QgsProject().instance()
+        project = QgsProject.instance()
         project.clear()
 
         # Créer une liste contenant le nom de chacune
@@ -173,21 +184,6 @@ Procédure
             if repaint:
                 layer.triggerRepaint()
 
-        # Régler la projection du projet sur "Web-Mercator" pour QGIS 2
-        crs = QgsCoordinateReferenceSystem('EPSG:3857')
-        iface.mapCanvas().setDestinationCrs(crs)
-        iface.mapCanvas().refresh()
-
-        # Régler la projection du projet sur "Web-Mercator" pour QGIS 3
-        project.setCrs(QgsCoordinateReferenceSystem('EPSG:3857'))
-
-        # Pour QGIS 3, changer l'étendue du canvas en utilisant deux points connus
-        # pour définir l'emprise
-        p1 = QgsPointXY(1599940,4290936) # Coordonnées en haut à gauche
-        p2 = QgsPointXY(1617650,4284653) # Coordonnées en bas à droite
-        rect = QgsRectangle(p1, p2)
-        iface.mapCanvas().setExtent(rect)
-        iface.mapCanvas().refresh()
 
 
 - Et l'ordre des couches ? Le voici. Utiliser cette variable pour obtenir l'ordre
@@ -211,6 +207,22 @@ Procédure
 
   .. container:: spoiler blq
 
+     Solution QGIS 2:
+
+     ::
+
+       root = QgsProject.instance().layerTreeRoot()
+       for ix, name in enumerate(ordre):
+           layer = QgsMapLayerRegistry.instance().mapLayersByName(name)[0]
+           layer_node = root.findLayer(layer.id())
+           node = layer_node.clone()
+           root.insertChildNode(0, node)
+           root.removeChildNode(layer_node)
+
+
+
+  .. container:: spoiler blq
+
      Solution QGIS 3:
 
      ::
@@ -223,20 +235,6 @@ Procédure
            root.insertChildNode(0, node)
            root.removeChildNode(layer_node)
 
-
-  .. container:: spoiler blq
-
-     Solution QGIS 2:
-
-     ::
-
-       root = QgsProject.instance().layerTreeRoot()
-       for ix, name in enumerate(ordre):
-           layer = QgsMapLayerRegistry.instance().mapLayersByName(name)[0]
-           layer_node = root.findLayer(layer.id())
-           node = layer_node.clone()
-           root.insertChildNode(0, node)
-           root.removeChildNode(layer_node)
 
 
 - Nous devons maintenant régler la transparence de chacune des couches de

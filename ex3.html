@@ -202,7 +202,7 @@ le noms des voisins et l’autre contenant la population totale de ces voisins.<
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Création de l&#39;index :</span>
 <span class="n">index</span> <span class="o">=</span> <span class="n">QgsSpatialIndex</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
     <span class="n">index</span><span class="o">.</span><span class="n">insertFeature</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
 <span class="c1"># Interrogation de l&#39;index</span>
@@ -210,7 +210,7 @@ le noms des voisins et l’autre contenant la population totale de ces voisins.<
 <span class="c1">#  spatial doit être de type `QgsRectangle`)</span>
 <span class="n">intersecting_ids</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">geom</span><span class="o">.</span><span class="n">boundingBox</span><span class="p">())</span>
 
-<span class="c1"># Obtenir les entités qui correspondent à ces ids :</span>
+<span class="c1"># Une des façon d&#39;obtenir les entités qui correspondent à ces ids :</span>
 <span class="n">request</span> <span class="o">=</span> <span class="n">QgsFeatureRequest</span><span class="p">()</span><span class="o">.</span><span class="n">setFilterFids</span><span class="p">(</span><span class="n">intersecting_ids</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">vector_layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="c1"># ...</span>
@@ -267,7 +267,11 @@ le noms des voisins et l’autre contenant la population totale de ces voisins.<
 <span class="c1"># correspondante, et également de parcourir plusieurs fois la liste</span>
 <span class="c1"># des entités sans appeler à nouveau la méthode `getFeatures`</span>
 <span class="n">feature_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">f</span><span class="o">.</span><span class="n">id</span><span class="p">():</span> <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">()}</span>
-
+<span class="c1"># Cette syntaxe est équivalente a la syntaxe suivante :</span>
+<span class="c1"># d = {}</span>
+<span class="c1"># for f in layer.getFeatures():</span>
+<span class="c1">#     id = f.id()</span>
+<span class="c1">#     d[id] = f</span>
 
 <span class="c1"># Construction d&#39;un index spatial :</span>
 <span class="n">index</span> <span class="o">=</span> <span class="n">QgsSpatialIndex</span><span class="p">()</span>

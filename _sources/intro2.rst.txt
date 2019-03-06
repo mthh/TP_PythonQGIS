@@ -44,6 +44,9 @@ Quelle(s) version(s) utiliser ?
 
 La documentation complète de l'API python qui va être utilisée est disponible en ligne : https://qgis.org/pyqgis/3.4/.
 
+*Avant la version 3 on ne trouve de documentation de ce type pour l'API PyQgis mais il est possible de se référer à la documentation complète
+de l'API QGIS en C++ dont est dérivée l'API Python :* https://qgis.org/api/2.18/
+
 
 Console Python dans QGIS
 ------------------------
@@ -69,7 +72,7 @@ menu ``Extension > Console Python``, en pressant ``CTRL-ALT-P`` ou en appuyant
 sur l'icone qui lui est dédiée.
 
 Lors de l'utilisation de la console Python dans QGIS, une variable ``iface`` est
-déjà existante. Cette variable est une instance de ``QgsInterface`` et elle
+déjà existante. Cette variable est une instance de ``QgisInterface`` et elle
 permet d'accéder au canevas de la carte, aux menus, barres d'outils et aux
 autres parties de l'application QGIS ouverte.
 De même lors du démarrage d'une session interactive dans cette console,
