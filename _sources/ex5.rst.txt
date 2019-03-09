@@ -10,7 +10,7 @@ Exercice 5 : Ouverture d'un raster et enrichissement d'une couche vecteur
 Objectif
 --------
 
-L'objectif de cet exerice est de créer le profil longitudinal d'un cours d'eau.
+L'objectif de cet exercice est de créer le profil longitudinal d'un cours d'eau.
 
 Cette opération nécessite de disposer de points à distance régulière le long du cours d'eau.
 Une valeur d'altitude va ensuite être récupérée à partir d'un modèle numérique de terrain.
@@ -114,6 +114,8 @@ Procédure
     dem = QgsMapLayerRegistry.instance().mapLayersByName("DEM_N245E395_l93")[0]
 
     # Récupération de la géométrie du cours d'eau
+    # (la couche ne contient qu'une entité, on peut donc prendre directement
+    # la première)
     ft = list(line_lyr.getFeatures())[0]
     geom = ft.geometry()
     length = geom.length()
@@ -221,13 +223,16 @@ Procédure
           if valid:
               new_pt = QgsPoint(pt)
               new_pt.setZ(alt)
-          feat = QgsFeature()
-          feat.setGeometry(QgsGeometry(new_pt))
-          feat.setAttributes([ix, dist])
-          ok = pr.addFeature(feat)
-          if not ok:
-            print("Erreur lors de la création de l'entité {}".format(ix))
-
+              feat = QgsFeature()
+              feat.setGeometry(QgsGeometry(new_pt))
+              feat.setAttributes([ix, dist])
+              ok = pr.addFeature(feat)
+              if not ok:
+                  print("Erreur lors de la création de l'entité {}".format(ix))
+          else:
+              print(
+                "Erreur lors de la récupération de l'altitude pour l'entité {}"
+                .format(ix)")
 
 .. rubric:: Footnotes
 
