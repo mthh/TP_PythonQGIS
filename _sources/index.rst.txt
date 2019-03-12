@@ -48,3 +48,6 @@ LP ESSIG - Université Grenoble Alpes
 .. * :ref:`modindex`
 
 * :ref:`search`
+
+
+Données associées au support : https://github.com/mthh/TP_PythonQGIS/archive/master.zip.

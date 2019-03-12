@@ -50,7 +50,11 @@ On va tout effectuer en Python pour voir le gain de temps que ça peut représen
 Procédure
 ---------
 
-- Rappels concernant les chemins et les chaines de caractères en Python
+- Ouvrir QGIS.
+
+- Ouvrir la console Python (les fichiers seront extraits de l'archive et ajoutés à la carte en Python).
+
+- Rappels concernant les chemins et les chaines de caractères en Python :
   ::
 
     # On accède à la majorité des fonctions relatives à la navigation
@@ -88,7 +92,7 @@ Procédure
     zip_ref.close()
 
 
-- Nouvelles notions en PyQgis concernant l'interface ou le projet (``QgsProject``) en cours
+- Nouvelles notions en PyQgis concernant l'interface (``QgisInterface``) ou le projet (``QgsProject``) en cours :
 
   ::
 
@@ -97,14 +101,6 @@ Procédure
 
     # Enlever les couches existantes dans le projet actuel :
     project.clear()
-
-    # Régler la projection du projet sur "Web-Mercator" dans QGIS 2:
-    iface.mapCanvas().setDestinationCrs(QgsCoordinateReferenceSystem('EPSG:3857'))
-    iface.mapCanvas().refresh()
-
-    # Régler la projection du projet sur "Web-Mercator" dans QGIS 3:
-    project.setCrs(QgsCoordinateReferenceSystem('EPSG:3857'))
-    iface.mapCanvas().refresh()
 
     # Zoomer la carte sur une couche (ici sur la couche active), QGIS 2 et 3 :
     layer = iface.activeLayer()
@@ -119,20 +115,30 @@ Procédure
     iface.mapCanvas().setExtent(rect)
     iface.mapCanvas().refresh()
 
+    # Régler la projection du projet sur "Web-Mercator" dans QGIS 2 :
+    iface.mapCanvas().setDestinationCrs(QgsCoordinateReferenceSystem('EPSG:3857'))
+    iface.mapCanvas().refresh()
+
+    # Régler la projection du projet sur "Web-Mercator" dans QGIS 3 :
+    project.setCrs(QgsCoordinateReferenceSystem('EPSG:3857'))
+    iface.mapCanvas().refresh()
+
 
 - Nouvelles notions en PyQgis concernant les couches vecteurs (``QgsVectorLayer``)
 
   ::
 
-    # Ajouter une couche, charger un style et le lui appliquer :
+    # Ajouter une couche :
     layer = iface.addVectorLayer('path/to/layer.shp', name, 'ogr')
+
+    # Charger un style et le lui appliquer :
     layer.loadNamedStyle('path/to/style.qml')
     layer.triggerRepaint()
 
     # Si on ajoute plusieurs couches à la suite et que la mise en cache
-    # n'est pas active on évitera d'appeler
-    # la méthode 'triggerRepaint' sur chaque couche et on préférera
-    # rafraichir l'ensemble du canvas une fois l'opération terminée :
+    # n'est pas active on évitera d'appeler la méthode 'triggerRepaint'
+    # sur chaque couche et on préférera rafraichir
+    # l'ensemble du canvas une fois l'opération terminée :
     if iface.mapCanvas().isCachingEnabled():
         layer.triggerRepaint()
     else:
@@ -140,10 +146,12 @@ Procédure
 
 
 - **À vous de jouer !**
-  Depuis la console Python, il faut se rendre dans le dossier ``data/ex4``,
-  lister les styles disponibles (fichiers ``.qml``) et utiliser leurs noms
-  pour charger les fichiers Shapefile correspondants.
-  Pour chaque Shapefile on appliquera le style approprié.
+  Écrire un script permettant de :
+
+    * se rendre dans le dossier ``data/ex4``,
+    * lister les styles disponibles (fichiers ``.qml`` dans le dossier ``Styles``),
+    * utiliser leurs noms pour charger les fichiers Shapefile correspondants,
+    * appliquer le style approprié à chaque couche.
 
 
   .. container:: spoiler blq
@@ -164,7 +172,7 @@ Procédure
         zip_ref.extractall('.')
         zip_ref.close()
 
-        # Doit on demander un nouveau rendu sur chaque couche
+        # Doit-on demander un nouveau rendu sur chaque couche ?
         if iface.mapCanvas().isCachingEnabled():
             repaint = True
         else:
@@ -192,6 +200,8 @@ Procédure
 
 - Et l'ordre des couches ? Le voici. Utiliser cette variable pour obtenir l'ordre
   souhaité !
+  **À vous de jouer !** *(La cheatsheet de ce TP, un moteur de recherche et/ou la documentation PyQgis
+  seront utiles)*
   ::
 
     ordre = [

@@ -158,7 +158,11 @@ commment la changer sur toutes les couches qui contiennent des polygones.</p>
 <div class="section" id="procedure">
 <h2>Procédure<a class="headerlink" href="#procedure" title="Lien permanent vers ce titre">¶</a></h2>
 <ul>
-<li><p class="first">Rappels concernant les chemins et les chaines de caractères en Python</p>
+<li><p class="first">Ouvrir QGIS.</p>
+</li>
+<li><p class="first">Ouvrir la console Python (les fichiers seront extraits de l’archive et ajoutés à la carte en Python).</p>
+</li>
+<li><p class="first">Rappels concernant les chemins et les chaines de caractères en Python :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># On accède à la majorité des fonctions relatives à la navigation</span>
 <span class="c1"># dans l&#39;arborescence du système de fichier à part du module &#39;os&#39;</span>
 
@@ -194,20 +198,12 @@ commment la changer sur toutes les couches qui contiennent des polygones.</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Nouvelles notions en PyQgis concernant l’interface ou le projet (<code class="docutils literal notranslate"><span class="pre">QgsProject</span></code>) en cours</p>
+<li><p class="first">Nouvelles notions en PyQgis concernant l’interface (<code class="docutils literal notranslate"><span class="pre">QgisInterface</span></code>) ou le projet (<code class="docutils literal notranslate"><span class="pre">QgsProject</span></code>) en cours :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Obtenir une référence au projet en cours :</span>
 <span class="n">project</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
 
 <span class="c1"># Enlever les couches existantes dans le projet actuel :</span>
 <span class="n">project</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-
-<span class="c1"># Régler la projection du projet sur &quot;Web-Mercator&quot; dans QGIS 2:</span>
-<span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">setDestinationCrs</span><span class="p">(</span><span class="n">QgsCoordinateReferenceSystem</span><span class="p">(</span><span class="s1">&#39;EPSG:3857&#39;</span><span class="p">))</span>
-<span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
-
-<span class="c1"># Régler la projection du projet sur &quot;Web-Mercator&quot; dans QGIS 3:</span>
-<span class="n">project</span><span class="o">.</span><span class="n">setCrs</span><span class="p">(</span><span class="n">QgsCoordinateReferenceSystem</span><span class="p">(</span><span class="s1">&#39;EPSG:3857&#39;</span><span class="p">))</span>
-<span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 
 <span class="c1"># Zoomer la carte sur une couche (ici sur la couche active), QGIS 2 et 3 :</span>
 <span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
@@ -221,19 +217,29 @@ commment la changer sur toutes les couches qui contiennent des polygones.</p>
 <span class="n">rect</span> <span class="o">=</span> <span class="n">QgsRectangle</span><span class="p">(</span><span class="n">QgsRectangle</span><span class="p">(</span><span class="mi">1599940</span><span class="p">,</span> <span class="mi">4284653</span><span class="p">,</span> <span class="mi">1617650</span><span class="p">,</span> <span class="mi">4284653</span><span class="p">))</span>
 <span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">setExtent</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
 <span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+
+<span class="c1"># Régler la projection du projet sur &quot;Web-Mercator&quot; dans QGIS 2 :</span>
+<span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">setDestinationCrs</span><span class="p">(</span><span class="n">QgsCoordinateReferenceSystem</span><span class="p">(</span><span class="s1">&#39;EPSG:3857&#39;</span><span class="p">))</span>
+<span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+
+<span class="c1"># Régler la projection du projet sur &quot;Web-Mercator&quot; dans QGIS 3 :</span>
+<span class="n">project</span><span class="o">.</span><span class="n">setCrs</span><span class="p">(</span><span class="n">QgsCoordinateReferenceSystem</span><span class="p">(</span><span class="s1">&#39;EPSG:3857&#39;</span><span class="p">))</span>
+<span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Nouvelles notions en PyQgis concernant les couches vecteurs (<code class="docutils literal notranslate"><span class="pre">QgsVectorLayer</span></code>)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ajouter une couche, charger un style et le lui appliquer :</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ajouter une couche :</span>
 <span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">addVectorLayer</span><span class="p">(</span><span class="s1">&#39;path/to/layer.shp&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s1">&#39;ogr&#39;</span><span class="p">)</span>
+
+<span class="c1"># Charger un style et le lui appliquer :</span>
 <span class="n">layer</span><span class="o">.</span><span class="n">loadNamedStyle</span><span class="p">(</span><span class="s1">&#39;path/to/style.qml&#39;</span><span class="p">)</span>
 <span class="n">layer</span><span class="o">.</span><span class="n">triggerRepaint</span><span class="p">()</span>
 
 <span class="c1"># Si on ajoute plusieurs couches à la suite et que la mise en cache</span>
-<span class="c1"># n&#39;est pas active on évitera d&#39;appeler</span>
-<span class="c1"># la méthode &#39;triggerRepaint&#39; sur chaque couche et on préférera</span>
-<span class="c1"># rafraichir l&#39;ensemble du canvas une fois l&#39;opération terminée :</span>
+<span class="c1"># n&#39;est pas active on évitera d&#39;appeler la méthode &#39;triggerRepaint&#39;</span>
+<span class="c1"># sur chaque couche et on préférera rafraichir</span>
+<span class="c1"># l&#39;ensemble du canvas une fois l&#39;opération terminée :</span>
 <span class="k">if</span> <span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">isCachingEnabled</span><span class="p">():</span>
     <span class="n">layer</span><span class="o">.</span><span class="n">triggerRepaint</span><span class="p">()</span>
 <span class="k">else</span><span class="p">:</span>
@@ -242,10 +248,15 @@ commment la changer sur toutes les couches qui contiennent des polygones.</p>
 </div>
 </li>
 <li><p class="first"><strong>À vous de jouer !</strong>
-Depuis la console Python, il faut se rendre dans le dossier <code class="docutils literal notranslate"><span class="pre">data/ex4</span></code>,
-lister les styles disponibles (fichiers <code class="docutils literal notranslate"><span class="pre">.qml</span></code>) et utiliser leurs noms
-pour charger les fichiers Shapefile correspondants.
-Pour chaque Shapefile on appliquera le style approprié.</p>
+Écrire un script permettant de :</p>
+<blockquote>
+<div><ul class="simple">
+<li>se rendre dans le dossier <code class="docutils literal notranslate"><span class="pre">data/ex4</span></code>,</li>
+<li>lister les styles disponibles (fichiers <code class="docutils literal notranslate"><span class="pre">.qml</span></code> dans le dossier <code class="docutils literal notranslate"><span class="pre">Styles</span></code>),</li>
+<li>utiliser leurs noms pour charger les fichiers Shapefile correspondants,</li>
+<li>appliquer le style approprié à chaque couche.</li>
+</ul>
+</div></blockquote>
 <div class="spoiler blq docutils container">
 <p>Solution :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
@@ -260,7 +271,7 @@ Pour chaque Shapefile on appliquera le style approprié.</p>
 <span class="n">zip_ref</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
 <span class="n">zip_ref</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-<span class="c1"># Doit on demander un nouveau rendu sur chaque couche</span>
+<span class="c1"># Doit-on demander un nouveau rendu sur chaque couche ?</span>
 <span class="k">if</span> <span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">isCachingEnabled</span><span class="p">():</span>
     <span class="n">repaint</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="k">else</span><span class="p">:</span>
@@ -288,7 +299,9 @@ Pour chaque Shapefile on appliquera le style approprié.</p>
 </div>
 </li>
 <li><p class="first">Et l’ordre des couches ? Le voici. Utiliser cette variable pour obtenir l’ordre
-souhaité !</p>
+souhaité !
+<strong>À vous de jouer !</strong> <em>(La cheatsheet de ce TP, un moteur de recherche et/ou la documentation PyQgis
+seront utiles)</em></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ordre</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;gis_osm_traffic_a_free_1&#39;</span><span class="p">,</span>
     <span class="s1">&#39;gis_osm_pofw_a_free_1&#39;</span><span class="p">,</span>

@@ -138,7 +138,7 @@ Une valeur d’altitude va ensuite être récupérée à partir d’un modèle n
 <div class="section" id="procedure">
 <h2>Procédure<a class="headerlink" href="#procedure" title="Lien permanent vers ce titre">¶</a></h2>
 <ul>
-<li><p class="first">Ouvrir QGIS 3.</p>
+<li><p class="first">Ouvrir QGIS.</p>
 </li>
 <li><p class="first">Créer un nouveau projet.</p>
 </li>
@@ -247,8 +247,70 @@ Ces points vont être ajoutés à une nouvelle couche en mémoire qui aura
 précédemment été créée avec deux champs attributaires,
 l’un pour l’identifiant du point (de type <em>entier</em>) et l’autre pour
 la distance à la source (de type <em>double flottant</em>).</p>
-<p><strong>Attention* cet dernier exemple n’a pas été adapté pour QGIS 2 !</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">line_lyr</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;Canal_Furon&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<div class="spoiler blq docutils container">
+<p>Solution QGIS 2:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt4.QtCore</span> <span class="k">import</span> <span class="n">QVariant</span>
+
+<span class="c1"># Nos 2 couches de référence à utiliser / QGIS 2</span>
+<span class="n">line_lyr</span> <span class="o">=</span> <span class="n">QgsMapLayerRegistry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;Canal_Furon&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">dem</span> <span class="o">=</span> <span class="n">QgsMapLayerRegistry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;DEM_N245E395_l93&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Récupération de la géométrie du cours d&#39;eau</span>
+<span class="n">ft</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">line_lyr</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">geom</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+<span class="n">length</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">length</span><span class="p">()</span>
+
+<span class="c1"># Nombre de points / distance entre chaque point</span>
+<span class="n">nb_pts</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">step</span> <span class="o">=</span> <span class="n">length</span> <span class="o">/</span> <span class="n">nb_pts</span>
+
+<span class="c1"># Le fournisseur de données de la couche raster</span>
+<span class="n">dem_pr</span> <span class="o">=</span> <span class="n">dem</span><span class="o">.</span><span class="n">dataProvider</span><span class="p">()</span>
+
+<span class="c1"># Nouvelle couche (en mémoire) de points et son fournisseur de données</span>
+<span class="n">layer</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span><span class="s1">&#39;Point?crs=EPSG:2154&#39;</span><span class="p">,</span> <span class="s1">&#39;PointsWithAltitude&#39;</span> <span class="p">,</span> <span class="s1">&#39;memory&#39;</span><span class="p">)</span>
+<span class="n">pr</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">dataProvider</span><span class="p">()</span>
+
+<span class="c1"># Spécification de deux champs</span>
+<span class="c1"># (un entier pour l&#39;ID et un entier pour la distance à la source)</span>
+<span class="n">pr</span><span class="o">.</span><span class="n">addAttributes</span><span class="p">([</span>
+   <span class="n">QgsField</span><span class="p">(</span><span class="s2">&quot;ID&quot;</span><span class="p">,</span>  <span class="n">QVariant</span><span class="o">.</span><span class="n">Int</span><span class="p">),</span>
+   <span class="n">QgsField</span><span class="p">(</span><span class="s2">&quot;dist_source&quot;</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">Double</span><span class="p">),</span>
+<span class="p">])</span>
+<span class="n">layer</span><span class="o">.</span><span class="n">updateFields</span><span class="p">()</span>
+<span class="n">features</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">ix</span><span class="p">,</span> <span class="n">dist</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">length</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">step</span><span class="p">))):</span>
+   <span class="n">pt</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
+   <span class="n">res</span> <span class="o">=</span> <span class="n">dem_pr</span><span class="o">.</span><span class="n">identify</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+   <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">isValid</span><span class="p">():</span>
+       <span class="n">new_pt</span> <span class="o">=</span> <span class="n">QgsPointV2</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
+       <span class="n">new_pt</span><span class="o">.</span><span class="n">setZ</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">results</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>
+       <span class="n">feat</span> <span class="o">=</span> <span class="n">QgsFeature</span><span class="p">()</span>
+       <span class="n">feat</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QgsGeometry</span><span class="p">(</span><span class="n">new_pt</span><span class="p">))</span>
+       <span class="n">feat</span><span class="o">.</span><span class="n">setAttributes</span><span class="p">([</span><span class="n">ix</span><span class="p">,</span> <span class="n">dist</span><span class="p">])</span>
+       <span class="n">features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">feat</span><span class="p">)</span>
+
+
+<span class="n">ok</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">addFeatures</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">ok</span><span class="p">:</span>
+    <span class="c1"># Peut se produire si le nombre ou le type d&#39;attribut ne correspondent</span>
+    <span class="c1"># à ceux attendus pour cette couche</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;Erreur lors de l&#39;ajout des entités </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ix</span><span class="p">))</span>
+
+<span class="c1"># Mise à jour de l&#39;étendue de la couche</span>
+<span class="n">layer</span><span class="o">.</span><span class="n">updateExtents</span><span class="p">()</span>
+
+<span class="c1"># Ajout de la couche</span>
+<span class="n">QgsMapLayerRegistry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="spoiler blq docutils container">
+<p>Solution QGIS 3:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="k">import</span> <span class="n">QVariant</span>
+
+<span class="n">line_lyr</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;Canal_Furon&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">dem</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;DEM_N245E395_l93&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="c1"># Récupération de la géométrie du cours d&#39;eau</span>
@@ -277,18 +339,18 @@ la distance à la source (de type <em>double flottant</em>).</p>
 
 <span class="k">for</span> <span class="n">ix</span><span class="p">,</span> <span class="n">dist</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">length</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">step</span><span class="p">))):</span>
     <span class="n">pt</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
-    <span class="n">alt</span><span class="p">,</span> <span class="n">valid</span> <span class="o">=</span> <span class="n">data_pr</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">alt</span><span class="p">,</span> <span class="n">valid</span> <span class="o">=</span> <span class="n">dem_pr</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">valid</span><span class="p">:</span>
         <span class="n">new_pt</span> <span class="o">=</span> <span class="n">QgsPoint</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
         <span class="n">new_pt</span><span class="o">.</span><span class="n">setZ</span><span class="p">(</span><span class="n">alt</span><span class="p">)</span>
-    <span class="n">feat</span> <span class="o">=</span> <span class="n">QgsFeature</span><span class="p">()</span>
-    <span class="n">feat</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QgsGeometry</span><span class="p">(</span><span class="n">new_pt</span><span class="p">))</span>
-    <span class="n">feat</span><span class="o">.</span><span class="n">setAttributes</span><span class="p">([</span><span class="n">ix</span><span class="p">,</span> <span class="n">dist</span><span class="p">])</span>
-    <span class="n">ok</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">addFeature</span><span class="p">(</span><span class="n">feat</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">ok</span><span class="p">:</span>
-      <span class="c1"># Peut se produire si le nombre ou le type d&#39;attribut ne correspondent</span>
-      <span class="c1"># à ceux attendus pour cette couche</span>
-      <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Erreur lors de la création de l&#39;entité </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ix</span><span class="p">))</span>
+        <span class="n">feat</span> <span class="o">=</span> <span class="n">QgsFeature</span><span class="p">()</span>
+        <span class="n">feat</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QgsGeometry</span><span class="p">(</span><span class="n">new_pt</span><span class="p">))</span>
+        <span class="n">feat</span><span class="o">.</span><span class="n">setAttributes</span><span class="p">([</span><span class="n">ix</span><span class="p">,</span> <span class="n">dist</span><span class="p">])</span>
+        <span class="n">ok</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">addFeature</span><span class="p">(</span><span class="n">feat</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">ok</span><span class="p">:</span>
+          <span class="c1"># Peut se produire si le nombre ou le type d&#39;attribut ne correspondent</span>
+          <span class="c1"># à ceux attendus pour cette couche</span>
+          <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Erreur lors de la création de l&#39;entité </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ix</span><span class="p">))</span>
 
 <span class="c1"># Mise à jour de l&#39;étendue de la couche</span>
 <span class="n">layer</span><span class="o">.</span><span class="n">updateExtents</span><span class="p">()</span>
@@ -296,6 +358,7 @@ la distance à la source (de type <em>double flottant</em>).</p>
 <span class="c1"># Ajout de la couche</span>
 <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 </pre></div>
+</div>
 </div>
 </li>
 </ul>

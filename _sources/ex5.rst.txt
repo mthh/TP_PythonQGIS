@@ -32,7 +32,7 @@ Les deux jeux de données utilisent la projection Lambert-93 (EPSG:2154).
 Procédure
 ---------
 
-- Ouvrir QGIS 3.
+- Ouvrir QGIS.
 
 - Créer un nouveau projet.
 
@@ -154,57 +154,123 @@ Procédure
   l'un pour l'identifiant du point (de type *entier*) et l'autre pour
   la distance à la source (de type *double flottant*).
 
-  **Attention* cet dernier exemple n'a pas été adapté pour QGIS 2 !**
+  .. container:: spoiler blq
 
-  ::
+     Solution QGIS 2:
 
-    line_lyr = QgsProject.instance().mapLayersByName("Canal_Furon")[0]
-    dem = QgsProject.instance().mapLayersByName("DEM_N245E395_l93")[0]
+     ::
 
-    # Récupération de la géométrie du cours d'eau
-    ft = list(line_lyr.getFeatures())[0]
-    geom = ft.geometry()
-    length = geom.length()
+        from PyQt4.QtCore import QVariant
 
-    # Nombre de points / distance entre chaque point
-    nb_pts = 50
-    step = length / nb_pts
+        # Nos 2 couches de référence à utiliser / QGIS 2
+        line_lyr = QgsMapLayerRegistry.instance().mapLayersByName("Canal_Furon")[0]
+        dem = QgsMapLayerRegistry.instance().mapLayersByName("DEM_N245E395_l93")[0]
 
-    # Le fournisseur de données de la couche raster
-    dem_pr = dem.dataProvider()
+        # Récupération de la géométrie du cours d'eau
+        ft = list(line_lyr.getFeatures())[0]
+        geom = ft.geometry()
+        length = geom.length()
 
-    # Nouvelle couche (en mémoire) de points et son fournisseur de données
-    layer = QgsVectorLayer('Point?crs=EPSG:2154', 'PointsWithAltitude' , 'memory')
-    pr = layer.dataProvider()
+        # Nombre de points / distance entre chaque point
+        nb_pts = 50
+        step = length / nb_pts
 
-    # Spécification de deux champs
-    # (un entier pour l'ID et un entier pour la distance à la source)
-    pr.addAttributes([
-        QgsField("ID",  QVariant.Int),
-        QgsField("dist_source", QVariant.Double),
-    ])
-    layer.updateFields()
+        # Le fournisseur de données de la couche raster
+        dem_pr = dem.dataProvider()
 
-    for ix, dist in enumerate(range(0, int(length), int(step))):
-        pt = geom.interpolate(dist).asPoint()
-        alt, valid = data_pr.sample(pt, 1)
-        if valid:
-            new_pt = QgsPoint(pt)
-            new_pt.setZ(alt)
-        feat = QgsFeature()
-        feat.setGeometry(QgsGeometry(new_pt))
-        feat.setAttributes([ix, dist])
-        ok = pr.addFeature(feat)
+        # Nouvelle couche (en mémoire) de points et son fournisseur de données
+        layer = QgsVectorLayer('Point?crs=EPSG:2154', 'PointsWithAltitude' , 'memory')
+        pr = layer.dataProvider()
+
+        # Spécification de deux champs
+        # (un entier pour l'ID et un entier pour la distance à la source)
+        pr.addAttributes([
+           QgsField("ID",  QVariant.Int),
+           QgsField("dist_source", QVariant.Double),
+        ])
+        layer.updateFields()
+        features = []
+
+        for ix, dist in enumerate(range(0, int(length), int(step))):
+           pt = geom.interpolate(dist).asPoint()
+           res = dem_pr.identify(pt, 1)
+           if res.isValid():
+               new_pt = QgsPointV2(pt)
+               new_pt.setZ(res.results()[1])
+               feat = QgsFeature()
+               feat.setGeometry(QgsGeometry(new_pt))
+               feat.setAttributes([ix, dist])
+               features.append(feat)
+
+
+        ok = pr.addFeatures(features)
         if not ok:
-          # Peut se produire si le nombre ou le type d'attribut ne correspondent
-          # à ceux attendus pour cette couche
-          print("Erreur lors de la création de l'entité {}".format(ix))
+            # Peut se produire si le nombre ou le type d'attribut ne correspondent
+            # à ceux attendus pour cette couche
+            print(u"Erreur lors de l'ajout des entités {}".format(ix))
 
-    # Mise à jour de l'étendue de la couche
-    layer.updateExtents()
+        # Mise à jour de l'étendue de la couche
+        layer.updateExtents()
 
-    # Ajout de la couche
-    QgsProject.instance().addMapLayer(layer)
+        # Ajout de la couche
+        QgsMapLayerRegistry.instance().addMapLayer(layer)
+
+
+  .. container:: spoiler blq
+
+     Solution QGIS 3:
+
+     ::
+       
+        from PyQt5.QtCore import QVariant
+
+        line_lyr = QgsProject.instance().mapLayersByName("Canal_Furon")[0]
+        dem = QgsProject.instance().mapLayersByName("DEM_N245E395_l93")[0]
+
+        # Récupération de la géométrie du cours d'eau
+        ft = list(line_lyr.getFeatures())[0]
+        geom = ft.geometry()
+        length = geom.length()
+
+        # Nombre de points / distance entre chaque point
+        nb_pts = 50
+        step = length / nb_pts
+
+        # Le fournisseur de données de la couche raster
+        dem_pr = dem.dataProvider()
+
+        # Nouvelle couche (en mémoire) de points et son fournisseur de données
+        layer = QgsVectorLayer('Point?crs=EPSG:2154', 'PointsWithAltitude' , 'memory')
+        pr = layer.dataProvider()
+
+        # Spécification de deux champs
+        # (un entier pour l'ID et un entier pour la distance à la source)
+        pr.addAttributes([
+            QgsField("ID",  QVariant.Int),
+            QgsField("dist_source", QVariant.Double),
+        ])
+        layer.updateFields()
+
+        for ix, dist in enumerate(range(0, int(length), int(step))):
+            pt = geom.interpolate(dist).asPoint()
+            alt, valid = dem_pr.sample(pt, 1)
+            if valid:
+                new_pt = QgsPoint(pt)
+                new_pt.setZ(alt)
+                feat = QgsFeature()
+                feat.setGeometry(QgsGeometry(new_pt))
+                feat.setAttributes([ix, dist])
+                ok = pr.addFeature(feat)
+                if not ok:
+                  # Peut se produire si le nombre ou le type d'attribut ne correspondent
+                  # à ceux attendus pour cette couche
+                  print("Erreur lors de la création de l'entité {}".format(ix))
+
+        # Mise à jour de l'étendue de la couche
+        layer.updateExtents()
+
+        # Ajout de la couche
+        QgsProject.instance().addMapLayer(layer)
 
 
 

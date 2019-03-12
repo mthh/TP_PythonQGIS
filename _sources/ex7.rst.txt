@@ -26,6 +26,9 @@ Données et outils nécessaires
 | -> Plugin QGIS ``Plugin Builder``.
 | -> Couche des départements français (``TP_Python_Qgis/data/ex7/departements2015.shp``) pour vérifier le fonctionnement du plugin.
 
+| -> Le résultat de ce TP est disponible à l'adresse : https://github.com/mthh/TP_PythonQGIS_plugin/ (code, archive du plugin prêt à être installé, etc.).
+
+
 Mise en situation
 -----------------
 
@@ -101,14 +104,18 @@ Procédure
 - Les panneaux suivants peuvent être laissés par défaut, à l'exception du dernier où il est
   nécessaire de sélectionner l'emplacement à utiliser pour stocker le code généré pour ce plugin.
 
-.. figure:: img/ex7_builder_fields3.png
-  :align: center
-  :figwidth: 98%
+  .. figure:: img/ex7_builder_fields3.png
+    :align: center
+    :figwidth: 98%
+
 
 - Le développement de ce plugin va se passer en plusieurs étapes.
   Dans un premier temps nous allons éditer le fichier ``.ui`` qui est utilisé par Qt.
   Ces fichiers (au format XML) sont utilisé par Qt / PyQt pour générer du code (au format C++ dans le cas de Qt, en Python dans notre cas avec PyQt),
   soit lors de l'éxécution du programme qui les appelle, soit lors d'une étape préalable de compilation.
+
+- Ouvrir l'outil ``QtDesigner`` (``Démarrer -> Tous les programmes -> OSGeo4W -> QtDesigner pour QGIS X.xx`` sur Windows)
+  et charger le fichier ``neighbor_merger_dialog_base.ui`` généré précédemment par ``Plugin Builder``.
 
   Pour le besoin de notre plugin nous allons avoir besoin d'une liste déroulante
   permettant de sélectionner à quelle couche doit s'appliquer le traitement.
@@ -119,15 +126,33 @@ Procédure
   Cet objet va également permettre de filter le type de couche à afficher en fonction de leur type de géométrie par exemple;
   nous allons utiliser cette fonctionnalité.
 
-- Les principales briques nécessaires pour écrire le code sont les suivantes :
 
-  - Identifier les entités sélectionnées dans la couche demandée par l'utilisateur
+  .. figure:: img/ex7_qtdesigner_combobox.png
+    :align: center
+    :figwidth: 98%
+
+
+  Une fois cet élément ajouté à la fenêtre, aller dans *l'éditeur de propriété* et changer son nom de ``mMapLayerComboBox`` vers ``targetLayerComboBox``.
+
+  Changer ensuite les filtres relatifs aux couches affichées dans cette liste déroulante afin de n'autoriser que les ``Polygon Layer``.
+
+  .. figure:: img/ex7_qtdesigner_end.png
+    :align: center
+    :figwidth: 98%
+
+  Sauvegarder ce fichier et fermer ``QtDesigner``.
+
+- Les étapes suivantes (écriture du code du plugin, etc.) ne nécessitent pas d'utiliser l'éditeur de code fournit avec Python; il est conseiller d'utiliser un éditeur plus confortable.
+
+  Les principales briques nécessaires pour écrire le code sont les suivantes :
+
+  * Identifier les entités sélectionnées dans la couche demandée par l'utilisateur
     ::
 
       selected = layer.selectedFeatures()
 
 
-  - Fusionner les géométries de ces entités en une nouvelle géométrie. Cette opération est généralement appelée une union
+  * Fusionner les géométries de ces entités en une nouvelle géométrie. Cette opération est généralement appelée une union
     (toutefois il s'agit d'un mot réservé en C++, la méthode a donc été appelée ``combine`` dans QGIS et donc par
     extension dans PyQgis).
     ::
@@ -137,7 +162,7 @@ Procédure
       for geom in geoms[1:]:
           merged_geom.combine(geom)
 
-  - Créer une nouvelle entité utilisant cette géométrie et ouvrir le formulaire proposant à l'utilisateur de saisir ses attributs.
+  * Créer une nouvelle entité utilisant cette géométrie et ouvrir le formulaire proposant à l'utilisateur de saisir ses attributs.
     /!\ Ne pas oublier que la couche doit être en mode édition (voir exercice 3) au moment de l'ouverture du formulaire,
     comme au moment de l'ajout de la nouvelle entité ou au moment de la suppression des anciennes entités !
 
@@ -150,17 +175,17 @@ Procédure
       layer.dataProvider().addFeature(new_feature)
 
 
-  - Gérer quelques erreurs possibles : les entités sélectionnées ne sont pas réellement voisines par exemple.
+  * Gérer quelques erreurs possibles : les entités sélectionnées ne sont pas réellement voisines par exemple.
 
 
-  - Enlever les anciennes entités une fois que la nouvelle a été ajoutée avec succès :
+  * Enlever les anciennes entités une fois que la nouvelle a été ajoutée avec succès :
 
     ::
 
       for ft in selected:
           layer.deleteFeature(ft.id())
 
-  - On va aussi définir une fonction qui affichera un message d'erreur si nécessaire:
+  * On va aussi définir une fonction qui affichera un message d'erreur si nécessaire:
     ::
 
       def display_error(message):
@@ -168,7 +193,7 @@ Procédure
               "Erreur", message, level=Qgis.Critical)
 
 
-  - L'essentiel de la logique peut ainsi être résumée ainsi :
+  * L'essentiel de la logique peut ainsi être résumée ainsi :
 
     .. container:: spoiler blq
 
@@ -231,7 +256,7 @@ Procédure
               layer.commitChanges()
 
 
-  - Les étapes suivantes consistent à intégrer cette logique à notre plugin.
+  * Les étapes suivantes consistent à intégrer cette logique à notre plugin.
 
 
   - Bonus : on veut vérifier que les poylgones à fusionner sont bien voisins.
@@ -317,6 +342,7 @@ Procédure
 
   * Utiliser l'utilitaire ``Make`` en tapant la commande ``make deploy``.
 
+  * Pour créer une archive zippée du plugin on pourra utiliser ``make zip``
 
 - Option 2 : Recette manuelle :
   Utiliser le chemin des plugins QGIS en fonction de votre plateforme (à partir de votre dossier personnel):
@@ -335,7 +361,7 @@ Procédure
 
       $ export QGISDIR = "le_chemin_approprié_comme_vu_au_dessus"
       $ export PLUGINNAME = "neighbor_merger"
-      $ pyuic5 -o xxxxxxxxxxxxxxx
+      $ pyrcc4 -o resources.py  resources.qrc
       $ pyuic5 -o xxxxxxxxxxxxxxx
       $ rm -rf ~/$(QGISDIR)/python/plugins/$(PLUGINNAME)
       $ mkdir -p ~/$(QGISDIR)/python/plugins/$(PLUGINNAME)
