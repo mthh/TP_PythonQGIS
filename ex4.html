@@ -324,7 +324,7 @@ seront utiles)</em></p>
     <span class="n">layer</span> <span class="o">=</span> <span class="n">QgsMapLayerRegistry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="n">name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">layer_node</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">findLayer</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">id</span><span class="p">())</span>
     <span class="n">node</span> <span class="o">=</span> <span class="n">layer_node</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
-    <span class="n">root</span><span class="o">.</span><span class="n">insertChildNode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">insertChildNode</span><span class="p">(</span><span class="n">ix</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
     <span class="n">root</span><span class="o">.</span><span class="n">removeChildNode</span><span class="p">(</span><span class="n">layer_node</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -336,14 +336,14 @@ seront utiles)</em></p>
     <span class="n">layer</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="n">name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">layer_node</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">findLayer</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">id</span><span class="p">())</span>
     <span class="n">node</span> <span class="o">=</span> <span class="n">layer_node</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
-    <span class="n">root</span><span class="o">.</span><span class="n">insertChildNode</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">insertChildNode</span><span class="p">(</span><span class="n">ix</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
     <span class="n">root</span><span class="o">.</span><span class="n">removeChildNode</span><span class="p">(</span><span class="n">layer_node</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </li>
 <li><p class="first">Nous devons maintenant régler la transparence de chacune des couches de
-type <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> à 80%.
+type <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> à 10%.
 <strong>À vous de jouer !</strong> <em>(La cheatsheet de ce TP, un moteur de recherche et/ou la documentation PyQgis
 seront utiles)</em></p>
 <div class="spoiler blq docutils container">
@@ -351,7 +351,7 @@ seront utiles)</em></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">layers</span><span class="p">():</span>
     <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">wkbType</span><span class="p">())</span> <span class="ow">in</span> <span class="p">(</span>
             <span class="n">QgsWKBTypes</span><span class="o">.</span><span class="n">Polygon</span><span class="p">,</span> <span class="n">QgsWKBTypes</span><span class="o">.</span><span class="n">MultiPolygon</span><span class="p">):</span>
-        <span class="n">layer</span><span class="o">.</span><span class="n">setLayerTransparency</span><span class="p">(</span><span class="mi">80</span><span class="p">)</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">setLayerTransparency</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 
 <span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 </pre></div>
@@ -362,7 +362,7 @@ seront utiles)</em></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">layers</span><span class="p">():</span>
     <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">wkbType</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span>
           <span class="n">QgsWkbTypes</span><span class="o">.</span><span class="n">Polygon</span><span class="p">,</span> <span class="n">QgsWkbTypes</span><span class="o">.</span><span class="n">MultiPolygon</span><span class="p">):</span>
-        <span class="n">layer</span><span class="o">.</span><span class="n">setOpacity</span><span class="p">(</span><span class="mf">0.8</span><span class="p">)</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">setOpacity</span><span class="p">(</span><span class="mf">0.9</span><span class="p">)</span>
 
 <span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 </pre></div>

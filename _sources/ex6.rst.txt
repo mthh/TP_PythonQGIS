@@ -1,2 +1,7 @@
-Exercice 6
-==========
+Exercice 6 - Géotraitements et exports HTML
+===========================================
+
+Objectif
+--------
+
+L'objectif de cet exercice est de continuer à se familiariser avec les géotraitements en Python et d'effectuer un export (type *rapport généré automatiquement*) au format HTML.

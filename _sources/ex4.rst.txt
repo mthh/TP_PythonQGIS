@@ -230,7 +230,7 @@ Procédure
            layer = QgsMapLayerRegistry.instance().mapLayersByName(name)[0]
            layer_node = root.findLayer(layer.id())
            node = layer_node.clone()
-           root.insertChildNode(0, node)
+           root.insertChildNode(ix, node)
            root.removeChildNode(layer_node)
 
 
@@ -246,13 +246,13 @@ Procédure
            layer = QgsProject.instance().mapLayersByName(name)[0]
            layer_node = root.findLayer(layer.id())
            node = layer_node.clone()
-           root.insertChildNode(0, node)
+           root.insertChildNode(ix, node)
            root.removeChildNode(layer_node)
 
 
 
 - Nous devons maintenant régler la transparence de chacune des couches de
-  type ``Polygon`` à 80%.
+  type ``Polygon`` à 10%.
   **À vous de jouer !** *(La cheatsheet de ce TP, un moteur de recherche et/ou la documentation PyQgis
   seront utiles)*
 
@@ -265,7 +265,7 @@ Procédure
         for layer in iface.mapCanvas().layers():
             if int(layer.wkbType()) in (
                     QgsWKBTypes.Polygon, QgsWKBTypes.MultiPolygon):
-                layer.setLayerTransparency(80)
+                layer.setLayerTransparency(10)
 
         iface.mapCanvas().refresh()
 
@@ -279,7 +279,7 @@ Procédure
         for layer in iface.mapCanvas().layers():
             if layer.wkbType() in (
                   QgsWkbTypes.Polygon, QgsWkbTypes.MultiPolygon):
-                layer.setOpacity(0.8)
+                layer.setOpacity(0.9)
 
         iface.mapCanvas().refresh()
 
