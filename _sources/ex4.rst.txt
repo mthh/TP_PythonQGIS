@@ -1,4 +1,4 @@
-Exercice 4 - Automatisation d'actions répétitives
+Exercice 4 : Automatisation d'actions répétitives
 =================================================
 
 .. figure:: img/ex4_osm.png

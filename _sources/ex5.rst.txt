@@ -221,7 +221,7 @@ Procédure
      Solution QGIS 3:
 
      ::
-       
+
         from PyQt5.QtCore import QVariant
 
         line_lyr = QgsProject.instance().mapLayersByName("Canal_Furon")[0]
@@ -262,9 +262,9 @@ Procédure
                 feat.setAttributes([ix, dist])
                 ok = pr.addFeature(feat)
                 if not ok:
-                  # Peut se produire si le nombre ou le type d'attribut ne correspondent
-                  # à ceux attendus pour cette couche
-                  print("Erreur lors de la création de l'entité {}".format(ix))
+                    # Peut se produire si le nombre ou le type d'attribut ne correspondent
+                    # à ceux attendus pour cette couche
+                    print("Erreur lors de la création de l'entité {}".format(ix))
 
         # Mise à jour de l'étendue de la couche
         layer.updateExtents()
