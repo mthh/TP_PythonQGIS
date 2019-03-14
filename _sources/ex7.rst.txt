@@ -262,7 +262,7 @@ Procédure
   * Les étapes suivantes consistent à intégrer cette logique à notre plugin.
 
 
-  - Bonus : on veut vérifier que les poylgones à fusionner sont bien voisins.
+  - **Bonus** : on veut vérifier que les poylgones à fusionner sont bien voisins.
     Comment s'y prendre ? Pour deux polygones ? Pour 3, 4 ou un nombre indéterminé ?
 
     .. container:: spoiler blq

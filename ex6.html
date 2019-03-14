@@ -187,11 +187,11 @@ couches d’un projet QGIS.</p>
 correspondant à chacune des couches.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># QGIS 2</span>
 <span class="n">furon</span> <span class="o">=</span> <span class="n">QgsMapLayerRegistry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;Canal_Furon&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">communes</span> <span class="o">=</span> <span class="n">QgsMapLayerRegistry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;COMMUNES&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">communes</span> <span class="o">=</span> <span class="n">QgsMapLayerRegistry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;COMMUNE&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="c1"># QGIS 3</span>
 <span class="n">furon</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;Canal_Furon&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">communes</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;COMMUNES&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">communes</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;COMMUNE&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 </li>
@@ -202,27 +202,84 @@ correspondant à chacune des couches.</p>
 </div>
 </li>
 <li><p class="first"><strong>Quel est le type de l’objet</strong> <code class="docutils literal notranslate"><span class="pre">geom_furon</span></code> <strong>?</strong></p>
+<div class="spoiler blq docutils container">
+<p>Solution</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">geom_furon</span><span class="p">))</span>
+<span class="c1"># Il s&#39;agit d&#39;un objet de type* ``QgsGeometry``.</span>
+</pre></div>
+</div>
+</div>
 </li>
 <li><p class="first">Étant-donné les deux couches d’informations dont on dispose, <strong>quel prédicat
 spatial peut-on utiliser</strong> pour répondre à la question suivante : <strong>Quelle sont les communes traversées par le Canal du Furon ?</strong></p>
+<div class="spoiler blq docutils container">
+<p>Solution</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># On peut utiliser le prédicat spatial* **intersects**.</span>
+</pre></div>
+</div>
+</div>
 </li>
 <li><p class="first"><strong>Comment ce problème pourrait-il être formulé d’un point de vue algorithmique ?</strong></p>
+<div class="spoiler blq docutils container">
+<p>Solution</p>
+<blockquote>
+<div><p>Pour chaque entité <strong>FT</strong> de la couche <em>communes</em> :</p>
+<blockquote>
+<div><ul class="simple">
+<li>Si la geometrie de <strong>FT</strong> intersecte la géometrie du cours d’eau :<ul>
+<li>Ajout du nom de <strong>FT</strong> à une liste.</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</div>
 </li>
 <li><p class="first"><strong>Créer une liste qui contient le nom des communes traversées par le canal du Furon.</strong></p>
+<div class="spoiler blq docutils container">
+<p>Solution</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">communes</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">geom_furon</span><span class="p">):</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;NOM_COM&#39;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Les communes traversees par le Furon sont : </span><span class="si">{}</span><span class="s1">.&#39;</span>
+      <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
 </li>
-<li><p class="first">Les objets <code class="docutils literal notranslate"><span class="pre">QgsGeometry</span></code> disposent d’une méthode buffer qui retoure une nouvelle <code class="docutils literal notranslate"><span class="pre">QgsGeometry</span></code>.
+<li><p class="first">Les objets <code class="docutils literal notranslate"><span class="pre">QgsGeometry</span></code> disposent d’une méthode buffer qui retourne une nouvelle <code class="docutils literal notranslate"><span class="pre">QgsGeometry</span></code>.
 On peut créer une zone tampon de 250m autour du cours d’eau de la manière suivante :</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">geom_bufer</span> <span class="o">=</span> <span class="n">geom_furon</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mf">250.</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">geom_buffer</span> <span class="o">=</span> <span class="n">geom_furon</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mf">250.</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first"><strong>Quelle type de géométrie est obtenu en résultat ?</strong></p>
+<div class="spoiler blq docutils container">
+<p>Solution</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">QgsWKBTypes</span><span class="o">.</span><span class="n">displayString</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">geom_buffer</span><span class="o">.</span><span class="n">wkbType</span><span class="p">())))</span>
+<span class="c1"># Il s&#39;agit d&#39;une géométrie de type **polygone**.</span>
+</pre></div>
+</div>
+</div>
 </li>
 <li><p class="first"><strong>Créer une nouvelle liste contenant le nom des communes qui croisent cette zone tampon. Combien sont-elles ?</strong></p>
+<div class="spoiler blq docutils container">
+<p>Solution</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">communes</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">geom_buffer</span><span class="p">):</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;NOM_COM&#39;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> communes sont traversees&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
 </li>
 <li><p class="first">Bien que nous aillons pu manipuler la zone tampon précédemment créée, elle n’a pas été ajoutée à la carte.
 En effet cette géométrie n’appartient pour l’instant à aucune entité ni à aucune couche.</p>
-<p><strong>Quelle étapes peuvent-être mises en oeuvres pour afficher cette zone sur la carte ?</strong> <em>(à formuler oralement/textuellement d’abords puis éventuellement en Python)</em></p>
+<p><strong>Quelles étapes peuvent-être mises en oeuvres pour afficher cette zone sur la carte ?</strong> <em>(à formuler oralement/textuellement d’abords puis éventuellement en Python)</em></p>
 </li>
 </ul>
 <p class="rubric">Footnotes</p>
