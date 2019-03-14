@@ -1,7 +1,141 @@
-Exercice 6 : Géotraitements et exports HTML
-===========================================
+Exercice 6 : Manipulation de couches vecteurs et géotraitements
+===============================================================
+
+.. figure:: img/ex6_intro.png
+  :width: 40%
+  :align: center
+  :figwidth: 98%
+
 
 Objectif
 --------
 
-L'objectif de cet exercice est de continuer à se familiariser avec les géotraitements en Python et d'effectuer un export (type *rapport généré automatiquement*) au format HTML.
+L'objectif de cet exercice est de continuer à se familiariser avec :
+
+- la manipulation des couches dans l'interface de QGIS
+- la réalisation de géotraitements
+
+
+Données
+-------
+
+| -> `La couche des communes de France Métropolitaine`_ (GEOFLA 2.2 2016 - Source : IGN [#f1]_)
+| -> ``TP_Python_Qgis/data/ex5/Canal_Furon.shp`` (Ligne - Source : IGN [#f1]_)
+| -> Le fichier projet (``.qgs``) correpondant à l'exercice 4.
+
+
+Procédure
+---------
+
+- Ouvrir QGIS.
+
+- Ouvrir la console Python.
+
+- Lors de l'exercice 4, les couches ont été ajoutées en Python depuis le dossier qui les contenait.
+  Si le projet n'a pas été sauvegardé dans le même dossier, il est possible de modifier le chemin d'accès
+  à chacune des couches en Python et, par exemple, sans utiliser QGIS.
+
+  En effet, les projets QGIS sont stockés au format XML et la bibliothèque standard Python propose plusieurs
+  solutions pour lire et modifier ces fichiers. Nous allons en quelques lignes changer le chemins de chacune des
+  couches d'un projet QGIS.
+
+  ::
+
+    import xml.etree.ElementTree as ET
+    import os
+
+    # Le chemin correspondant aux couches shapefile
+    # depuis le projet .qgs a modifier
+    # (correspondant ici a 'data/ex4')
+    prefix = os.path.join('data', 'ex4')
+
+    # Ouverture du projet
+    tree = ET.parse('projet_exo4.qgs')
+    root = tree.getroot()
+
+    # Pour chaque groupe de couches dans notre projet :
+    for layer_group in root.findall('layer-tree-group'):
+        # Pour chaque couche (chaque noeud 'layer-tree-layer')
+        # le chemin est dans l'attribut source
+        for layer in layer_group.findall('layer-tree-layer'):
+            # Recuperation du nom du fichier
+            src = layer.get('source')
+            # Join le nom du dossier et le nom du chemin
+            new_src = os.path.join(prefix, src)
+            # Remplace le chemin par la chemin avec prefix
+            layer.set('source', new_src)
+
+
+    # Ecriture du resultat
+    tree.write('projet_exo4.qgs')
+
+
+  On peut maintenant essayer d'ouvrir à nouveau le projet dans l'interface.
+
+- Ouvrir un nouveau projet, en cliquant sur l'icone dans l'interface ou en Python :
+  ::
+
+    QgsProject.instance().clear()
+
+
+- Ajouter la couche ``Canal_Furon.shp`` et la couche ``COMMUNES.shp`` et obtenir l'objet Python
+  correspondant à chacune des couches.
+  ::
+
+    # QGIS 2
+    furon = QgsMapLayerRegistry.instance().mapLayersByName("Canal_Furon")[0]
+    communes = QgsMapLayerRegistry.instance().mapLayersByName("COMMUNES")[0]
+
+    # QGIS 3
+    furon = QgsProject.instance().mapLayersByName("Canal_Furon")[0]
+    communes = QgsProject.instance().mapLayersByName("COMMUNES")[0]
+
+
+- La couche ``Canal_Furon.shp`` ne contient qu'une entité, on accède directement à sa géométrie de la façon suivante :
+  ::
+
+    ft_furon = list(furon.getFeatures())[0]
+    geom_furon = ft_furon.geometry()
+
+
+- **Quel est le type de l'objet** ``geom_furon`` **?**
+
+
+- Étant-donné les deux couches d'informations dont on dispose, **quel prédicat
+  spatial peut-on utiliser** pour répondre à la question suivante : **Quelle sont les communes traversées par le Canal du Furon ?**
+
+
+
+- **Comment ce problème pourrait-il être formulé d'un point de vue algorithmique ?**
+
+
+
+- **Créer une liste qui contient le nom des communes traversées par le canal du Furon.**
+
+- Les objets ``QgsGeometry`` disposent d'une méthode buffer qui retoure une nouvelle ``QgsGeometry``.
+  On peut créer une zone tampon de 250m autour du cours d'eau de la manière suivante :
+  ::
+
+    geom_bufer = geom_furon.buffer(250., 8)
+
+
+- **Quelle type de géométrie est obtenu en résultat ?**
+
+
+- **Créer une nouvelle liste contenant le nom des communes qui croisent cette zone tampon. Combien sont-elles ?**
+
+
+- Bien que nous aillons pu manipuler la zone tampon précédemment créée, elle n'a pas été ajoutée à la carte.
+  En effet cette géométrie n'appartient pour l'instant à aucune entité ni à aucune couche.
+
+  **Quelle étapes peuvent-être mises en oeuvres pour afficher cette zone sur la carte ?** *(à formuler oralement/textuellement d'abords puis éventuellement en Python)*
+
+
+
+.. rubric:: Footnotes
+
+.. [#f1] Institut national de l'information géographique et forestière : http://professionnels.ign.fr/donnees. Données téléchargées le 28/02/2019.
+
+
+
+.. _`La couche des communes de France Métropolitaine`: https://framadrop.org/r/7OgkED0KnR#J/WvKq1TlzEgrEQlHU0lin2sAtGkfBGpEunsbhklsIs=

@@ -89,16 +89,17 @@ Procédure
     - on évite le mot "plugin" dans la nom du plugin [#f3]_
 
 
-.. figure:: img/ex7_builder_fields.png
-  :align: center
-  :figwidth: 98%
+  .. figure:: img/ex7_builder_fields.png
+    :align: center
+    :figwidth: 98%
 
-.. figure:: img/ex7_builder_fields2.png
-  :align: center
-  :figwidth: 98%
 
-  On choisi le type de template à utiliser pour la fenetre qui va être créée,
-  le nom qui sera utilisé dans le menu de QGIS et le menu dans lequel sera ajouté.
+  .. figure:: img/ex7_builder_fields2.png
+    :align: center
+    :figwidth: 98%
+
+    On choisi le type de template à utiliser pour la fenetre qui va être créée,
+    le nom qui sera utilisé dans le menu de QGIS et le menu dans lequel sera ajouté.
 
 
 - Les panneaux suivants peuvent être laissés par défaut, à l'exception du dernier où il est
@@ -128,6 +129,7 @@ Procédure
 
 
   .. figure:: img/ex7_qtdesigner_combobox.png
+    :width: 100%
     :align: center
     :figwidth: 98%
 
@@ -137,6 +139,7 @@ Procédure
   Changer ensuite les filtres relatifs aux couches affichées dans cette liste déroulante afin de n'autoriser que les ``Polygon Layer``.
 
   .. figure:: img/ex7_qtdesigner_end.png
+    :width: 100%
     :align: center
     :figwidth: 98%
 
@@ -298,7 +301,7 @@ Procédure
               # On va regarder si on peut parcourir l'ensemble des géométries
               # en allant de géométrie qui se touche à géométrie qui se touche
 
-              # Un `set` pour garder une trace des polygone parcourus
+              # Un `set` pour garder une trace des polygones parcourus
               seen = set()
 
               # Une fonction récursive est définie pour parcourir les polygones
@@ -344,31 +347,31 @@ Procédure
 
   * Pour créer une archive zippée du plugin on pourra utiliser ``make zip``
 
-- Option 2 : Recette manuelle :
-  Utiliser le chemin des plugins QGIS en fonction de votre plateforme (à partir de votre dossier personnel):
-
-    * Linux:
-      ``.local/share/QGIS/QGIS3/profiles/default/python/plugins/``
-    * Mac OS X:
-      ``Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins``
-    * Windows:
-      ``AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins``
-
-  Exécuter les commandes suivantes depuis la console système, et ce depuis le dossier
-  où est developpé le plugin :
-
-  .. code-block:: bash
-
-      $ export QGISDIR = "le_chemin_approprié_comme_vu_au_dessus"
-      $ export PLUGINNAME = "neighbor_merger"
-      $ pyrcc4 -o resources.py  resources.qrc
-      $ pyuic5 -o xxxxxxxxxxxxxxx
-      $ rm -rf ~/$(QGISDIR)/python/plugins/$(PLUGINNAME)
-      $ mkdir -p ~/$(QGISDIR)/python/plugins/$(PLUGINNAME)
-      $ cp -vf *.py ~/$(QGISDIR)/python/plugins/$(PLUGINNAME)
-      $ cp -vf *.ui ~/$(QGISDIR)/python/plugins/$(PLUGINNAME)
-      $ cp -vf ressources.qrc ~/$(QGISDIR)/python/plugins/$(PLUGINNAME)
-
+.. - Option 2 : Recette manuelle :
+..   Utiliser le chemin des plugins QGIS en fonction de votre plateforme (à partir de votre dossier personnel):
+..
+..     * Linux:
+..       ``.local/share/QGIS/QGIS3/profiles/default/python/plugins/``
+..     * Mac OS X:
+..       ``Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins``
+..     * Windows:
+..       ``AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins``
+..
+..   Exécuter les commandes suivantes depuis la console système, et ce depuis le dossier
+..   où est developpé le plugin :
+..
+..   .. code-block:: bash
+..
+..       $ export QGISDIR = "le_chemin_approprié_comme_vu_au_dessus"
+..       $ export PLUGINNAME = "neighbor_merger"
+..       $ pyrcc4 -o resources.py  resources.qrc
+..       $ pyuic5 -o xxxxxxxxxxxxxxx
+..       $ rm -rf ~/$(QGISDIR)/python/plugins/$(PLUGINNAME)
+..       $ mkdir -p ~/$(QGISDIR)/python/plugins/$(PLUGINNAME)
+..       $ cp -vf *.py ~/$(QGISDIR)/python/plugins/$(PLUGINNAME)
+..       $ cp -vf *.ui ~/$(QGISDIR)/python/plugins/$(PLUGINNAME)
+..       $ cp -vf ressources.qrc ~/$(QGISDIR)/python/plugins/$(PLUGINNAME)
+..
 
 
 .. rubric:: Footnotes
