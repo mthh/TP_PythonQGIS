@@ -24,7 +24,7 @@ Données et outils nécessaires
 
 | -> **Qt Designer 5** (normallement installé lors d'une nouvelle installation de QGIS).
 | -> Plugin QGIS ``Plugin Builder``.
-| -> Couche des départements français (``TP_Python_Qgis/data/ex7/departements2015.shp``) pour vérifier le fonctionnement du plugin.
+| -> Couche des départements français (``TP_Python_Qgis/data/ex7/departements_2015.shp``) pour vérifier le fonctionnement du plugin.
 
 | -> Le résultat de ce TP est disponible à l'adresse : https://github.com/mthh/TP_PythonQGIS_plugin/ (code, archive du plugin prêt à être installé, etc.).
 
@@ -98,7 +98,7 @@ Procédure
     :align: center
     :figwidth: 98%
 
-    On choisi le type de template à utiliser pour la fenetre qui va être créée,
+    On choisi le type de template à utiliser pour la fenêtre qui va être créée,
     le nom qui sera utilisé dans le menu de QGIS et le menu dans lequel sera ajouté.
 
 
@@ -331,7 +331,7 @@ Procédure
 
 - Sur GNU/Linux ou Mac OS X ouvrir la console système habituelle.
 
-- Se rendre dans le dossier choisit pour enregistrer le code de votre plugin.
+- Se rendre dans le dossier précédemment choisit pour enregistrer le code de votre plugin :
   ::
 
     # Par exemple pour gnu/linux ou mac os x
@@ -341,37 +341,16 @@ Procédure
     cd C:\home\matthieu\Desktop\code\neighbor_merger
 
 
-- Option 1 : Utiliser ``make`` pour préparer le code et le déplacer à l'emplacement des plugins QGIS.
+- Utiliser l'utilitaire ``Make`` pour préparer le code et le déplacer à l'emplacement des plugins QGIS.
 
-  * Utiliser l'utilitaire ``Make`` en tapant la commande ``make deploy``.
+  * Pour installer localement le plugin on utilisera la commande  ``make deploy``.
 
-  * Pour créer une archive zippée du plugin on pourra utiliser ``make zip``
+  * Pour créer une archive zippée du plugin on pourra utiliser ``make zip``.
 
-.. - Option 2 : Recette manuelle :
-..   Utiliser le chemin des plugins QGIS en fonction de votre plateforme (à partir de votre dossier personnel):
-..
-..     * Linux:
-..       ``.local/share/QGIS/QGIS3/profiles/default/python/plugins/``
-..     * Mac OS X:
-..       ``Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins``
-..     * Windows:
-..       ``AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins``
-..
-..   Exécuter les commandes suivantes depuis la console système, et ce depuis le dossier
-..   où est developpé le plugin :
-..
-..   .. code-block:: bash
-..
-..       $ export QGISDIR = "le_chemin_approprié_comme_vu_au_dessus"
-..       $ export PLUGINNAME = "neighbor_merger"
-..       $ pyrcc4 -o resources.py  resources.qrc
-..       $ pyuic5 -o xxxxxxxxxxxxxxx
-..       $ rm -rf ~/$(QGISDIR)/python/plugins/$(PLUGINNAME)
-..       $ mkdir -p ~/$(QGISDIR)/python/plugins/$(PLUGINNAME)
-..       $ cp -vf *.py ~/$(QGISDIR)/python/plugins/$(PLUGINNAME)
-..       $ cp -vf *.ui ~/$(QGISDIR)/python/plugins/$(PLUGINNAME)
-..       $ cp -vf ressources.qrc ~/$(QGISDIR)/python/plugins/$(PLUGINNAME)
-..
+  * Les différentes actions relatives à ces commandes (``zip``, ``deploy``, etc.)
+    sont décrite dans le fichier nommé ``Makefile``. C'est dans ce fichier
+    qu'il sera nécessaire de préciser si d'autres éléments (données d'exemple,
+    images, etc.) doivent être prise en compte lors de l'installation du plugin.
 
 
 .. rubric:: Footnotes

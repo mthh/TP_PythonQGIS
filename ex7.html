@@ -134,7 +134,7 @@ de plugins (tels que les outils <code class="docutils literal notranslate"><span
 <div class="line-block">
 <div class="line">-&gt; <strong>Qt Designer 5</strong> (normallement installé lors d’une nouvelle installation de QGIS).</div>
 <div class="line">-&gt; Plugin QGIS <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code>.</div>
-<div class="line">-&gt; Couche des départements français (<code class="docutils literal notranslate"><span class="pre">TP_Python_Qgis/data/ex7/departements2015.shp</span></code>) pour vérifier le fonctionnement du plugin.</div>
+<div class="line">-&gt; Couche des départements français (<code class="docutils literal notranslate"><span class="pre">TP_Python_Qgis/data/ex7/departements_2015.shp</span></code>) pour vérifier le fonctionnement du plugin.</div>
 </div>
 <div class="line-block">
 <div class="line">-&gt; Le résultat de ce TP est disponible à l’adresse : <a class="reference external" href="https://github.com/mthh/TP_PythonQGIS_plugin/">https://github.com/mthh/TP_PythonQGIS_plugin/</a> (code, archive du plugin prêt à être installé, etc.).</div>
@@ -199,7 +199,7 @@ d’extensions.</p>
 </div>
 <div class="figure align-center" id="id4" style="width: 98%">
 <img alt="_images/ex7_builder_fields2.png" src="_images/ex7_builder_fields2.png" />
-<p class="caption"><span class="caption-text">On choisi le type de template à utiliser pour la fenetre qui va être créée,
+<p class="caption"><span class="caption-text">On choisi le type de template à utiliser pour la fenêtre qui va être créée,
 le nom qui sera utilisé dans le menu de QGIS et le menu dans lequel sera ajouté.</span></p>
 </div>
 </li>
@@ -410,7 +410,7 @@ Comment s’y prendre ? Pour deux polygones ? Pour 3, 4 ou un nombre indétermin
 </li>
 <li><p class="first">Sur GNU/Linux ou Mac OS X ouvrir la console système habituelle.</p>
 </li>
-<li><p class="first">Se rendre dans le dossier choisit pour enregistrer le code de votre plugin.</p>
+<li><p class="first">Se rendre dans le dossier précédemment choisit pour enregistrer le code de votre plugin :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Par exemple pour gnu/linux ou mac os x</span>
 <span class="n">cd</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">mthh</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">neighbor_merger</span>
 
@@ -419,10 +419,14 @@ Comment s’y prendre ? Pour deux polygones ? Pour 3, 4 ou un nombre indétermin
 </pre></div>
 </div>
 </li>
-<li><p class="first">Option 1 : Utiliser <code class="docutils literal notranslate"><span class="pre">make</span></code> pour préparer le code et le déplacer à l’emplacement des plugins QGIS.</p>
+<li><p class="first">Utiliser l’utilitaire <code class="docutils literal notranslate"><span class="pre">Make</span></code> pour préparer le code et le déplacer à l’emplacement des plugins QGIS.</p>
 <ul class="simple">
-<li>Utiliser l’utilitaire <code class="docutils literal notranslate"><span class="pre">Make</span></code> en tapant la commande <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">deploy</span></code>.</li>
-<li>Pour créer une archive zippée du plugin on pourra utiliser <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">zip</span></code></li>
+<li>Pour installer localement le plugin on utilisera la commande  <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">deploy</span></code>.</li>
+<li>Pour créer une archive zippée du plugin on pourra utiliser <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">zip</span></code>.</li>
+<li>Les différentes actions relatives à ces commandes (<code class="docutils literal notranslate"><span class="pre">zip</span></code>, <code class="docutils literal notranslate"><span class="pre">deploy</span></code>, etc.)
+sont décrite dans le fichier nommé <code class="docutils literal notranslate"><span class="pre">Makefile</span></code>. C’est dans ce fichier
+qu’il sera nécessaire de préciser si d’autres éléments (données d’exemple,
+images, etc.) doivent être prise en compte lors de l’installation du plugin.</li>
 </ul>
 </li>
 </ul>
