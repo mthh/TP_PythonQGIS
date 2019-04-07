@@ -35,7 +35,7 @@ Language orienté objet
 ^^^^^^^^^^^^^^^^^^^^^^
 
 Python est orienté-objet. Il supporte **l'héritage multiple** et la **surcharge des opérateurs**.
-En Python toutes les données manipulées (y compris les types primitifs telles que les nombres et les chaînes de caractères) sont des objets : entier, flottant, liste, dictionnaire, etc. sont tous des objets.
+En Python toutes les données manipulées (y compris les types primitifs tels que les nombres et les chaînes de caractères) sont des objets : entier, flottant, liste, dictionnaire, etc. sont tous des objets.
 
 Les objets de même nature ont le même type.
 
@@ -47,7 +47,7 @@ Typage dynamique fort
 ^^^^^^^^^^^^^^^^^^^^^
 
 Le typage d'une variable consiste à associer un type à une variable.
-Lorsque le typage est dit *statique* c'est à l'utilisateur de présiser le type
+Lorsque le typage est dit *statique* c'est à l'utilisateur de préciser le type
 de la variable dans le code source de manière explicite. C'est par exemple le cas
 du C ou du Java dans lesquels on peut retrouver des instructions de ce type :
 ::
@@ -70,9 +70,9 @@ manipulées.
 Sans rentrer dans les détails on gardera également en tête que Python est un langague fortement
 typé : le langage garantit que le type des données employé décrit correctement les données en question.
 
-| En effet les deux principales caractéristiques d'un typage fort sont:
+| En effet les deux principales caractéristiques d'un typage fort sont :
 | - la détection des erreurs de typage à la l'exécution (ou à la compilation),
-| - l'interdiction des conversion implicites de types.
+| - l'interdiction des conversions implicites de types.
 
 
 Langage interpreté
@@ -81,7 +81,7 @@ Langage interpreté
 Python est dynamique : l'interpréteur peut évaluer des chaînes de caractères
 représentant des expressions ou des instructions Python.
 Il s'agit d'un langage *interprété* (comme le Java ou le Perl)
-à l'inverse de langage comme le C, le C++ ou le Pascal qui sont *compilés*.
+à l'inverse de langages comme le C, le C++ ou le Pascal qui sont *compilés*.
 
 Les langages compilés vont nécessiter de transformer le code source en code binaire
 (langage machine) lors d'une opération appelée la *compilation*.
@@ -99,7 +99,7 @@ de l'intepréteur Python (comme le serait du code Java avec la JVM par exemple).
 Bloc d'instructions et indentation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-En programmation il est courant de faire des choix (*structures conditionnelle*),
+En programmation il est courant de faire des choix (*structures conditionnelles*),
 de répéter des opérations (*boucles*) ou de définir de nouveaux objets.
 Les instructions propres à ces cas sont appelées **bloc d'instructions**.
 
