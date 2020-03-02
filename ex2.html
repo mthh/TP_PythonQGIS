@@ -15,7 +15,7 @@
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>Exercice 2 : Manipulation des attributs d’une couche &#8212; Documentation PythonQGIS_TP </title>
+    <title>Exercice 2 : Manipulation des attributs d’une couche &#8212; Documentation PythonQGIS_TP 2020</title>
     <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="ex1.html" title="Exercice 1 : Prise en main"
              accesskey="P">précédent</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP </a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2020</a> &#187;</li> 
       </ul>
     </div>
     <div class="container-wrapper">
@@ -125,8 +125,8 @@ pour chaque aéroport <em>majeur</em> son nom, son code, sa latitude et sa longi
 <h2>Données<a class="headerlink" href="#donnees" title="Lien permanent vers ce titre">¶</a></h2>
 <p>Les données proviennent de Natural Earth <a class="footnote-reference" href="#f1" id="id1">[1]</a>.</p>
 <div class="line-block">
-<div class="line">-&gt; <code class="docutils literal notranslate"><span class="pre">TP_Python_Qgis/data/ex1-3/ne_10m_airports.shp</span></code> (Points - Localisation des aéroports)</div>
-<div class="line">-&gt; <code class="docutils literal notranslate"><span class="pre">TP_Python_Qgis/data/ex1-3/ne_10m_admin_0_countries.shp</span></code> (Polygones - Pays du monde)</div>
+<div class="line">-&gt; <code class="docutils literal notranslate"><span class="pre">ne_10m_airports.shp</span></code> (Points - Localisation des aéroports) - <a class="reference external" href="https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">Téléchargement</a></div>
+<div class="line">-&gt; <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.shp</span></code> (Polygones - Pays du monde) - <a class="reference external" href="https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_airports.zip">Téléchargement</a></div>
 </div>
 </div>
 <div class="section" id="procedure">
@@ -193,7 +193,7 @@ QGIS offre de nombreux modes de rendu des couches (catégorisé, gradué, etc.) 
 <span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
     <span class="n">geom</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
     <span class="n">geom_point</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
-    <span class="c1"># L&#39;objet `QgsPoint` a notamment une méthode `x` et une méthode `y`</span>
+    <span class="c1"># L&#39;objet `QgsPointXY` a notamment une méthode `x` et une méthode `y`</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">geom_point</span><span class="p">,</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">y</span><span class="p">())</span>
 </pre></div>
 </div>
@@ -210,7 +210,7 @@ différentes entités dans une liste de compréhension :</p>
 <li><p class="first">Nous savons donc comment accéder aux différentes informations nécessaires pour réaliser l’export souhaité.
 L’export au format CSV va nécessiter de structurer les valeurs relatives à
 chaque enregistrement (ici à chaque aéroport) sous forme d’une liste.
-Le module <code class="docutils literal notranslate"><span class="pre">csv</span></code> de la bibliothèque standard <a class="footnote-reference" href="#f2" id="id2">[2]</a> se chargera d’écrire
+Le module <code class="docutils literal notranslate"><span class="pre">csv</span></code> de la bibliothèque standard <a class="footnote-reference" href="#f2" id="id3">[2]</a> se chargera d’écrire
 correctement les valeurs de chaque enregistrement selon le type de fichier CSV souhaité.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
@@ -221,25 +221,6 @@ correctement les valeurs de chaque enregistrement selon le type de fichier CSV s
 </div>
 </li>
 <li><p class="first">Il suffit de quelques lignes supplémentaires pour écrire ces informations dans un fichier :</p>
-<p>QGIS 2 / Python 2</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">csv</span>
-
-<span class="n">output_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/home/mthh/airports.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
-<span class="n">csv_writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">output_file</span><span class="p">)</span>
-
-<span class="n">header_line</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Nom&quot;</span><span class="p">,</span> <span class="s2">&quot;Code_IATA&quot;</span><span class="p">,</span> <span class="s2">&quot;Latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;Longitude&quot;</span><span class="p">]</span>
-<span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">header_line</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
-    <span class="c1"># Les résultats ne sont pas encore filtrés selon le type d&#39;aeroport !</span>
-    <span class="n">geom_point</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
-    <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span>
-        <span class="p">[</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">y</span><span class="p">()])</span>
-
-<span class="n">output_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>QGIS 3 / Python 3</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">csv</span>
 
 <span class="n">output_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/home/mthh/airports.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
@@ -258,56 +239,44 @@ correctement les valeurs de chaque enregistrement selon le type de fichier CSV s
 </pre></div>
 </div>
 </li>
+</ul>
+</li>
 <li><div class="first line-block">
 <div class="line"><strong>À vous de jouer !</strong></div>
 <div class="line">Reprendre le script précédent et faire en sorte de n’exporter que les aéroports de type “major” et “major and military”.</div>
-<div class="line">Enregistrer ce script sous le nom <cite>export_txt.py</cite>.</div>
+<div class="line">Enregistrer ce script sous le nom <code class="docutils literal notranslate"><span class="pre">export_airports.py</span></code>.</div>
 <div class="line">Exécuter le script pour vérifier de son bon fonctionnement.</div>
-<div class="line">Le fichier CSV exporté doit être reconnu correctement par l’OS et s’ouvrir dans le tableur habituel (Calc, Excel, etc.).</div>
+<div class="line">Le fichier CSV exporté doit être reconnu correctement par l’OS et s’ouvrir dans le tableur habituel (LibreOffice Calc, Microsoft Excel, etc.).</div>
 <div class="line"><strong>Combien de lignes contient ce nouveau fichier CSV ?</strong></div>
 </div>
-</li>
-</ul>
 </li>
 <li><p class="first"><strong>Pour aller plus loin…</strong></p>
 <p>Le résultat attendu peut être obtenu de plusieurs manière différentes.
 En effet il est soit possible d’itérer sur l’ensemble des entités de la couche et de vérifier que le champ <code class="docutils literal notranslate"><span class="pre">type</span></code> de chaque entité
-et bien, soit <code class="docutils literal notranslate"><span class="pre">major</span></code>, soit <code class="docutils literal notranslate"><span class="pre">major</span> <span class="pre">and</span> <span class="pre">military</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
-<span class="hll">     <span class="k">if</span> <span class="n">ft</span><span class="o">|</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;major and military&#39;</span><span class="p">):</span>
-</span>         <span class="n">geom_point</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
-         <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span>
-             <span class="p">[</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">y</span><span class="p">()])</span>
+et bien, soit <code class="docutils literal notranslate"><span class="pre">major</span></code>, soit <code class="docutils literal notranslate"><span class="pre">major</span> <span class="pre">and</span> <span class="pre">military</span></code> :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
+<span class="hll">    <span class="k">if</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;major and military&#39;</span><span class="p">):</span>
+</span>        <span class="n">geom_point</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
+        <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">y</span><span class="p">()])</span>
 </pre></div>
 </div>
 <p>Au regard des valeurs prises par le champ <code class="docutils literal notranslate"><span class="pre">type</span></code> il est également possible de vérifier
 que la chaine de caractère du champ type commence bien par <code class="docutils literal notranslate"><span class="pre">major</span></code> en utilisant
-la méthode</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
-<span class="hll">     <span class="k">if</span> <span class="n">ft</span><span class="o">|</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;major&#39;</span><span class="p">):</span>
-</span>         <span class="n">geom_point</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
-         <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span>
-             <span class="p">[</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">y</span><span class="p">()])</span>
+la méthode <code class="docutils literal notranslate"><span class="pre">startswith</span></code> :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
+<span class="hll">    <span class="k">if</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;major&#39;</span><span class="p">):</span>
+</span>        <span class="n">geom_point</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
+        <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">y</span><span class="p">()])</span>
 </pre></div>
 </div>
-<p>Enfin, il est également possible d’utiliser une expression QGIS.</p>
-<p>Avec QGIS 2 est nécessaire de créer un objet de type <code class="docutils literal notranslate"><span class="pre">QgsExpression</span></code>.
-Cet objet sera donné en argument à un objet de type <code class="docutils literal notranslate"><span class="pre">QgsFeatureRequest</span></code>,
-utilisé lors de l’appel de la méthode <code class="docutils literal notranslate"><span class="pre">getFeatures</span></code> déjà utilisée précédemment.</p>
-<p>Avec QGIS 3 il est possible de passer directement la chaine de caractère qui
-correspond à l’expression souhaitée en argument de la méthode <code class="docutils literal notranslate"><span class="pre">getFeatures</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="c1"># QGIS 2</span>
-<span class="hll"> <span class="n">expr</span> <span class="o">=</span> <span class="n">QgsExpression</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">type</span><span class="se">\&quot;</span><span class="s2"> LIKE &#39;major%&#39;&quot;</span><span class="p">)</span>
-</span><span class="hll"> <span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">(</span><span class="n">QgsFeatureRequest</span><span class="p">(</span><span class="n">expr</span><span class="p">)):</span>
-</span>     <span class="n">geom_point</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
-     <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span>
-         <span class="p">[</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">y</span><span class="p">()])</span>
-
- <span class="c1"># QGIS 3</span>
-<span class="hll"> <span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">type</span><span class="se">\&quot;</span><span class="s2"> LIKE &#39;major%&#39;&quot;</span><span class="p">):</span>
-</span>     <span class="n">geom_point</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
-     <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span>
-         <span class="p">[</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">y</span><span class="p">()])</span>
+<p>Enfin, il est également possible d’utiliser une <em>expression</em> QGIS. Depuis QGIS 3 il est désormais possible de passer directement la chaine de caractère qui
+correspond à l’expression souhaitée en argument de la méthode <code class="docutils literal notranslate"><span class="pre">getFeatures</span></code> :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">type</span><span class="se">\&quot;</span><span class="s2"> LIKE &#39;major%&#39;&quot;</span><span class="p">):</span>
+</span>    <span class="n">geom_point</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
+    <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span>
+      <span class="p">[</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">y</span><span class="p">()])</span>
 </pre></div>
 </div>
 </li>
@@ -316,13 +285,13 @@ correspond à l’expression souhaitée en argument de la méthode <code class="
 <table class="docutils footnote" frame="void" id="f1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://www.naturalearthdata.com/">http://www.naturalearthdata.com/</a>. Données téléchargées le 28/02/2019.</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://www.naturalearthdata.com/">http://www.naturalearthdata.com/</a>. Consulté le 01/03/2020.</td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="f2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="https://docs.python.org/3/library/csv.html">https://docs.python.org/3/library/csv.html</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id3">[2]</a></td><td><a class="reference external" href="https://docs.python.org/3/library/csv.html">https://docs.python.org/3/library/csv.html</a></td></tr>
 </tbody>
 </table>
 </div>
@@ -358,7 +327,7 @@ correspond à l’expression souhaitée en argument de la méthode <code class="
         <li class="right" >
           <a href="ex1.html" title="Exercice 1 : Prise en main"
              >précédent</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP </a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2020</a> &#187;</li> 
       </ul>
     </div>
 <script type="text/javascript">
@@ -368,7 +337,7 @@ correspond à l’expression souhaitée en argument de la méthode <code class="
 </script>
 <script type="text/javascript" src="_static/js/bootstrap.js"></script>
   <div class="footer">
-    &copy; Copyright 2019, Matthieu Viry. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    &copy; Copyright 2018-2020, Matthieu Viry. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
   </div>
   </body>
 </html>

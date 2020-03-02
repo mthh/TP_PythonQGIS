@@ -1,0 +1,2 @@
+Exercice 2 : Manipulation des attributs d'une couche - correction
+=================================================================

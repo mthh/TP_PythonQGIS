@@ -15,7 +15,7 @@
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>Exercice 1 : Prise en main &#8212; Documentation PythonQGIS_TP </title>
+    <title>Exercice 1 : Prise en main &#8212; Documentation PythonQGIS_TP 2020</title>
     <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="intro2.html" title="Introduction QGIS"
              accesskey="P">précédent</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP </a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2020</a> &#187;</li> 
       </ul>
     </div>
     <div class="container-wrapper">
@@ -125,9 +125,9 @@
 </div>
 <div class="section" id="donnees">
 <h2>Données<a class="headerlink" href="#donnees" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Les données proviennent de Natural Earth <a class="footnote-reference" href="#f1" id="id1">[1]</a>.</p>
+<p>Les données proviennent de Natural Earth <a class="footnote-reference" href="#f1" id="id1">[1]</a> :</p>
 <div class="line-block">
-<div class="line">-&gt; <code class="docutils literal notranslate"><span class="pre">TP_Python_Qgis/data/ex1-3/ne_10m_admin_0_countries.shp</span></code> (Polygones - Pays du monde)</div>
+<div class="line">-&gt; <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.shp</span></code> (Polygones - Pays du monde) - <a class="reference external" href="https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">**Téléchargement**</a></div>
 </div>
 </div>
 <div class="section" id="procedure">
@@ -136,7 +136,7 @@
 <h3>Charger les données<a class="headerlink" href="#charger-les-donnees" title="Lien permanent vers ce titre">¶</a></h3>
 <ul class="simple">
 <li>Ouvrir QGIS 3.</li>
-<li>Ouvrir la console Python (<code class="docutils literal notranslate"><span class="pre">CTRL+ALT+P</span></code> ou <code class="docutils literal notranslate"><span class="pre">Extension</span> <span class="pre">&gt;</span> <span class="pre">Console</span> <span class="pre">Python</span></code>)</li>
+<li>Ouvrir la console Python (<kbd class="kbd docutils literal notranslate">CTRL</kbd> + <kbd class="kbd docutils literal notranslate">ALT</kbd> + <kbd class="kbd docutils literal notranslate">P</kbd> ou <code class="docutils literal notranslate"><span class="pre">Extension</span> <span class="pre">&gt;</span> <span class="pre">Console</span> <span class="pre">Python</span></code>)</li>
 <li>Charger la couche <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.shp</span></code>.<ul>
 <li>soit en faisant un glissé-déposé de ce fichier vers l’interface de QGIS,</li>
 <li>soit en en utilisant le menu <code class="docutils literal notranslate"><span class="pre">Couche</span> <span class="pre">&gt;</span> <span class="pre">Ajouter</span> <span class="pre">une</span> <span class="pre">couche</span> <span class="pre">&gt;</span> <span class="pre">Ajouter</span> <span class="pre">une</span> <span class="pre">couche</span> <span class="pre">vecteur...</span></code></li>
@@ -163,25 +163,14 @@
 </div>
 </li>
 <li><p class="first">Obtenir les modes de rendu disponibles dans QGIS :</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># QGIS 3</span>
-<span class="n">QgsRendererRegistry</span><span class="p">()</span><span class="o">.</span><span class="n">renderersList</span><span class="p">()</span>
-
-<span class="c1"># QGIS 2</span>
-<span class="n">QgsRendererV2Registry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">renderersList</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">QgsRendererRegistry</span><span class="p">()</span><span class="o">.</span><span class="n">renderersList</span><span class="p">()</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Lister les couches du projet et leur type :</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># QGIS 3</span>
-<span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayers</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayers</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
     <span class="n">geom_type</span> <span class="o">=</span> <span class="n">QgsWkbTypes</span><span class="o">.</span><span class="n">displayString</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">wkbType</span><span class="p">())</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">geom_type</span><span class="p">))</span>
-
-<span class="c1"># QGIS 2</span>
-<span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">QgsMapLayerRegistry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayers</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
-    <span class="n">geom_type</span> <span class="o">=</span> <span class="n">QgsWKBTypes</span><span class="o">.</span><span class="n">displayString</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">wkbType</span><span class="p">()))</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">geom_type</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -195,35 +184,21 @@
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>Sélectionner une partie de ce bloc de code dans l’éditeur et appuyer sur</strong> <code class="docutils literal notranslate"><span class="pre">CTRL-E</span></code> <strong>pour éxécuter seulement les insctructions sélectionnées</strong>.</p>
+<li><p class="first"><strong>Sélectionner une partie de ce bloc de code dans l’éditeur et appuyer sur</strong> <code class="docutils literal notranslate"><span class="pre">CTRL-E</span></code> <strong>pour éxécuter seulement les instructions sélectionnées</strong>.</p>
 </li>
 <li><p class="first"><strong>Enregistrer le script avec le nom</strong> <code class="docutils literal notranslate"><span class="pre">nb_features.py</span></code> <strong>et l’exécuter.</strong></p>
 </li>
-<li><p class="first">On a vu que notre couche avait de nombreux champs. <strong>Quelle instruction doit être saisie pour savoir combien de champs possède une couche ?</strong></p>
-<p><strong>Par ailleurs, quelle instruction doit être saisie pour savoir de combien de couches se compose le projet en cours ?</strong></p>
-<div class="spoiler blq docutils container">
-<p>Solution :</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Nombre de champs pour la couche active</span>
-<span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
-<span class="n">nb_fields</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">fields</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La couche </span><span class="si">{}</span><span class="s2"> compte </span><span class="si">{}</span><span class="s2"> champs&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span> <span class="n">nb_fields</span><span class="p">))</span>
-
-<span class="c1"># Nombre de couches du projet en cours</span>
-<span class="c1"># (dans les deux cas l&#39;objet retourné est un dictionnaire et</span>
-<span class="c1">#  on peut utiliser la fonction native len() pour savoir le nombre</span>
-<span class="c1">#  d&#39;entrées qu&#39;il contient)</span>
-<span class="n">nb_layers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayers</span><span class="p">())</span> <span class="c1"># QGIS 3</span>
-<span class="n">nb_layers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">QgsMapLayerRegistry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayers</span><span class="p">())</span> <span class="c1"># QGIS 2</span>
-</pre></div>
-</div>
-</div>
+<li><p class="first">On a vu que notre couche avait de nombreux champs.
+<strong>Quelle instruction doit être saisie pour savoir combien de champs possède une couche ?</strong></p>
+</li>
+<li><p class="first"><strong>Par ailleurs, quelle instruction doit être saisie pour savoir de combien de couches se compose le projet en cours ?</strong></p>
 </li>
 </ul>
 <p class="rubric">Footnotes</p>
 <table class="docutils footnote" frame="void" id="f1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://www.naturalearthdata.com/">http://www.naturalearthdata.com/</a>. Données téléchargées le 28/02/2019.</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://www.naturalearthdata.com/">http://www.naturalearthdata.com/</a>. Consulté le 01/03/2020.</td></tr>
 </tbody>
 </table>
 </div>
@@ -260,7 +235,7 @@
         <li class="right" >
           <a href="intro2.html" title="Introduction QGIS"
              >précédent</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP </a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2020</a> &#187;</li> 
       </ul>
     </div>
 <script type="text/javascript">
@@ -270,7 +245,7 @@
 </script>
 <script type="text/javascript" src="_static/js/bootstrap.js"></script>
   <div class="footer">
-    &copy; Copyright 2019, Matthieu Viry. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    &copy; Copyright 2018-2020, Matthieu Viry. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
   </div>
   </body>
 </html>

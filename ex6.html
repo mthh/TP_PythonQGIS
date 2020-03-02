@@ -15,7 +15,7 @@
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>Exercice 6 : Manipulation de couches vecteurs et géotraitements &#8212; Documentation PythonQGIS_TP </title>
+    <title>Exercice 6 : Manipulation de couches vecteurs et géotraitements &#8212; Documentation PythonQGIS_TP 2020</title>
     <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="ex5.html" title="Exercice 5 : Ouverture d’un raster et enrichissement d’une couche vecteur"
              accesskey="P">précédent</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP </a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2020</a> &#187;</li> 
       </ul>
     </div>
     <div class="container-wrapper">
@@ -56,22 +56,6 @@
       </div>
   <div id="left-column">
     <div class="sphinxsidebar">
-<div class="sidebar-block">
-  <div class="sidebar-wrapper">
-    <h2>Contenu</h2>
-    <div class="sidebar-localtoc">
-      <ul>
-<li><a class="reference internal" href="#">Exercice 6 : Manipulation de couches vecteurs et géotraitements</a><ul>
-<li><a class="reference internal" href="#objectif">Objectif</a></li>
-<li><a class="reference internal" href="#donnees">Données</a></li>
-<li><a class="reference internal" href="#procedure">Procédure</a></li>
-</ul>
-</li>
-</ul>
-
-    </div>
-  </div>
-</div>
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="ex5.html"
                         title="Chapitre précédent">Exercice 5 : Ouverture d’un raster et enrichissement d’une couche vecteur</a></p>
@@ -118,178 +102,6 @@
 <div class="figure align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/ex6_intro.png"><img alt="_images/ex6_intro.png" src="_images/ex6_intro.png" style="width: 40%;" /></a>
 </div>
-<div class="section" id="objectif">
-<h2>Objectif<a class="headerlink" href="#objectif" title="Lien permanent vers ce titre">¶</a></h2>
-<p>L’objectif de cet exercice est de continuer à se familiariser avec :</p>
-<ul class="simple">
-<li>la manipulation des couches dans l’interface de QGIS</li>
-<li>la réalisation de géotraitements</li>
-</ul>
-</div>
-<div class="section" id="donnees">
-<h2>Données<a class="headerlink" href="#donnees" title="Lien permanent vers ce titre">¶</a></h2>
-<div class="line-block">
-<div class="line">-&gt; <a class="reference external" href="https://framadrop.org/r/7OgkED0KnR#J/WvKq1TlzEgrEQlHU0lin2sAtGkfBGpEunsbhklsIs=">La couche des communes de France Métropolitaine</a> (GEOFLA 2.2 2016 - Source : IGN <a class="footnote-reference" href="#f1" id="id1">[1]</a>)</div>
-<div class="line">-&gt; <code class="docutils literal notranslate"><span class="pre">TP_Python_Qgis/data/ex5/Canal_Furon.shp</span></code> (Ligne - Source : IGN <a class="footnote-reference" href="#f1" id="id2">[1]</a>)</div>
-<div class="line">-&gt; Le fichier projet (<code class="docutils literal notranslate"><span class="pre">.qgs</span></code>) correpondant à l’exercice 4.</div>
-</div>
-</div>
-<div class="section" id="procedure">
-<h2>Procédure<a class="headerlink" href="#procedure" title="Lien permanent vers ce titre">¶</a></h2>
-<ul>
-<li><p class="first">Ouvrir QGIS.</p>
-</li>
-<li><p class="first">Ouvrir la console Python.</p>
-</li>
-<li><p class="first">Lors de l’exercice 4, les couches ont été ajoutées en Python depuis le dossier qui les contenait.
-Si le projet n’a pas été sauvegardé dans le même dossier, il est possible de modifier le chemin d’accès
-à chacune des couches en Python et, par exemple, sans utiliser QGIS.</p>
-<p>En effet, les projets QGIS sont stockés au format XML et la bibliothèque standard Python propose plusieurs
-solutions pour lire et modifier ces fichiers. Nous allons en quelques lignes changer le chemins de chacune des
-couches d’un projet QGIS.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
-<span class="kn">import</span> <span class="nn">os</span>
-
-<span class="c1"># Le chemin correspondant aux couches shapefile</span>
-<span class="c1"># depuis le projet .qgs a modifier</span>
-<span class="c1"># (correspondant ici a &#39;data/ex4&#39;)</span>
-<span class="n">prefix</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;ex4&#39;</span><span class="p">)</span>
-
-<span class="c1"># Ouverture du projet</span>
-<span class="n">tree</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;projet_exo4.qgs&#39;</span><span class="p">)</span>
-<span class="n">root</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
-
-<span class="c1"># Pour chaque groupe de couches dans notre projet :</span>
-<span class="k">for</span> <span class="n">layer_group</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;layer-tree-group&#39;</span><span class="p">):</span>
-    <span class="c1"># Pour chaque couche (chaque noeud &#39;layer-tree-layer&#39;)</span>
-    <span class="c1"># le chemin est dans l&#39;attribut source</span>
-    <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layer_group</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;layer-tree-layer&#39;</span><span class="p">):</span>
-        <span class="c1"># Recuperation du nom du fichier</span>
-        <span class="n">src</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span>
-        <span class="c1"># Join le nom du dossier et le nom du chemin</span>
-        <span class="n">new_src</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span>
-        <span class="c1"># Remplace le chemin par la chemin avec prefix</span>
-        <span class="n">layer</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="n">new_src</span><span class="p">)</span>
-
-
-<span class="c1"># Ecriture du resultat</span>
-<span class="n">tree</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;projet_exo4.qgs&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>On peut maintenant essayer d’ouvrir à nouveau le projet dans l’interface.</p>
-</li>
-<li><p class="first">Ouvrir un nouveau projet, en cliquant sur l’icone dans l’interface ou en Python :</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">Ajouter la couche <code class="docutils literal notranslate"><span class="pre">Canal_Furon.shp</span></code> et la couche <code class="docutils literal notranslate"><span class="pre">COMMUNES.shp</span></code> et obtenir l’objet Python
-correspondant à chacune des couches.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># QGIS 2</span>
-<span class="n">furon</span> <span class="o">=</span> <span class="n">QgsMapLayerRegistry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;Canal_Furon&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">communes</span> <span class="o">=</span> <span class="n">QgsMapLayerRegistry</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;COMMUNE&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-
-<span class="c1"># QGIS 3</span>
-<span class="n">furon</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;Canal_Furon&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">communes</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;COMMUNE&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">La couche <code class="docutils literal notranslate"><span class="pre">Canal_Furon.shp</span></code> ne contient qu’une entité, on accède directement à sa géométrie de la façon suivante :</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ft_furon</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">furon</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">geom_furon</span> <span class="o">=</span> <span class="n">ft_furon</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first"><strong>Quel est le type de l’objet</strong> <code class="docutils literal notranslate"><span class="pre">geom_furon</span></code> <strong>?</strong></p>
-<div class="spoiler blq docutils container">
-<p>Solution</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">geom_furon</span><span class="p">))</span>
-<span class="c1"># Il s&#39;agit d&#39;un objet de type* ``QgsGeometry``.</span>
-</pre></div>
-</div>
-</div>
-</li>
-<li><p class="first">Étant-donné les deux couches d’informations dont on dispose, <strong>quel prédicat
-spatial peut-on utiliser</strong> pour répondre à la question suivante : <strong>Quelle sont les communes traversées par le Canal du Furon ?</strong></p>
-<div class="spoiler blq docutils container">
-<p>Solution</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># On peut utiliser le prédicat spatial* **intersects**.</span>
-</pre></div>
-</div>
-</div>
-</li>
-<li><p class="first"><strong>Comment ce problème pourrait-il être formulé d’un point de vue algorithmique ?</strong></p>
-<div class="spoiler blq docutils container">
-<p>Solution</p>
-<blockquote>
-<div><p>Pour chaque entité <strong>FT</strong> de la couche <em>communes</em> :</p>
-<blockquote>
-<div><ul class="simple">
-<li>Si la geometrie de <strong>FT</strong> intersecte la géometrie du cours d’eau :<ul>
-<li>Ajout du nom de <strong>FT</strong> à une liste.</li>
-</ul>
-</li>
-</ul>
-</div></blockquote>
-</div></blockquote>
-</div>
-</li>
-<li><p class="first"><strong>Créer une liste qui contient le nom des communes traversées par le canal du Furon.</strong></p>
-<div class="spoiler blq docutils container">
-<p>Solution</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">communes</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
-    <span class="k">if</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">geom_furon</span><span class="p">):</span>
-        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;NOM_COM&#39;</span><span class="p">])</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Les communes traversees par le Furon sont : </span><span class="si">{}</span><span class="s1">.&#39;</span>
-      <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-</li>
-<li><p class="first">Les objets <code class="docutils literal notranslate"><span class="pre">QgsGeometry</span></code> disposent d’une méthode buffer qui retourne une nouvelle <code class="docutils literal notranslate"><span class="pre">QgsGeometry</span></code>.
-On peut créer une zone tampon de 250m autour du cours d’eau de la manière suivante :</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">geom_buffer</span> <span class="o">=</span> <span class="n">geom_furon</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mf">250.</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first"><strong>Quelle type de géométrie est obtenu en résultat ?</strong></p>
-<div class="spoiler blq docutils container">
-<p>Solution</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">QgsWKBTypes</span><span class="o">.</span><span class="n">displayString</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">geom_buffer</span><span class="o">.</span><span class="n">wkbType</span><span class="p">())))</span>
-<span class="c1"># Il s&#39;agit d&#39;une géométrie de type **polygone**.</span>
-</pre></div>
-</div>
-</div>
-</li>
-<li><p class="first"><strong>Créer une nouvelle liste contenant le nom des communes qui croisent cette zone tampon. Combien sont-elles ?</strong></p>
-<div class="spoiler blq docutils container">
-<p>Solution</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">communes</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
-    <span class="k">if</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">geom_buffer</span><span class="p">):</span>
-        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;NOM_COM&#39;</span><span class="p">])</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> communes sont traversees&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-</li>
-<li><p class="first">Bien que nous aillons pu manipuler la zone tampon précédemment créée, elle n’a pas été ajoutée à la carte.
-En effet cette géométrie n’appartient pour l’instant à aucune entité ni à aucune couche.</p>
-<p><strong>Quelles étapes peuvent-être mises en oeuvres pour afficher cette zone sur la carte ?</strong> <em>(à formuler oralement/textuellement d’abords puis éventuellement en Python)</em></p>
-</li>
-</ul>
-<p class="rubric">Footnotes</p>
-<table class="docutils footnote" frame="void" id="f1" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>)</em> Institut national de l’information géographique et forestière : <a class="reference external" href="http://professionnels.ign.fr/donnees">http://professionnels.ign.fr/donnees</a>. Données téléchargées le 28/02/2019.</td></tr>
-</tbody>
-</table>
-</div>
 </div>
 
 
@@ -322,7 +134,7 @@ En effet cette géométrie n’appartient pour l’instant à aucune entité ni 
         <li class="right" >
           <a href="ex5.html" title="Exercice 5 : Ouverture d’un raster et enrichissement d’une couche vecteur"
              >précédent</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP </a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2020</a> &#187;</li> 
       </ul>
     </div>
 <script type="text/javascript">
@@ -332,7 +144,7 @@ En effet cette géométrie n’appartient pour l’instant à aucune entité ni 
 </script>
 <script type="text/javascript" src="_static/js/bootstrap.js"></script>
   <div class="footer">
-    &copy; Copyright 2019, Matthieu Viry. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    &copy; Copyright 2018-2020, Matthieu Viry. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
   </div>
   </body>
 </html>

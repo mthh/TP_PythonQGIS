@@ -35,14 +35,14 @@ Quelle(s) version(s) utiliser ?
 -------------------------------
 
 .. note::
-  **Ce TP utilise QGIS 3. Il a été testé avec la version de 3.4.**
+  **Ce TP a été conçu QGIS 3. Il a été testé avec les versions 3.4 (LTR) et 3.13 (dev).**
 
 | Par rapport à QGIS 2.x, la version 3 présente l'avantage d'utiliser **Python 3** et **Qt 5**.
 | Depuis novembre 2018, la dernière version maintenue sur le long terme (LTR) est la version 3.4.
 | Le versionnement et le développement de QGIS suivent un planning temporel : une nouvelle version stable tous les 4 mois.
-  La liste des fonctionnalités ajoutées à chaque version peut être consultée en ligne : http://changelog.qgis.org/en/qgis/version/list/.
+| La liste des fonctionnalités ajoutées à chaque version peut être consultée en ligne : http://changelog.qgis.org/en/qgis/version/list/.
 
-La documentation complète de l'API python qui va être utilisée est disponible en ligne : https://qgis.org/pyqgis/3.4/.
+La **documentation complète** de l'API python qui va être utilisée est disponible en ligne : https://qgis.org/pyqgis/3.4/.
 
 *Avant la version 3 on ne trouve de documentation de ce type pour l'API PyQgis mais il est possible de se référer à la documentation complète
 de l'API QGIS en C++ dont est dérivée l'API Python :* https://qgis.org/api/2.18/

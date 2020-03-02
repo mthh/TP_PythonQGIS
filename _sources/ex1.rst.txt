@@ -9,9 +9,9 @@ Se familiariser avec la console python et l'éditeur de code associé.
 Données
 -------
 
-Les données proviennent de Natural Earth [#f1]_.
+Les données proviennent de Natural Earth [#f1]_ :
 
-| -> ``TP_Python_Qgis/data/ex1-3/ne_10m_admin_0_countries.shp`` (Polygones - Pays du monde)
+| -> ``ne_10m_admin_0_countries.shp`` (Polygones - Pays du monde) - `**Téléchargement** <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip>`_
 
 Procédure
 ---------
@@ -21,7 +21,7 @@ Charger les données
 
 - Ouvrir QGIS 3.
 
-- Ouvrir la console Python (``CTRL+ALT+P`` ou ``Extension > Console Python``)
+- Ouvrir la console Python (:kbd:`CTRL` + :kbd:`ALT` + :kbd:`P` ou ``Extension > Console Python``)
 
 - Charger la couche ``ne_10m_admin_0_countries.shp``.
 
@@ -53,26 +53,15 @@ Tester les actions suivantes dans la console
 - Obtenir les modes de rendu disponibles dans QGIS :
   ::
 
-    # QGIS 3
     QgsRendererRegistry().renderersList()
-
-    # QGIS 2
-    QgsRendererV2Registry.instance().renderersList()
 
 
 - Lister les couches du projet et leur type :
   ::
 
-    # QGIS 3
     for layer in QgsProject.instance().mapLayers().values():
         name = layer.name()
         geom_type = QgsWkbTypes.displayString(layer.wkbType())
-        print('{}: {}'.format(name, geom_type))
-
-    # QGIS 2
-    for layer in QgsMapLayerRegistry.instance().mapLayers().values():
-        name = layer.name()
-        geom_type = QgsWKBTypes.displayString(int(layer.wkbType()))
         print('{}: {}'.format(name, geom_type))
 
 
@@ -86,35 +75,19 @@ Tester les actions suivantes dans la console
     print(u"La couche {} compte {} entités".format(name, nb))
 
 
-- **Sélectionner une partie de ce bloc de code dans l'éditeur et appuyer sur** ``CTRL-E`` **pour éxécuter seulement les insctructions sélectionnées**.
+- **Sélectionner une partie de ce bloc de code dans l'éditeur et appuyer sur** ``CTRL-E`` **pour éxécuter seulement les instructions sélectionnées**.
 
 - **Enregistrer le script avec le nom** ``nb_features.py`` **et l'exécuter.**
 
-- On a vu que notre couche avait de nombreux champs. **Quelle instruction doit être saisie pour savoir combien de champs possède une couche ?**
+- On a vu que notre couche avait de nombreux champs.
+  **Quelle instruction doit être saisie pour savoir combien de champs possède une couche ?**
 
-  **Par ailleurs, quelle instruction doit être saisie pour savoir de combien de couches se compose le projet en cours ?**
-
-
-  .. container:: spoiler blq
-
-     Solution :
-
-     ::
-
-       # Nombre de champs pour la couche active
-       layer = iface.activeLayer()
-       nb_fields = len(layer.fields())
-       print("La couche {} compte {} champs".format(layer.name(), nb_fields))
-
-       # Nombre de couches du projet en cours
-       # (dans les deux cas l'objet retourné est un dictionnaire et
-       #  on peut utiliser la fonction native len() pour savoir le nombre
-       #  d'entrées qu'il contient)
-       nb_layers = len(QgsProject.instance().mapLayers()) # QGIS 3
-       nb_layers = len(QgsMapLayerRegistry.instance().mapLayers()) # QGIS 2
-
+- **Par ailleurs, quelle instruction doit être saisie pour savoir de combien de couches se compose le projet en cours ?**
 
 
 .. rubric:: Footnotes
 
-.. [#f1] http://www.naturalearthdata.com/. Données téléchargées le 28/02/2019.
+.. [#f1] http://www.naturalearthdata.com/. Consulté le 01/03/2020.
+
+
+.. _Téléchargement: https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip

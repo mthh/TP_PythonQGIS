@@ -104,7 +104,7 @@ de répéter des opérations (*boucles*) ou de définir de nouveaux objets.
 Les instructions propres à ces cas sont appelées **bloc d'instructions**.
 
 En python les blocs d'instructions sont toujours associés à
-une **ligne d'en-tête contenant une instruction spécifique** (if, elif, else, while, def, class, ...) **se terminant par un double point**.
+une **ligne d'en-tête contenant une instruction spécifique** (``if``, ``elif``, ``else``, ``while``, ``def``, ``class``, ...) **se terminant par un double point**.
 
 **Les blocs sont délimités par l'indentation : toutes les lignes d'un même bloc doivent être indentées exactement de la même manière (c'est-à-dire décalées vers la droite d'un même nombre d'espaces).**
 Le nombre d'espaces à utiliser sans importance, mais la plupart des programmeurs

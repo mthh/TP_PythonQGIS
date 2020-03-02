@@ -1,0 +1,35 @@
+Exercice 1 : Prise en main - correction
+=======================================
+
+
+- On a vu que notre couche avait de nombreux champs.
+**Quelle instruction doit être saisie pour savoir combien de champs possède une couche ?**
+
+
+.. container:: spoiler blq
+
+   Solution :
+
+   ::
+
+     # Nombre de champs pour la couche active
+     layer = iface.activeLayer()
+     nb_fields = len(layer.fields())
+     print("La couche {} compte {} champs".format(layer.name(), nb_fields))
+
+
+- **Par ailleurs, quelle instruction doit être saisie pour savoir de combien de couches se compose le projet en cours ?**
+
+
+
+.. container:: spoiler blq
+
+   Solution :
+
+   ::
+
+     # Nombre de couches du projet en cours
+     # (dans les deux cas l'objet retourné est un dictionnaire et
+     #  on peut utiliser la fonction native len() pour savoir le nombre
+     #  d'entrées qu'il contient)
+     nb_layers = len(QgsProject.instance().mapLayers())

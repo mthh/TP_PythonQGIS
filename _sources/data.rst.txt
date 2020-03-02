@@ -1,0 +1,55 @@
+Données pour les exercices
+==========================
+
+Exercice 1
+----------
+
+- `Pays du monde <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip>`_
+
+Source : `Natural Earth`_
+
+
+Exercice 2
+----------
+
+- `Pays du monde <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip>`_
+
+- `Aéroports <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_airports.zip>`_
+
+Source : `Natural Earth`_
+
+
+Exercice 3
+----------
+
+- `Pays du monde <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip>`_
+
+Source : `Natural Earth`_
+
+
+Exercice 4
+----------
+
+- Données **OpenStreetMap** (transformées en Shapefile par GeoFabrik) pour Malte.
+  Attribution : `© les contributeurs d’OpenStreetMap (licence OdBl) <https://www.openstreetmap.org/copyright>`_.
+  Source : http://download.geofabrik.de/europe/malta.html. Données téléchargées le 01/03/2020.
+
+
+- Styles QGIS pour données OSM
+  Adaptés depuis les styles de `© MrXsquared (licence MIT) <https://github.com/MrXsquared/>`_. Données téléchargées le 01/03/2020.
+
+
+Exercice 5
+----------
+
+
+Exercice 6
+----------
+
+
+
+Exercice 7
+----------
+
+
+.. _`Natural Earth`: https://www.naturalearthdata.com

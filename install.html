@@ -15,7 +15,7 @@
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>Compiler QGIS 3 depuis son code source &#8212; Documentation PythonQGIS_TP </title>
+    <title>Compiler QGIS 3 depuis son code source &#8212; Documentation PythonQGIS_TP 2020</title>
     <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
@@ -38,7 +38,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="Index général"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP </a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2020</a> &#187;</li> 
       </ul>
     </div>
     <div class="container-wrapper">
@@ -54,9 +54,11 @@
     <div class="sidebar-localtoc">
       <ul>
 <li><a class="reference internal" href="#">Compiler QGIS 3 depuis son code source</a><ul>
-<li><a class="reference internal" href="#installer-les-dependances">Installer les dépendances</a></li>
-<li><a class="reference internal" href="#recuperer-le-code-source">Récupérer le code source</a></li>
-<li><a class="reference internal" href="#configurer-la-build">Configurer la build</a></li>
+<li><a class="reference internal" href="#preparer-les-dossiers-d-installation">Préparer les dossiers d’installation</a></li>
+<li><a class="reference internal" href="#recuperer-le-code-source-de-proj-6-et-de-qgis">Récupérer le code source de PROJ.6 et de QGIS</a></li>
+<li><a class="reference internal" href="#installer-les-dependances-avec-apt">Installer les dépendances <em>(avec apt)</em></a></li>
+<li><a class="reference internal" href="#compiler-installer-la-bibliotheque-proj-6-3-1">Compiler / installer la bibliothèque PROJ (6.3.1)</a></li>
+<li><a class="reference internal" href="#preparer-l-installation-de-qgis">Préparer l’installation de QGIS</a></li>
 <li><a class="reference internal" href="#compiler-le-code">Compiler le code</a></li>
 </ul>
 </li>
@@ -102,7 +104,7 @@
             
   <div class="section" id="compiler-qgis-3-depuis-son-code-source">
 <h1>Compiler QGIS 3 depuis son code source<a class="headerlink" href="#compiler-qgis-3-depuis-son-code-source" title="Lien permanent vers ce titre">¶</a></h1>
-<p>Avec ubuntu 18.04 (<em>Bionic Beaver</em>).</p>
+<p>Avec ubuntu 19.10 (<em>Eoan Ermine</em>).</p>
 <p>Matériel nécessaire :</p>
 <blockquote>
 <div><ul class="simple">
@@ -112,15 +114,30 @@
 <p>Objectif :</p>
 <blockquote>
 <div><ul class="simple">
-<li>Compiler QGIS 3 et l’installer dans ${HOME}/apps (pour ne pas créer de conflits
-avec un éventuel QGIS installé par Ubuntu)</li>
+<li>Compiler QGIS 3-nightly et l’installer dans ${HOME}/apps
+(pour ne pas créer de conflits avec un éventuel QGIS installé par Ubuntu)</li>
 </ul>
 </div></blockquote>
 <div class="figure align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/00xx.png"><img alt="_images/00xx.png" src="_images/00xx.png" style="width: 40%;" /></a>
 </div>
-<div class="section" id="installer-les-dependances">
-<h2>Installer les dépendances<a class="headerlink" href="#installer-les-dependances" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="section" id="preparer-les-dossiers-d-installation">
+<h2>Préparer les dossiers d’installation<a class="headerlink" href="#preparer-les-dossiers-d-installation" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir ~/dev <span class="c1"># Pour héberger le code source</span>
+mkdir <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/apps <span class="c1"># Pour héberger les binaires compilés et les fichiers partagés</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="recuperer-le-code-source-de-proj-6-et-de-qgis">
+<h2>Récupérer le code source de PROJ.6 et de QGIS<a class="headerlink" href="#recuperer-le-code-source-de-proj-6-et-de-qgis" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/dev
+wget https://download.osgeo.org/proj/proj-6.3.1.tar.gz
+git clone https://github.com/qgis/QGIS/
+</pre></div>
+</div>
+</div>
+<div class="section" id="installer-les-dependances-avec-apt">
+<h2>Installer les dépendances <em>(avec apt)</em><a class="headerlink" href="#installer-les-dependances-avec-apt" title="Lien permanent vers ce titre">¶</a></h2>
 <p>Dans la console:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo gedit /etc/apt/sources.list
 </pre></div>
@@ -139,43 +156,52 @@ avec un éventuel QGIS installé par Ubuntu)</li>
 <p>Puis installer les dépendances attendues (la liste est importante mais une grande
 partie de ces packages est normalement déjà installée) :</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install bison ca-certificates ccache cmake cmake-curses-gui <span class="se">\</span>
-dh-python doxygen expect flex gdal-bin git graphviz grass-dev libexiv2-dev <span class="se">\</span>
-libexpat1-dev libfcgi-dev libgdal-dev libgeos-dev libgsl-dev libosgearth-dev <span class="se">\</span>
-libpq-dev libproj-dev libqca-qt5-2-dev libqca-qt5-2-plugins libqt5opengl5-dev <span class="se">\</span>
-libqt5scintilla2-dev libqt5serialport5-dev libqt5sql5-sqlite libqt5svg5-dev <span class="se">\</span>
-libqt5webkit5-dev libqwt-qt5-dev libspatialindex-dev libspatialite-dev <span class="se">\</span>
-libsqlite3-dev libsqlite3-mod-spatialite libyaml-tiny-perl libzip-dev <span class="se">\</span>
-lighttpd locales ninja-build ocl-icd-opencl-dev opencl-headers <span class="se">\</span>
-pkg-config poppler-utils pyqt5-dev pyqt5-dev-tools pyqt5.qsci-dev <span class="se">\</span>
-python-autopep8 python3-all-dev python3-dateutil python3-dev python3-future <span class="se">\</span>
-python3-gdal python3-httplib2 python3-jinja2 python3-markupsafe python3-mock <span class="se">\</span>
-python3-nose2 python3-owslib python3-plotly python3-psycopg2 python3-pygments <span class="se">\</span>
-python3-pyproj python3-pyqt5 python3-pyqt5.qsci python3-pyqt5.qtsql <span class="se">\</span>
-python3-pyqt5.qtsvg python3-pyqt5.qtwebkit python3-requests python3-sip <span class="se">\</span>
-python3-sip-dev python3-six python3-termcolor python3-tz python3-yaml <span class="se">\</span>
+dh-python doxygen expect flex flip gdal-bin git graphviz grass-dev <span class="se">\</span>
+libexiv2-dev libexpat1-dev libfcgi-dev libgdal-dev libgeos-dev libgsl-dev <span class="se">\</span>
+libpq-dev libproj-dev libqca-qt5-2-dev libqca-qt5-2-plugins <span class="se">\</span>
+libqscintilla2-qt5-dev libqt5opengl5-dev libqt5serialport5-dev <span class="se">\</span>
+libqt5sql5-sqlite libqt5svg5-dev libqt5webkit5-dev libqt5xmlpatterns5-dev <span class="se">\</span>
+libqwt-qt5-dev libspatialindex-dev libspatialite-dev libsqlite3-dev <span class="se">\</span>
+libsqlite3-mod-spatialite libyaml-tiny-perl libzip-dev lighttpd locales <span class="se">\</span>
+ninja-build ocl-icd-opencl-dev opencl-headers pkg-config poppler-utils <span class="se">\</span>
+pyqt5-dev pyqt5-dev-tools pyqt5.qsci-dev python3-all-dev python3-autopep8 <span class="se">\</span>
+python3-dateutil python3-dev python3-future python3-gdal python3-httplib2 <span class="se">\</span>
+python3-jinja2 python3-lxml python3-markupsafe python3-mock python3-nose2 <span class="se">\</span>
+python3-owslib python3-plotly python3-psycopg2 python3-pygments python3-pyproj <span class="se">\</span>
+python3-pyqt5 python3-pyqt5.qsci python3-pyqt5.qtsql python3-pyqt5.qtsvg <span class="se">\</span>
+python3-pyqt5.qtwebkit python3-requests python3-sip python3-sip-dev <span class="se">\</span>
+python3-six python3-termcolor python3-tz python3-yaml <span class="se">\</span>
 qt3d-assimpsceneimport-plugin qt3d-defaultgeometryloader-plugin <span class="se">\</span>
 qt3d-gltfsceneio-plugin qt3d-scene2d-plugin qt3d5-dev qt5-default <span class="se">\</span>
 qt5keychain-dev qtbase5-dev qtbase5-private-dev qtpositioning5-dev <span class="se">\</span>
-qttools5-dev qttools5-dev-tools saga spawn-fcgi txt2tags xauth xfonts-100dpi <span class="se">\</span>
-xfonts-75dpi xfonts-base xfonts-scalable xvfb
+qttools5-dev qttools5-dev-tools saga spawn-fcgi sqlite3 txt2tags xauth <span class="se">\</span>
+xfonts-100dpi xfonts-75dpi xfonts-base xfonts-scalable xvfb
 </pre></div>
 </div>
 </div>
-<div class="section" id="recuperer-le-code-source">
-<h2>Récupérer le code source<a class="headerlink" href="#recuperer-le-code-source" title="Lien permanent vers ce titre">¶</a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir ~/dev
-<span class="nb">cd</span> ~/dev
-git clone https://github.com/qgis/QGIS/
-<span class="nb">cd</span> QGIS
+<div class="section" id="compiler-installer-la-bibliotheque-proj-6-3-1">
+<h2>Compiler / installer la bibliothèque PROJ (6.3.1)<a class="headerlink" href="#compiler-installer-la-bibliotheque-proj-6-3-1" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tar -xvzf proj-6.3.1.tar.gz <span class="o">&amp;&amp;</span> <span class="nb">cd</span> proj-6.3.1/
+./configure --prefix<span class="o">=</span>~/apps/proj
+make -j8  <span class="c1"># Remplacer 8 par le nombre de coeurs à utiliser</span>
+make install
 </pre></div>
 </div>
 </div>
-<div class="section" id="configurer-la-build">
-<h2>Configurer la build<a class="headerlink" href="#configurer-la-build" title="Lien permanent vers ce titre">¶</a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir build-master
+<div class="section" id="preparer-l-installation-de-qgis">
+<h2>Préparer l’installation de QGIS<a class="headerlink" href="#preparer-l-installation-de-qgis" title="Lien permanent vers ce titre">¶</a></h2>
+<p>On se rend dans le dossier du code source de QGIS et on créé un dossier qui va contenr les fichiers de configuration utilisés pour la compilation :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/dev/QGIS
+mkdir build-master
 <span class="nb">cd</span> build-master
-mkdir <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/apps
-ccmake ..
+</pre></div>
+</div>
+<p>Deux solutions :</p>
+<ol class="loweralpha simple">
+<li>… si on souhaite ouvrir l’interface interactive de configuration :</li>
+</ol>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ccmake ..
 </pre></div>
 </div>
 <div class="line-block">
@@ -186,6 +212,20 @@ ccmake ..
 <div class="line">Appuyer sur [g] pour générer le fichier de configuration.</div>
 <div class="line">Une fois cette étape terminée, le shell est de nouveaux accessible.</div>
 </div>
+</div></blockquote>
+<ol class="loweralpha simple" start="2">
+<li>… si on connait déjà les valeurs des propriétés qu’on veut modifier on peut utiliser la commande <code class="docutils literal notranslate"><span class="pre">cmake</span></code> directement, en spécifiant les paramètres avec <code class="docutils literal notranslate"><span class="pre">-D</span></code> :</li>
+</ol>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ccmake -D <span class="nv">CMAKE_BUILD_TYPE</span><span class="o">=</span>Debug <span class="se">\</span>
+       -D <span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">=</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/apps <span class="se">\</span>
+       -D <span class="nv">PROJ_INCLUDE_DIR</span><span class="o">=</span>/home/mthh/apps/proj/include <span class="se">\</span>
+       -D <span class="nv">PROJ_LIBRARY</span><span class="o">=</span>/home/mthh/apps/proj/lib/libproj.so <span class="se">\</span>
+       -D <span class="nv">GRASS_PREFIX7</span><span class="o">=</span>/usr/lib/grass76 <span class="se">\</span>
+       ..
+</pre></div>
+</div>
+</div></blockquote>
 </div>
 <div class="section" id="compiler-le-code">
 <h2>Compiler le code<a class="headerlink" href="#compiler-le-code" title="Lien permanent vers ce titre">¶</a></h2>
@@ -216,7 +256,7 @@ ccmake ..
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="Index général"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP </a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2020</a> &#187;</li> 
       </ul>
     </div>
 <script type="text/javascript">
@@ -226,7 +266,7 @@ ccmake ..
 </script>
 <script type="text/javascript" src="_static/js/bootstrap.js"></script>
   <div class="footer">
-    &copy; Copyright 2019, Matthieu Viry. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    &copy; Copyright 2018-2020, Matthieu Viry. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
   </div>
   </body>
 </html>

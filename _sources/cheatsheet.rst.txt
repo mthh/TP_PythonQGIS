@@ -48,18 +48,12 @@ Manipulation des couches de données
   # QGIS 3
   QgsProject.instance().mapLayers() # Retourne un dictionnaire id -> layer
 
-  # QGIS 2
-  QgsMapLayerRegistry.instance().mapLayers() # Retourne un dictionnaire id -> layer
 
 **Trouver une couche en utilisant son nom**
 ::
 
   # QGIS 3
   layer = QgsProject.instance().mapLayersByName("name")[0]
-  print(layer.name())
-
-  # QGIS 2
-  layer = QgsMapLayerRegistry.instance().mapLayersByName("name")[0]
   print(layer.name())
 
 
@@ -80,11 +74,6 @@ Manipulation des couches de données
 
   # QGIS 3
   for layer in QgsProject.instance().mapLayers().values():
-      crs = layer.crs().authid()
-      layer.setName(layer.name() + ' (' + crs + ')')
-
-  # QGIS 2
-  for layer in QgsMapLayerRegistry.instance().mapLayers().values():
       crs = layer.crs().authid()
       layer.setName(layer.name() + ' (' + crs + ')')
 
@@ -138,11 +127,6 @@ Couches vecteurs
   # is layer a LineString ?
   is_line = layer.wkbType() in (QgsWkbTypes.LineString, QgsWkbTypes.MultiLineString)
 
-  # QGIS 2
-  print(QgsWKBTypes.displayString(int(layer.wkbType())))
-  # is layer a LineString ?
-  is_line = int(layer.wkbType()) in (QgsWKBTypes.LineString, QgsWKBTypes.MultiLineString)
-
 
 **Modifier une géométrie**
 ::
@@ -164,8 +148,6 @@ Couches vecteurs
   # QGIS 3
   layer.setOpacity(0.5)
 
-  # QGIS 2
-  layer.setLayerTransparency(50)
 
 
 
@@ -188,7 +170,6 @@ Couches raster
 **Obtenir la valeur qui correspond à des coordonnées sur une bande**
 ::
 
-  # QGIS 3 seulement
   pt = QgsPoint(48.3, 2.35)
   band = 1
   # layer is a QgsRasterLayer
@@ -198,7 +179,6 @@ Couches raster
 **Obtenir la valeur qui correspond à des coordonnées sur l'ensemble des bandes**
 ::
 
-  # QGIS et QGIS 3
   pt = QgsPoint(48.3, 2.35)
   # layer is a QgsRasterLayer
   result = layer.dataProvider().identify(pt)

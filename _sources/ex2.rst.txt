@@ -13,8 +13,9 @@ Données
 
 Les données proviennent de Natural Earth [#f1]_.
 
-| -> ``TP_Python_Qgis/data/ex1-3/ne_10m_airports.shp`` (Points - Localisation des aéroports)
-| -> ``TP_Python_Qgis/data/ex1-3/ne_10m_admin_0_countries.shp`` (Polygones - Pays du monde)
+| -> ``ne_10m_airports.shp`` (Points - Localisation des aéroports) - `Téléchargement <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip>`_
+| -> ``ne_10m_admin_0_countries.shp`` (Polygones - Pays du monde) - `Téléchargement <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_airports.zip>`_
+
 
 Procédure
 ---------
@@ -100,7 +101,7 @@ Procédure
       for ft in layer.getFeatures():
           geom = ft.geometry()
           geom_point = geom.asPoint()
-          # L'objet `QgsPoint` a notamment une méthode `x` et une méthode `y`
+          # L'objet `QgsPointXY` a notamment une méthode `x` et une méthode `y`
           print(geom_point, geom_point.x(), geom_point.y())
 
 
@@ -130,27 +131,6 @@ Procédure
 
   * Il suffit de quelques lignes supplémentaires pour écrire ces informations dans un fichier :
 
-    QGIS 2 / Python 2
-    ::
-
-      import csv
-
-      output_file = open('/home/mthh/airports.csv', 'w')
-      csv_writer = csv.writer(output_file)
-
-      header_line = ["Nom", "Code_IATA", "Latitude", "Longitude"]
-      csv_writer.writerow(header_line)
-
-      for ft in layer.getFeatures():
-          # Les résultats ne sont pas encore filtrés selon le type d'aeroport !
-          geom_point = ft.geometry().asPoint()
-          csv_writer.writerow(
-              [ft['name'].encode('utf-8'), ft['iata_code'], geom_point.x(), geom_point.y()])
-
-      output_file.close()
-
-
-    QGIS 3 / Python 3
     ::
 
       import csv
@@ -170,71 +150,57 @@ Procédure
       output_file.close()
 
 
-  * | **À vous de jouer !**
-    | Reprendre le script précédent et faire en sorte de n'exporter que les aéroports de type 'major' et 'major and military'.
-    | Enregistrer ce script sous le nom `export_txt.py`.
-    | Exécuter le script pour vérifier de son bon fonctionnement.
-    | Le fichier CSV exporté doit être reconnu correctement par l'OS et s'ouvrir dans le tableur habituel (Calc, Excel, etc.).
-    | **Combien de lignes contient ce nouveau fichier CSV ?**
+* | **À vous de jouer !**
+  | Reprendre le script précédent et faire en sorte de n'exporter que les aéroports de type 'major' et 'major and military'.
+  | Enregistrer ce script sous le nom ``export_airports.py``.
+  | Exécuter le script pour vérifier de son bon fonctionnement.
+  | Le fichier CSV exporté doit être reconnu correctement par l'OS et s'ouvrir dans le tableur habituel (LibreOffice Calc, Microsoft Excel, etc.).
+  | **Combien de lignes contient ce nouveau fichier CSV ?**
 
 
 * **Pour aller plus loin...**
 
   Le résultat attendu peut être obtenu de plusieurs manière différentes.
   En effet il est soit possible d'itérer sur l'ensemble des entités de la couche et de vérifier que le champ ``type`` de chaque entité
-  et bien, soit ``major``, soit ``major and military``.
+  et bien, soit ``major``, soit ``major and military`` :
 
   .. code-block:: python
-     :emphasize-lines: 2
+    :emphasize-lines: 2
 
-      for ft in layer.getFeatures():
-          if ft|'type'] in (u'major', u'major and military'):
-              geom_point = ft.geometry().asPoint()
-              csv_writer.writerow(
-                  [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()])
+    for ft in layer.getFeatures():
+        if ft['type'] in (u'major', u'major and military'):
+            geom_point = ft.geometry().asPoint()
+            csv_writer.writerow(
+                [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()])
 
 
   Au regard des valeurs prises par le champ ``type`` il est également possible de vérifier
   que la chaine de caractère du champ type commence bien par ``major`` en utilisant
-  la méthode
+  la méthode ``startswith`` :
 
   .. code-block:: python
-     :emphasize-lines: 2
+    :emphasize-lines: 2
 
-      for ft in layer.getFeatures():
-          if ft|'type'].startswith(u'major'):
-              geom_point = ft.geometry().asPoint()
-              csv_writer.writerow(
-                  [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()])
+    for ft in layer.getFeatures():
+        if ft['type'].startswith(u'major'):
+            geom_point = ft.geometry().asPoint()
+            csv_writer.writerow(
+                [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()])
 
 
-  Enfin, il est également possible d'utiliser une expression QGIS.
-
-  Avec QGIS 2 est nécessaire de créer un objet de type ``QgsExpression``.
-  Cet objet sera donné en argument à un objet de type ``QgsFeatureRequest``,
-  utilisé lors de l'appel de la méthode ``getFeatures`` déjà utilisée précédemment.
-
-  Avec QGIS 3 il est possible de passer directement la chaine de caractère qui
-  correspond à l'expression souhaitée en argument de la méthode ``getFeatures``.
+  Enfin, il est également possible d'utiliser une *expression* QGIS. Depuis QGIS 3 il est désormais possible de passer directement la chaine de caractère qui
+  correspond à l'expression souhaitée en argument de la méthode ``getFeatures`` :
 
   .. code-block:: python
-     :emphasize-lines: 2,3,9
+    :emphasize-lines: 1
 
-      # QGIS 2
-      expr = QgsExpression(u"\"type\" LIKE 'major%'")
-      for ft in layer.getFeatures(QgsFeatureRequest(expr)):
-          geom_point = ft.geometry().asPoint()
-          csv_writer.writerow(
-              [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()])
-
-      # QGIS 3
-      for ft in layer.getFeatures("\"type\" LIKE 'major%'"):
-          geom_point = ft.geometry().asPoint()
-          csv_writer.writerow(
-              [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()])
+    for ft in layer.getFeatures("\"type\" LIKE 'major%'"):
+        geom_point = ft.geometry().asPoint()
+        csv_writer.writerow(
+          [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()])
 
 
 .. rubric:: Footnotes
 
-.. [#f1] http://www.naturalearthdata.com/. Données téléchargées le 28/02/2019.
+.. [#f1] http://www.naturalearthdata.com/. Consulté le 01/03/2020.
 .. [#f2] https://docs.python.org/3/library/csv.html
