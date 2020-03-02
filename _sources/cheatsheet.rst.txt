@@ -45,14 +45,12 @@ Manipulation des couches de données
 **Lister les couches chargées et leurs ids**
 ::
 
-  # QGIS 3
   QgsProject.instance().mapLayers() # Retourne un dictionnaire id -> layer
 
 
 **Trouver une couche en utilisant son nom**
 ::
 
-  # QGIS 3
   layer = QgsProject.instance().mapLayersByName("name")[0]
   print(layer.name())
 
@@ -72,7 +70,6 @@ Manipulation des couches de données
 **Obtenir le système de coordonnées de référence (CRS)**
 ::
 
-  # QGIS 3
   for layer in QgsProject.instance().mapLayers().values():
       crs = layer.crs().authid()
       layer.setName(layer.name() + ' (' + crs + ')')
@@ -121,8 +118,6 @@ Couches vecteurs
 **Affichage du type d'une couche vecteur**
 ::
 
-
-  # QGIS 3
   print(QgsWkbTypes.displayString(layer.wkbType()))
   # is layer a LineString ?
   is_line = layer.wkbType() in (QgsWkbTypes.LineString, QgsWkbTypes.MultiLineString)
@@ -145,7 +140,6 @@ Couches vecteurs
 **Changer l'opacité (la transparence) globale d'une couche**
 ::
 
-  # QGIS 3
   layer.setOpacity(0.5)
 
 

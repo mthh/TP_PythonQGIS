@@ -68,7 +68,7 @@ a pour but de donner une introduction aux capacités de scripting dans QGIS avec
   Cela facilitera votre compréhension et vous évitera d'éventuelles erreurs de syntaxe.
 
 QGIS fournit une console interactive python. Elle peut être ouverte depuis le
-menu ``Extension > Console Python``, en pressant ``CTRL-ALT-P`` ou en appuyant
+menu ``Extension > Console Python``, en pressant :kbd:`CTRL` + :kbd:`ALT` + :kbd:`P` ou en appuyant
 sur l'icone qui lui est dédiée.
 
 Lors de l'utilisation de la console Python dans QGIS, une variable ``iface`` est

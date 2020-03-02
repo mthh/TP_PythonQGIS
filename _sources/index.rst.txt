@@ -1,9 +1,12 @@
 TP Python pour QGIS
 ===================
 
+.. image:: img/uga_logo_bleu.svg
+  :class: logo-uga
+  :align: center
+
 LP ESSIG - Université Grenoble Alpes
 ------------------------------------
-
 
 .. rst-class:: center
 

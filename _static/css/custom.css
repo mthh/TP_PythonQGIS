@@ -69,3 +69,8 @@ div[aria-label="source link"] {
   font-style: italic !important;
   margin-bottom: 18px !important;
 }
+
+.logo-uga {
+  width: 30%;
+  max-width: 125px;
+}

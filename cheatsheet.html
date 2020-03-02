@@ -148,13 +148,11 @@
 </pre></div>
 </div>
 <p><strong>Lister les couches chargées et leurs ids</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># QGIS 3</span>
-<span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayers</span><span class="p">()</span> <span class="c1"># Retourne un dictionnaire id -&gt; layer</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayers</span><span class="p">()</span> <span class="c1"># Retourne un dictionnaire id -&gt; layer</span>
 </pre></div>
 </div>
 <p><strong>Trouver une couche en utilisant son nom</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># QGIS 3</span>
-<span class="n">layer</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">())</span>
 </pre></div>
 </div>
@@ -167,8 +165,7 @@
 </pre></div>
 </div>
 <p><strong>Obtenir le système de coordonnées de référence (CRS)</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># QGIS 3</span>
-<span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayers</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayers</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
     <span class="n">crs</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">crs</span><span class="p">()</span><span class="o">.</span><span class="n">authid</span><span class="p">()</span>
     <span class="n">layer</span><span class="o">.</span><span class="n">setName</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> <span class="o">+</span> <span class="n">crs</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="p">)</span>
 </pre></div>
@@ -208,8 +205,7 @@
 </pre></div>
 </div>
 <p><strong>Affichage du type d’une couche vecteur</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># QGIS 3</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">QgsWkbTypes</span><span class="o">.</span><span class="n">displayString</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">wkbType</span><span class="p">()))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">QgsWkbTypes</span><span class="o">.</span><span class="n">displayString</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">wkbType</span><span class="p">()))</span>
 <span class="c1"># is layer a LineString ?</span>
 <span class="n">is_line</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">wkbType</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="n">QgsWkbTypes</span><span class="o">.</span><span class="n">LineString</span><span class="p">,</span> <span class="n">QgsWkbTypes</span><span class="o">.</span><span class="n">MultiLineString</span><span class="p">)</span>
 </pre></div>
@@ -225,8 +221,7 @@
 </pre></div>
 </div>
 <p><strong>Changer l’opacité (la transparence) globale d’une couche</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># QGIS 3</span>
-<span class="n">layer</span><span class="o">.</span><span class="n">setOpacity</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span><span class="o">.</span><span class="n">setOpacity</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -302,7 +297,7 @@
 </script>
 <script type="text/javascript" src="_static/js/bootstrap.js"></script>
   <div class="footer">
-    &copy; Copyright 2018-2020, Matthieu Viry. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    &copy; Copyright 2019-2020, Matthieu Viry. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
   </div>
   </body>
 </html>

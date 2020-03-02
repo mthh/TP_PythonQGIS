@@ -32,7 +32,7 @@ Exercice 4
 
 - Données **OpenStreetMap** (transformées en Shapefile par GeoFabrik) pour Malte.
   Attribution : `© les contributeurs d’OpenStreetMap (licence OdBl) <https://www.openstreetmap.org/copyright>`_.
-  Source : http://download.geofabrik.de/europe/malta.html. Données téléchargées le 01/03/2020.
+  Source : https://download.geofabrik.de/europe/malta.html. Données téléchargées le 01/03/2020.
 
 
 - Styles QGIS pour données OSM
@@ -42,14 +42,22 @@ Exercice 4
 Exercice 5
 ----------
 
+- Tracé des cours d'eau
+
+
+- Modèle Numérique de Terrain
+
 
 Exercice 6
 ----------
 
 
 
+
 Exercice 7
 ----------
 
+
+**Une archive zippée contenant l'ensemble des données peut-être téléchargée à l'URL** https://github.com/mthh/TP_PythonQGIS/archive/master.zip.
 
 .. _`Natural Earth`: https://www.naturalearthdata.com
