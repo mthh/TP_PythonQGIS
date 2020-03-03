@@ -126,9 +126,9 @@ La méthode à utiliser peut être décrite de la manière suivante :
   Validation des changements effectués sur la couche.
 
 
-** ➜ Quelle est la population des pays voisins de la Hongrie ?**
+**➜ Quelle est la population des pays voisins de la Hongrie ?**
 
-** ➜ Combien de pays n'ont aucun voisin ?**
+**➜ Combien de pays n'ont aucun voisin ?**
 
 
 .. rubric:: Footnotes

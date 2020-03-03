@@ -93,6 +93,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Nombre de champs pour la couche active</span>
 <span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
 <span class="n">nb_fields</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">fields</span><span class="p">())</span>
+<span class="c1"># nb_fields = layer.fields().count()</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La couche </span><span class="si">{}</span><span class="s2"> compte </span><span class="si">{}</span><span class="s2"> champs&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span> <span class="n">nb_fields</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -109,6 +110,25 @@
 <span class="n">nb_layers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayers</span><span class="p">())</span>
 </pre></div>
 </div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Exercice1.py</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Exercice 1</span>
+<span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
+
+<span class="n">nb_features</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">featureCount</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La couche </span><span class="si">{}</span><span class="s2"> compte </span><span class="si">{}</span><span class="s2"> entités&quot;</span>
+       <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">nb_features</span><span class="p">))</span>
+
+<span class="n">nb_fields</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">fields</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<span class="c1"># nb_fields = len(layer.fields()) # &lt;- Fonctionne aussi</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La couche </span><span class="si">{0}</span><span class="s2"> compte </span><span class="si">{1}</span><span class="s2"> champs&quot;</span>
+        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">nb_fields</span><span class="p">))</span>
+
+<span class="n">nb_layers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayers</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Le projet contient </span><span class="si">{}</span><span class="s2"> couches&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nb_layers</span><span class="p">))</span>
+</pre></div>
 </div>
 </div>
 

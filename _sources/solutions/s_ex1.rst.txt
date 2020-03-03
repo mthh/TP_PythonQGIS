@@ -14,6 +14,7 @@ Exercice 1 : Prise en main - correction
      # Nombre de champs pour la couche active
      layer = iface.activeLayer()
      nb_fields = len(layer.fields())
+     # nb_fields = layer.fields().count()
      print("La couche {} compte {} champs".format(layer.name(), nb_fields))
 
 
@@ -32,3 +33,25 @@ Exercice 1 : Prise en main - correction
      #  on peut utiliser la fonction native len() pour savoir le nombre
      #  d'entrées qu'il contient)
      nb_layers = len(QgsProject.instance().mapLayers())
+
+
+``Exercice1.py``
+
+::
+
+  # Exercice 1
+  layer = iface.activeLayer()
+  name = layer.name()
+
+  nb_features = layer.featureCount()
+  print("La couche {} compte {} entités"
+         .format(name, nb_features))
+
+  nb_fields = layer.fields().count()
+  # nb_fields = len(layer.fields()) # <- Fonctionne aussi
+
+  print("La couche {0} compte {1} champs"
+          .format(name, nb_fields))
+
+  nb_layers = len(QgsProject.instance().mapLayers())
+  print("Le projet contient {} couches".format(nb_layers))

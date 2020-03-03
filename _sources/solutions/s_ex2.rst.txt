@@ -40,3 +40,6 @@ correspond à l'expression souhaitée en argument de la méthode ``getFeatures``
       geom_point = ft.geometry().asPoint()
       csv_writer.writerow(
         [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()])
+
+
+``Exercice2.py``
