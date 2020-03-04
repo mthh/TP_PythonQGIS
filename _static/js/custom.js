@@ -9,4 +9,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
     };
   });
+  var sidebar = document.querySelector('.sphinxsidebar');
+  var linkdoc = document.createElement('p');
+  linkdoc.id ='link-doc-pyqgis';
+  linkdoc.innerHTML = '<a href="https://qgis.org/pyqgis/3.4/" target="_blank">Documentation de l\'API <b>PyQgis</b><img src="_static/magnify-clip-ltr.svg" /></a>';
+  sidebar.appendChild(linkdoc);
 });

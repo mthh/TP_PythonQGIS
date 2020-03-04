@@ -65,6 +65,14 @@ div[aria-label="source link"] {
   margin-bottom: 6px;
 }
 
+.figure img.m12 {
+  border: solid 1px grey;
+}
+
+.figure .w100 {
+  width: 100%;
+}
+
 .figure > .caption {
   font-style: italic !important;
   margin-bottom: 18px !important;
@@ -73,4 +81,16 @@ div[aria-label="source link"] {
 .logo-uga {
   width: 30%;
   max-width: 125px;
+}
+
+#tp-python-pour-qgis > h1 {
+  margin-bottom: 20px !important;
+}
+
+#link-doc-pyqgis {
+  text-align: center !important;
+}
+
+#link-doc-pyqgis > a > img {
+  width: 22px;
 }

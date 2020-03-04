@@ -94,8 +94,6 @@ par un *interpréteur* en langage machine au fur et à mesure de leur lecture.
 L'éxécution d'un script écrit en Python est donc conditionnée par la présence
 de l'intepréteur Python (comme le serait du code Java avec la JVM par exemple).
 
-
-
 Bloc d'instructions et indentation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

@@ -39,8 +39,15 @@ Pour appliquer les styles téléchargés, en l'absence de projet ``.qgs`` nous d
   :figwidth: 98%
   :class: m12
 
-  *Exemple d'instructions trouvées sur internet.*
+  *Exemple d'instructions trouvées sur internet (1)*
 
+
+.. figure:: img/ex4_consignes_GH2.png
+  :align: center
+  :figwidth: 98%
+  :class: m12, w100
+
+  *Exemple d'instructions trouvées sur internet (2)*
 
 N'étant pas satisfait par les propriétés de transparence, nous verrons
 commment la changer sur toutes les couches qui contiennent des polygones.
@@ -150,17 +157,18 @@ Procédure
 
 
 - **À vous de jouer !**
-  Écrire un script permettant de :
+  En utilisant les éléments vu au-dessus, écrivez un script permettant de :
 
     * se rendre dans le dossier dans lequel vous avez décompresser la première archive,
     * y dézipper la seconde (``malta-latest.shp.zip``) dans le même dossier,
     * lister les styles disponibles (fichiers ``.qml`` dans le dossier ``Styles``),
-    * utiliser leurs noms pour charger les fichiers Shapefile correspondants,
+    * utiliser leurs noms pour charger les fichiers *Shapefile* correspondants,
     * appliquer le style approprié à chacune des couches.
 
 
-- Et l'ordre des couches ? Le voici. Utiliser cette variable pour obtenir l'ordre
-  souhaité !
+- Et l'ordre des couches ? Voici l'ordre optimal pour ce projet *(la première couche de la liste est celle qui doit apparaître
+  au-dessus de toutes les autres à l'affichage, c'est le même ordre que dans le panneau de gestion des couches de QGIS)*.
+  Utiliser cette variable pour obtenir l'ordre souhaité dans votre projet !
 
   **À vous de jouer !** *(La cheatsheet de ce TP, un moteur de recherche et/ou la documentation PyQgis
   seront utiles)*
