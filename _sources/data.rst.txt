@@ -51,13 +51,13 @@ Exercice 5
 Exercice 6
 ----------
 
-
+...
 
 
 Exercice 7
 ----------
 
+...
 
-**Une archive zippée contenant l'ensemble des données peut-être téléchargée à l'URL** https://github.com/mthh/TP_PythonQGIS/archive/master.zip.
 
 .. _`Natural Earth`: https://www.naturalearthdata.com

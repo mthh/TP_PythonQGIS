@@ -81,9 +81,13 @@ Tester les actions suivantes dans la console
 
 - On a vu que notre couche avait de nombreux champs.
   **Quelle instruction doit être saisie pour savoir combien de champs possède une couche ?**
-
+-
 - **Par ailleurs, quelle instruction doit être saisie pour savoir de combien de couches se compose le projet en cours ?**
 
+.. raw:: html
+
+   <hr width="100%" size="18">
+   <p class="align-center"><strong>💡 <a href="solutions/s_ex1.html">Solution de l'exercice 1</a></strong></p>
 
 .. rubric:: Footnotes
 

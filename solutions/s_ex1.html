@@ -15,7 +15,7 @@
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>Exercice 1 : Prise en main - correction &#8212; Documentation PythonQGIS_TP 2020</title>
+    <title>Correction - Exercice 1 : Prise en main &#8212; Documentation PythonQGIS_TP 2020</title>
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
@@ -77,14 +77,14 @@
             <ol class="breadcrumb">
               <li><a href="../index.html">Docs</a></li>
               
-              <li>Exercice 1 : Prise en main - correction</li>
+              <li>Correction - Exercice 1 : Prise en main</li>
             </ol>
           </div>
           
           <div class="document clearer body">
             
-  <div class="section" id="exercice-1-prise-en-main-correction">
-<h1>Exercice 1 : Prise en main - correction<a class="headerlink" href="#exercice-1-prise-en-main-correction" title="Lien permanent vers ce titre">¶</a></h1>
+  <div class="section" id="correction-exercice-1-prise-en-main">
+<h1>Correction - Exercice 1 : Prise en main<a class="headerlink" href="#correction-exercice-1-prise-en-main" title="Lien permanent vers ce titre">¶</a></h1>
 <ul class="simple">
 <li><strong>Quelle instruction doit être saisie pour savoir combien de champs possède une couche ?</strong></li>
 </ul>
@@ -111,20 +111,20 @@
 </pre></div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">Exercice1.py</span></code></p>
+<hr width="100%" size="18"><p><code class="docutils literal notranslate"><span class="pre">Exercice1.py</span></code></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Exercice 1</span>
 <span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
 <span class="n">name</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
 
 <span class="n">nb_features</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">featureCount</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La couche </span><span class="si">{}</span><span class="s2"> compte </span><span class="si">{}</span><span class="s2"> entités&quot;</span>
-       <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">nb_features</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">nb_features</span><span class="p">))</span>
 
 <span class="n">nb_fields</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">fields</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
 <span class="c1"># nb_fields = len(layer.fields()) # &lt;- Fonctionne aussi</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La couche </span><span class="si">{0}</span><span class="s2"> compte </span><span class="si">{1}</span><span class="s2"> champs&quot;</span>
-        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">nb_fields</span><span class="p">))</span>
+         <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">nb_fields</span><span class="p">))</span>
 
 <span class="n">nb_layers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayers</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Le projet contient </span><span class="si">{}</span><span class="s2"> couches&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nb_layers</span><span class="p">))</span>

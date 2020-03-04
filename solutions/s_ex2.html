@@ -15,7 +15,7 @@
   <link rel="stylesheet" type="text/css" href="../_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>Exercice 2 : Manipulation des attributs d’une couche - correction &#8212; Documentation PythonQGIS_TP 2020</title>
+    <title>Correction - Exercice 2 : Manipulation des attributs d’une couche &#8212; Documentation PythonQGIS_TP 2020</title>
     <link rel="stylesheet" href="../_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
@@ -77,19 +77,27 @@
             <ol class="breadcrumb">
               <li><a href="../index.html">Docs</a></li>
               
-              <li>Exercice 2 : Manipulation des attributs d’une couche - correction</li>
+              <li>Correction - Exercice 2 : Manipulation des attributs d’une couche</li>
             </ol>
           </div>
           
           <div class="document clearer body">
             
-  <div class="section" id="exercice-2-manipulation-des-attributs-d-une-couche-correction">
-<h1>Exercice 2 : Manipulation des attributs d’une couche - correction<a class="headerlink" href="#exercice-2-manipulation-des-attributs-d-une-couche-correction" title="Lien permanent vers ce titre">¶</a></h1>
-<p>Le résultat attendu peut être obtenu de plusieurs manière différentes.
-En effet il est soit possible d’itérer sur l’ensemble des entités de la couche et de vérifier que le champ <code class="docutils literal notranslate"><span class="pre">type</span></code> de chaque entité
+  <div class="section" id="correction-exercice-2-manipulation-des-attributs-d-une-couche">
+<h1>Correction - Exercice 2 : Manipulation des attributs d’une couche<a class="headerlink" href="#correction-exercice-2-manipulation-des-attributs-d-une-couche" title="Lien permanent vers ce titre">¶</a></h1>
+<p>L’exercice peut être réalisé de plusieurs manière. On se concentre, dans les 4 blocs de code qui suivent, sur la manière de filtrer les entités.
+Le code complet est fourni en bas de la page.</p>
+<p>En effet il est soit possible d’itérer sur l’ensemble des entités de la couche et de vérifier que le champ <code class="docutils literal notranslate"><span class="pre">type</span></code> de chaque entité
 et bien, soit <code class="docutils literal notranslate"><span class="pre">major</span></code>, soit <code class="docutils literal notranslate"><span class="pre">major</span> <span class="pre">and</span> <span class="pre">military</span></code> :</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
 <span class="hll">    <span class="k">if</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="s1">&#39;major and military&#39;</span><span class="p">):</span>
+</span>        <span class="n">geom_point</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
+        <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">y</span><span class="p">()])</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
+<span class="hll">    <span class="k">if</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;major&#39;</span> <span class="ow">or</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;major and military&#39;</span><span class="p">:</span>
 </span>        <span class="n">geom_point</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
         <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span>
             <span class="p">[</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">y</span><span class="p">()])</span>
@@ -113,7 +121,41 @@ correspond à l’expression souhaitée en argument de la méthode <code class="
       <span class="p">[</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">y</span><span class="p">()])</span>
 </pre></div>
 </div>
+<hr width="100%" size="18"><p><strong>Code complet permettant d’exporter le fichier csv attendu:</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">Exercice2.py</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">csv</span>
+
+<span class="c1"># Attention au chemin que vous souhaitez utiliser !</span>
+<span class="n">output_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/home/mthh/airports.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">csv_writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">output_file</span><span class="p">)</span>
+
+<span class="c1"># On prépare et on écrit d&#39;abord la ligne d&#39;en-tete</span>
+<span class="n">header_line</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Nom&quot;</span><span class="p">,</span> <span class="s2">&quot;Code_IATA&quot;</span><span class="p">,</span> <span class="s2">&quot;Latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;Longitude&quot;</span><span class="p">]</span>
+<span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">header_line</span><span class="p">)</span>
+
+<span class="c1"># Attention à ce que la couche active dans l&#39;interface</span>
+<span class="c1"># soit celle des aeroports</span>
+<span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
+
+<span class="c1"># On parcours l&#39;ensemble des entités de la couche ...</span>
+<span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="s1">&#39;major and military&#39;</span><span class="p">):</span>
+        <span class="c1"># ... mais on n&#39;écrit que celles qui répondent</span>
+        <span class="c1"># à notre condition</span>
+        <span class="n">geom_point</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
+        <span class="n">nb_char_written</span> <span class="o">=</span> <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">y</span><span class="p">()])</span>
+
+<span class="n">output_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>➜ Le fichier attendu doit comporter <strong>382</strong> lignes (ligne d’en-tête incluse)</p>
+<p>➜ Il est possible de changer le séparateur utilisé lors de l’écriture du fichier CSV pour utiliser le caractère <code class="docutils literal notranslate"><span class="pre">;</span></code> par exemple.
+Il faut pour cela utiliser l’argument <code class="docutils literal notranslate"><span class="pre">delimiter</span></code> lors de la création de l’objet <code class="docutils literal notranslate"><span class="pre">writer</span></code> :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">csv_writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>➜ La documentation officielle Python fait état des différentes manières d’écrire des fichiers CSV : <a class="reference external" href="https://docs.python.org/fr/3/library/csv.html">https://docs.python.org/fr/3/library/csv.html</a></p>
 </div>
 
 

@@ -1,4 +1,4 @@
-Exercice 1 : Prise en main - correction
+Correction - Exercice 1 : Prise en main
 =======================================
 
 
@@ -35,6 +35,10 @@ Exercice 1 : Prise en main - correction
      nb_layers = len(QgsProject.instance().mapLayers())
 
 
+.. raw:: html
+
+  <hr width="100%" size="18">
+
 ``Exercice1.py``
 
 ::
@@ -45,13 +49,13 @@ Exercice 1 : Prise en main - correction
 
   nb_features = layer.featureCount()
   print("La couche {} compte {} entités"
-         .format(name, nb_features))
+          .format(name, nb_features))
 
   nb_fields = layer.fields().count()
   # nb_fields = len(layer.fields()) # <- Fonctionne aussi
 
   print("La couche {0} compte {1} champs"
-          .format(name, nb_fields))
+           .format(name, nb_fields))
 
   nb_layers = len(QgsProject.instance().mapLayers())
   print("Le projet contient {} couches".format(nb_layers))
