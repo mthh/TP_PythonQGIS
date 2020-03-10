@@ -1,5 +1,5 @@
-Données pour les exercices
-==========================
+Récapitulatif des données utilisées pour les exercices
+======================================================
 
 Exercice 1
 ----------

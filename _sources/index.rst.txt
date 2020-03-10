@@ -38,7 +38,17 @@ LP ESSIG - Université Grenoble Alpes
    ex6
    ex7
 
+.. raw:: html
+
+  <br>
+  <hr width="100%" size="18">
+  <br>
+
+.. toctree::
+   :maxdepth: 1
+
    cheatsheet
+   previous_tests
    data
 
 

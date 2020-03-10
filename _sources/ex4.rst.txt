@@ -236,7 +236,7 @@ spécifique ? Il est possible de définir des fonctions Python qui seront appel�
 .. raw:: html
 
    <hr width="100%" size="18">
-   <p class="align-center"><strong>💡 <a href="solutions/s_ex3.html">Solution de l'exercice 3</a></strong></p>
+   <p class="align-center"><strong>💡 <a href="solutions/s_ex4.html">Solution de l'exercice 4</a></strong></p>
 
 .. rubric:: Footnotes
 
