@@ -233,6 +233,10 @@ spécifique ? Il est possible de définir des fonctions Python qui seront appel�
           15, # Le délai d'affichage
         )
 
+.. raw:: html
+
+   <hr width="100%" size="18">
+   <p class="align-center"><strong>💡 <a href="solutions/s_ex3.html">Solution de l'exercice 3</a></strong></p>
 
 .. rubric:: Footnotes
 
