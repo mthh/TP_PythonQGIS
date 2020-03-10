@@ -80,6 +80,7 @@ Correction - Exercice 3 : Géométries et calcul de champ
    print("{} pays n'ont pas de voisin"
        .format(len(features_without_neighbors)))
 
+
 ➜ Les pays voisins de la Hongrie totalisent environ **93 139 328** habitants.
 
 ➜ **83** pays n'ont pas de voisin

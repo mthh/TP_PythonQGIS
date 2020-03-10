@@ -42,10 +42,9 @@ Exercice 4
 Exercice 5
 ----------
 
-- Tracé des cours d'eau
+- Tracé du Canal du Furon au format Shapefile. Source : BD TOPO v2., `IGN <http://professionnels.ign.fr/bdtopo>`_. Données téléchargées le 28/02/2019.
 
-
-- Modèle Numérique de Terrain
+- Modèle Numérique de Terrain, résolution de 25m. Source : `European Environment Agency <https://www.eea.europa.eu/data-and-maps/data/copernicus-land-monitoring-service-eu-dem>`_. Données téléchargées le 28/02/2019.
 
 
 Exercice 6
