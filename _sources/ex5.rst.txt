@@ -134,8 +134,7 @@ Procédure
           pt = geom.interpolate(dist).asPoint()
           alt, valid = data_pr.sample(pt, 1)
           if valid:
-              new_pt = QgsPoint(pt)
-              new_pt.setZ(alt)
+              new_pt = QgsPoint(pt.x(), pt.y(), alt)
               feat = QgsFeature()
               feat.setGeometry(QgsGeometry(new_pt))
               feat.setAttributes([ix, dist])

@@ -225,15 +225,14 @@ faudra lire pour s’assurer de la bonne exécution de la fonction en question.<
      <span class="n">pt</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
 <span class="hll">     <span class="n">alt</span><span class="p">,</span> <span class="n">valid</span> <span class="o">=</span> <span class="n">data_pr</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </span><span class="hll">     <span class="k">if</span> <span class="n">valid</span><span class="p">:</span>
-</span>         <span class="n">new_pt</span> <span class="o">=</span> <span class="n">QgsPoint</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
-         <span class="n">new_pt</span><span class="o">.</span><span class="n">setZ</span><span class="p">(</span><span class="n">alt</span><span class="p">)</span>
+</span>         <span class="n">new_pt</span> <span class="o">=</span> <span class="n">QgsPoint</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">pt</span><span class="o">.</span><span class="n">y</span><span class="p">(),</span> <span class="n">alt</span><span class="p">)</span>
          <span class="n">feat</span> <span class="o">=</span> <span class="n">QgsFeature</span><span class="p">()</span>
          <span class="n">feat</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QgsGeometry</span><span class="p">(</span><span class="n">new_pt</span><span class="p">))</span>
          <span class="n">feat</span><span class="o">.</span><span class="n">setAttributes</span><span class="p">([</span><span class="n">ix</span><span class="p">,</span> <span class="n">dist</span><span class="p">])</span>
-<span class="hll">         <span class="n">ok</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">addFeature</span><span class="p">(</span><span class="n">feat</span><span class="p">)</span>
-</span><span class="hll">         <span class="k">if</span> <span class="ow">not</span> <span class="n">ok</span><span class="p">:</span>
-</span>             <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Erreur lors de la création de l&#39;entité {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ix</span><span class="p">))</span>
-     <span class="k">else</span><span class="p">:</span>
+         <span class="n">ok</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">addFeature</span><span class="p">(</span><span class="n">feat</span><span class="p">)</span>
+<span class="hll">         <span class="k">if</span> <span class="ow">not</span> <span class="n">ok</span><span class="p">:</span>
+</span><span class="hll">             <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Erreur lors de la création de l&#39;entité {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ix</span><span class="p">))</span>
+</span>     <span class="k">else</span><span class="p">:</span>
          <span class="k">print</span><span class="p">(</span>
            <span class="s2">&quot;Erreur lors de la récupération de l&#39;altitude pour l&#39;entité {}&quot;</span>
            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ix</span><span class="p">)</span><span class="s2">&quot;)</span>
