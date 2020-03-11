@@ -169,36 +169,50 @@ Une valeur d’altitude va ensuite être récupérée à partir d’un modèle n
 <span class="k">for</span> <span class="n">dist</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">length</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">step</span><span class="p">)):</span>
     <span class="c1"># Le resultat va être de type `QgsGeometry`</span>
     <span class="n">interp</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
-    <span class="c1"># Convertit la géométrie en `QgsPoint` et l&#39;ajoute au résultat</span>
+    <span class="c1"># Convertit la géométrie en `QgsPointXY` et l&#39;ajoute au résultat</span>
     <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">interp</span><span class="o">.</span><span class="n">asPoint</span><span class="p">())</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Récupérer la valeur de la (ou des) bande(s) raster à une coordonnée donnée :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dem_pr</span> <span class="o">=</span> <span class="n">dem</span><span class="o">.</span><span class="n">dataProvider</span><span class="p">()</span>
-<span class="n">pt</span> <span class="o">=</span> <span class="n">QgsPointXY</span><span class="p">(</span><span class="mf">12673.233</span><span class="p">,</span> <span class="mf">1332.344</span><span class="p">)</span>
+<span class="n">pt</span> <span class="o">=</span> <span class="n">QgsPointXY</span><span class="p">(</span><span class="mi">925189</span><span class="p">,</span> <span class="mi">6473673</span><span class="p">)</span>
 <span class="n">res</span> <span class="o">=</span> <span class="n">dem_pr</span><span class="o">.</span><span class="n">identify</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">isValid</span><span class="p">():</span>
     <span class="n">_values</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">results</span><span class="p">()</span> <span class="c1"># Retourne un dictionnaire</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">_values</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># Affiche la valeur pour la première bande</span>
+    <span class="c1"># Affiche la valeur pour la première bande</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">_values</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="c1"># Mieux formatté... :</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Le point (</span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">) est situé à environ </span><span class="si">{:.2f}</span><span class="s2">m d&#39;altitude&quot;</span>
+        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">pt</span><span class="o">.</span><span class="n">y</span><span class="p">(),</span> <span class="n">_values</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first"><strong>«&nbsp;Putting it all together&nbsp;»</strong></p>
-<p>Vous disposez des briques essentielles pour créer un objet python de type <code class="docutils literal notranslate"><span class="pre">list</span></code>,
-contenant, pour chaque point, sa distance à la source et son altitude sous la forme,
-par exemple, d’un <code class="docutils literal notranslate"><span class="pre">tuple</span></code> de 2 éléments (les coordonnées précises de chaque
-point ne nous intéressaient que pour connaitre son altitude).
-Ces deux informations, distance à la source et altitude, seront utilisées,
-respectivement en abcisses et en ordonnées, pour tracer le profil du cours d’eau.</p>
+<p>1. Vous disposez des briques essentielles pour créer un objet python de type <code class="docutils literal notranslate"><span class="pre">list</span></code>,
+contenant, pour une cinquantaine de points répartis à égale distance le long du cours d’eau,
+<strong>la distance à la source</strong> et <strong>l’altitude</strong> de chacun d’entre eux, par exemple sous la forme
+d’un <code class="docutils literal notranslate"><span class="pre">tuple</span></code> de 2 éléments <em>(les coordonnées précises de chaque
+point ne nous intéressent ici que pour connaitre son altitude)</em>. Ces deux informations,
+distance à la source et altitude, seront par la suite utilisées, respectivement en abcisses
+et en ordonnées, pour tracer le profil du cours d’eau.</p>
+<p>2. Lisez le tutoriel <a class="reference external" href="https://futurestud.io/tutorials/matplotlib-simple-line-plots">https://futurestud.io/tutorials/matplotlib-simple-line-plots</a>
+et essayez de mobiliser ces nouvelles notions pour utiliser la liste obtenue à l’étape (1)
+afin d’obtenir le résultat suivant :</p>
+<div class="figure align-center" style="width: 98%">
+<a class="reference internal image-reference" href="_images/ex5_matplotlib.png"><img alt="_images/ex5_matplotlib.png" src="_images/ex5_matplotlib.png" style="width: 40%;" /></a>
+</div>
 </li>
 <li><p class="first"><strong>Variante : utiliser ces points pour créer une couche de point 3D</strong>
-Contrairement à l’exemple précédent, les coordonnées de chaque nouveau point
-nous intéressent; elles vont être enrichie de l’altitude du point.
-Ces points vont être ajoutés à une nouvelle couche en mémoire qui aura
-précédemment été créée avec deux champs attributaires,
+Dans cet exercice et contrairement à l’exemple précédent, les coordonnées de chaque nouveau point
+nous intéressent : elles vont être enrichie de l’altitude du point.
+Ces points devront être ajoutés à <strong>une nouvelle couche en mémoire</strong> qui aura
+précédemment été créée avec <strong>deux champs attributaires</strong>,
 l’un pour l’identifiant du point (de type <em>entier</em>) et l’autre pour
 la distance à la source (de type <em>double flottant</em>).</p>
+</li>
+<li><p class="first"><strong>Déjà terminé !?</strong>
+Prenez le temps de consulter le sujet proposé lors du contrôle des connaissances de l’année dernière (<a class="reference external" href="_static/PythonQGIS_2019.pdf">Sujet Mars 2019</a> <em>(avec QGIS 2)</em>) avant de passer à l’exercice suivant !</p>
 </li>
 </ul>
 <div class="admonition note">

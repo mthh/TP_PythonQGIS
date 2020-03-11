@@ -67,7 +67,7 @@ Procédure
     for dist in range(0, int(length), int(step)):
         # Le resultat va être de type `QgsGeometry`
         interp = geom.interpolate(dist)
-        # Convertit la géométrie en `QgsPoint` et l'ajoute au résultat
+        # Convertit la géométrie en `QgsPointXY` et l'ajoute au résultat
         result.append(interp.asPoint())
 
 
@@ -76,30 +76,49 @@ Procédure
   ::
 
     dem_pr = dem.dataProvider()
-    pt = QgsPointXY(12673.233, 1332.344)
+    pt = QgsPointXY(925189, 6473673)
     res = dem_pr.identify(pt, 1)
     if res.isValid():
         _values = res.results() # Retourne un dictionnaire
-        print(_values[1]) # Affiche la valeur pour la première bande
+        # Affiche la valeur pour la première bande
+        print(_values[1])
+        # Mieux formatté... :
+        print("Le point ({}, {}) est situé à environ {:.2f}m d'altitude"
+            .format(pt.x(), pt.y(), _values[1]))
 
 
 - **"Putting it all together"**
 
-  Vous disposez des briques essentielles pour créer un objet python de type ``list``,
-  contenant, pour chaque point, sa distance à la source et son altitude sous la forme,
-  par exemple, d'un ``tuple`` de 2 éléments (les coordonnées précises de chaque
-  point ne nous intéressaient que pour connaitre son altitude).
-  Ces deux informations, distance à la source et altitude, seront utilisées,
-  respectivement en abcisses et en ordonnées, pour tracer le profil du cours d'eau.
+  1. Vous disposez des briques essentielles pour créer un objet python de type ``list``,
+  contenant, pour une cinquantaine de points répartis à égale distance le long du cours d'eau,
+  **la distance à la source** et **l'altitude** de chacun d'entre eux, par exemple sous la forme
+  d'un ``tuple`` de 2 éléments *(les coordonnées précises de chaque
+  point ne nous intéressent ici que pour connaitre son altitude)*. Ces deux informations,
+  distance à la source et altitude, seront par la suite utilisées, respectivement en abcisses
+  et en ordonnées, pour tracer le profil du cours d'eau.
+
+  2. Lisez le tutoriel `https://futurestud.io/tutorials/matplotlib-simple-line-plots <https://futurestud.io/tutorials/matplotlib-simple-line-plots>`_
+  et essayez de mobiliser ces nouvelles notions pour utiliser la liste obtenue à l'étape (1)
+  afin d'obtenir le résultat suivant :
+
+
+  .. figure:: img/ex5_matplotlib.png
+    :width: 40%
+    :align: center
+    :figwidth: 98%
 
 
 - **Variante : utiliser ces points pour créer une couche de point 3D**
-  Contrairement à l'exemple précédent, les coordonnées de chaque nouveau point
-  nous intéressent; elles vont être enrichie de l'altitude du point.
-  Ces points vont être ajoutés à une nouvelle couche en mémoire qui aura
-  précédemment été créée avec deux champs attributaires,
+  Dans cet exercice et contrairement à l'exemple précédent, les coordonnées de chaque nouveau point
+  nous intéressent : elles vont être enrichie de l'altitude du point.
+  Ces points devront être ajoutés à **une nouvelle couche en mémoire** qui aura
+  précédemment été créée avec **deux champs attributaires**,
   l'un pour l'identifiant du point (de type *entier*) et l'autre pour
   la distance à la source (de type *double flottant*).
+
+
+- **Déjà terminé !?**
+  Prenez le temps de consulter le sujet proposé lors du contrôle des connaissances de l'année dernière (`Sujet Mars 2019 <_static/PythonQGIS_2019.pdf>`_ *(avec QGIS 2)*) avant de passer à l'exercice suivant !
 
 
 .. note::
@@ -127,6 +146,8 @@ Procédure
               print(
                 "Erreur lors de la récupération de l'altitude pour l'entité {}"
                 .format(ix)")
+
+
 
 .. rubric:: Footnotes
 

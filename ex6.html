@@ -56,6 +56,22 @@
       </div>
   <div id="left-column">
     <div class="sphinxsidebar">
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Contenu</h2>
+    <div class="sidebar-localtoc">
+      <ul>
+<li><a class="reference internal" href="#">Exercice 6 : Manipulation de couches vecteurs et géotraitements</a><ul>
+<li><a class="reference internal" href="#objectif">Objectif</a></li>
+<li><a class="reference internal" href="#donnees">Données</a></li>
+<li><a class="reference internal" href="#procedure">Procédure</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+</div>
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="ex5.html"
                         title="Chapitre précédent">Exercice 5 : Ouverture d’un raster et enrichissement d’une couche vecteur</a></p>
@@ -101,6 +117,107 @@
 <h1>Exercice 6 : Manipulation de couches vecteurs et géotraitements<a class="headerlink" href="#exercice-6-manipulation-de-couches-vecteurs-et-geotraitements" title="Lien permanent vers ce titre">¶</a></h1>
 <div class="figure align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/ex6_intro.png"><img alt="_images/ex6_intro.png" src="_images/ex6_intro.png" style="width: 40%;" /></a>
+</div>
+<div class="section" id="objectif">
+<h2>Objectif<a class="headerlink" href="#objectif" title="Lien permanent vers ce titre">¶</a></h2>
+<p>L’objectif de cet exercice est de continuer à se familiariser avec :</p>
+<ul class="simple">
+<li>la manipulation des couches dans l’interface de QGIS</li>
+<li>la réalisation de géotraitements</li>
+</ul>
+</div>
+<div class="section" id="donnees">
+<h2>Données<a class="headerlink" href="#donnees" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="line-block">
+<div class="line">• La couche des communes de France Métropolitaine (Polygone - Source : ADMIN EXPRESS COG 2.0 2019, IGN <a class="footnote-reference" href="#f1" id="id1">[1]</a>) ➜ <a class="reference external" href="ftp://Admin_Express_ext:Dahnoh0eigheeFok&#64;ftp3.ign.fr/ADMIN-EXPRESS-COG_2-0__SHP__FRA_L93_2019-09-24.7z.001">Téléchargement</a></div>
+<div class="line">• Tracé du Canal du Furon <code class="docutils literal notranslate"><span class="pre">Canal_Furon.shp</span></code> (Ligne - Source : BD TOPO 2.0, IGN <a class="footnote-reference" href="#f2" id="id2">[2]</a>) ➜ <a class="reference external" href="https://mthh.github.io/TP_PythonQGIS/_static/CanalFuron.zip">Téléchargement</a></div>
+</div>
+</div>
+<div class="section" id="procedure">
+<h2>Procédure<a class="headerlink" href="#procedure" title="Lien permanent vers ce titre">¶</a></h2>
+<ul class="simple">
+<li>Ouvrir QGIS.</li>
+<li>Ouvrir la console Python.</li>
+</ul>
+<ul>
+<li><p class="first">Ajouter la couche <code class="docutils literal notranslate"><span class="pre">Canal_Furon.shp</span></code> et la couche <code class="docutils literal notranslate"><span class="pre">COMMUNES.shp</span></code> et obtenir l’objet Python
+correspondant à chacune des couches.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">furon</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;Canal_Furon&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">communes</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;COMMUNE&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">La couche <code class="docutils literal notranslate"><span class="pre">Canal_Furon.shp</span></code> ne contient qu’une entité, on accède directement à sa géométrie de la façon suivante :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ft_furon</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">furon</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">geom_furon</span> <span class="o">=</span> <span class="n">ft_furon</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><strong>Q1. Quel est le type de l’objet</strong> <code class="docutils literal notranslate"><span class="pre">geom_furon</span></code> <strong>?</strong></p>
+<div class="spoiler blq docutils container">
+<p>Solution</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">geom_furon</span><span class="p">))</span>
+<span class="c1"># Il s&#39;agit d&#39;un objet de type `QgsGeometry`.</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p class="first"><strong>Q2</strong>.Étant-donné les deux couches d’informations dont on dispose, <strong>quel prédicat
+spatial peut-on utiliser</strong> pour répondre à la question suivante : <strong>Quelle sont les communes traversées par le Canal du Furon ?</strong></p>
+<div class="spoiler blq docutils container">
+<p>Solution</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># On peut utiliser le prédicat spatial `intersects`.</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p class="first"><strong>Q3. Comment ce problème pourrait-il être formulé d’un point de vue algorithmique ?</strong></p>
+<div class="spoiler blq docutils container">
+<p>Solution</p>
+<blockquote>
+<div><p>Soit <strong>L</strong> une liste vide</p>
+<p>Pour chaque entité <strong>FT</strong> de la couche <em>communes</em> :</p>
+<blockquote>
+<div><ul class="simple">
+<li>Si la <em>geometrie</em> de <strong>FT</strong> intersecte la <em>géometrie</em> du <strong>cours d’eau</strong> :<ul>
+<li>Ajout du nom de <strong>FT</strong> à la liste <strong>L</strong>.</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</div>
+</li>
+<li><p class="first"><strong>Q4. Créer une liste qui contient le nom des communes traversées par le canal du Furon.</strong></p>
+</li>
+<li><p class="first">Les objets <code class="docutils literal notranslate"><span class="pre">QgsGeometry</span></code> disposent d’une méthode buffer qui retourne une nouvelle <code class="docutils literal notranslate"><span class="pre">QgsGeometry</span></code>.
+On peut créer une zone tampon de 250m autour du cours d’eau de la manière suivante :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">geom_buffer</span> <span class="o">=</span> <span class="n">geom_furon</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mf">250.</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><strong>Q5. Quelle type de géométrie est obtenu en résultat ? Écrivez l’instruction qui permet d’afficher cette information.</strong></p>
+</li>
+<li><p class="first"><strong>Q6. Créer une nouvelle liste contenant le nom des communes qui croisent cette zone tampon. Combien sont-elles ?</strong></p>
+</li>
+<li><p class="first">Bien que nous aillons pu manipuler la zone tampon précédemment créée, elle n’a pas été ajoutée à la carte.
+En effet cette géométrie n’appartient pour l’instant à aucune entité ni à aucune couche.</p>
+<p><strong>Q7. Quelles étapes peuvent-être mises en oeuvres pour afficher cette zone sur la carte ?</strong> <em>(à formuler oralement/textuellement d’abords puis éventuellement en Python)</em></p>
+</li>
+</ul>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="f1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Institut national de l’information géographique et forestière : <a class="reference external" href="https://geoservices.ign.fr/documentation/diffusion/telechargement-donnees-libres.html#admin-express">https://geoservices.ign.fr/documentation/diffusion/telechargement-donnees-libres.html#admin-express</a>. Données téléchargées le 10/03/2020.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="f2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>Institut national de l’information géographique et forestière : <a class="reference external" href="http://professionnels.ign.fr/bdtopo">http://professionnels.ign.fr/bdtopo</a>. Données téléchargées le 28/02/2019.</td></tr>
+</tbody>
+</table>
 </div>
 </div>
 
