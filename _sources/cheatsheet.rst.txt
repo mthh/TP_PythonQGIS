@@ -10,29 +10,6 @@ Canvas
   canvas = iface.mapCanvas()
 
 
-Processing algorithms
-^^^^^^^^^^^^^^^^^^^^^
-
-**Obtenir une liste des algo. disponibles**
-::
-
-  for alg in QgsApplication.processingRegistry().algorithms():
-      print("{}:{} --> {}".format(
-          alg.provider().name(), alg.name(), alg.displayName()))
-
-
-**Obtenir de l'aide sur un algo.**
-
-*L'argument de* ``processing.algorithmHelp`` *est de la forme 'provider_name:algo_name'.*
-
-::
-
-  import processing
-  provider = 'qgis'
-  algo = 'randomselection'
-  processing.algorithmHelp("{}:{}".format(provider, algo))
-
-
 Manipulation des couches de données
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -51,8 +28,9 @@ Manipulation des couches de données
 **Trouver une couche en utilisant son nom**
 ::
 
+  # Pour obtenir la couche dont le nom est 'name'
   layer = QgsProject.instance().mapLayersByName("name")[0]
-  print(layer.name())
+  print(layer.name()) # Doit donc afficher.. 'name'
 
 
 **Définir la couche active**
@@ -126,6 +104,7 @@ Couches vecteurs
 **Modifier une géométrie**
 ::
 
+  # la variable `feat` est ici un objet de type `QgsFeature`
   geom = feat.geometry()
   geom.translate(100, 100)
   feat.setGeometry(geom)
@@ -155,7 +134,7 @@ Couches raster
   if not layer:
       print("Raster layer failed to load!")
 
-**Obtenir le nombre de bande**
+**Obtenir le nombre de bandes**
 ::
 
   # layer is a QgsRasterLayer
@@ -179,3 +158,26 @@ Couches raster
   # 'result' is of type `QgsRasterIdentifyResult`
   if result.isValid():
       print(result.results)
+
+
+Processing algorithms
+^^^^^^^^^^^^^^^^^^^^^
+
+**Obtenir une liste des algo. disponibles**
+::
+
+  for alg in QgsApplication.processingRegistry().algorithms():
+      print("{}:{} --> {}".format(
+          alg.provider().name(), alg.name(), alg.displayName()))
+
+
+**Obtenir de l'aide sur un algo.**
+
+*L'argument de* ``processing.algorithmHelp`` *est de la forme 'provider_name:algo_name'.*
+
+::
+
+  import processing
+  provider = 'qgis'
+  algo = 'randomselection'
+  processing.algorithmHelp("{}:{}".format(provider, algo))

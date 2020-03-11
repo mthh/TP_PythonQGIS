@@ -63,10 +63,10 @@
       <ul>
 <li><a class="reference internal" href="#">Cheatsheet</a><ul>
 <li><a class="reference internal" href="#canvas">Canvas</a></li>
-<li><a class="reference internal" href="#processing-algorithms">Processing algorithms</a></li>
 <li><a class="reference internal" href="#manipulation-des-couches-de-donnees">Manipulation des couches de données</a></li>
 <li><a class="reference internal" href="#couches-vecteurs">Couches vecteurs</a></li>
 <li><a class="reference internal" href="#couches-raster">Couches raster</a></li>
+<li><a class="reference internal" href="#processing-algorithms">Processing algorithms</a></li>
 </ul>
 </li>
 </ul>
@@ -124,23 +124,6 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="processing-algorithms">
-<h2>Processing algorithms<a class="headerlink" href="#processing-algorithms" title="Lien permanent vers ce titre">¶</a></h2>
-<p><strong>Obtenir une liste des algo. disponibles</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">alg</span> <span class="ow">in</span> <span class="n">QgsApplication</span><span class="o">.</span><span class="n">processingRegistry</span><span class="p">()</span><span class="o">.</span><span class="n">algorithms</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">:</span><span class="si">{}</span><span class="s2"> --&gt; </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">alg</span><span class="o">.</span><span class="n">provider</span><span class="p">()</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span> <span class="n">alg</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span> <span class="n">alg</span><span class="o">.</span><span class="n">displayName</span><span class="p">()))</span>
-</pre></div>
-</div>
-<p><strong>Obtenir de l’aide sur un algo.</strong></p>
-<p><em>L’argument de</em> <code class="docutils literal notranslate"><span class="pre">processing.algorithmHelp</span></code> <em>est de la forme “provider_name:algo_name”.</em></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">processing</span>
-<span class="n">provider</span> <span class="o">=</span> <span class="s1">&#39;qgis&#39;</span>
-<span class="n">algo</span> <span class="o">=</span> <span class="s1">&#39;randomselection&#39;</span>
-<span class="n">processing</span><span class="o">.</span><span class="n">algorithmHelp</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">provider</span><span class="p">,</span> <span class="n">algo</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
 <div class="section" id="manipulation-des-couches-de-donnees">
 <h2>Manipulation des couches de données<a class="headerlink" href="#manipulation-des-couches-de-donnees" title="Lien permanent vers ce titre">¶</a></h2>
 <p><strong>Lister les couches actives dans l’interface</strong></p>
@@ -152,8 +135,9 @@
 </pre></div>
 </div>
 <p><strong>Trouver une couche en utilisant son nom</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">())</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pour obtenir la couche dont le nom est &#39;name&#39;</span>
+<span class="n">layer</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="p">())</span> <span class="c1"># Doit donc afficher.. &#39;name&#39;</span>
 </pre></div>
 </div>
 <p><strong>Définir la couche active</strong></p>
@@ -211,7 +195,8 @@
 </pre></div>
 </div>
 <p><strong>Modifier une géométrie</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">geom</span> <span class="o">=</span> <span class="n">feat</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># la variable `feat` est ici un objet de type `QgsFeature`</span>
+<span class="n">geom</span> <span class="o">=</span> <span class="n">feat</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
 <span class="n">geom</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">feat</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span>
 </pre></div>
@@ -233,7 +218,7 @@
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Raster layer failed to load!&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>Obtenir le nombre de bande</strong></p>
+<p><strong>Obtenir le nombre de bandes</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># layer is a QgsRasterLayer</span>
 <span class="n">layer</span><span class="o">.</span><span class="n">bandCount</span><span class="p">()</span>
 </pre></div>
@@ -252,6 +237,23 @@
 <span class="c1"># &#39;result&#39; is of type `QgsRasterIdentifyResult`</span>
 <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">isValid</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="processing-algorithms">
+<h2>Processing algorithms<a class="headerlink" href="#processing-algorithms" title="Lien permanent vers ce titre">¶</a></h2>
+<p><strong>Obtenir une liste des algo. disponibles</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">alg</span> <span class="ow">in</span> <span class="n">QgsApplication</span><span class="o">.</span><span class="n">processingRegistry</span><span class="p">()</span><span class="o">.</span><span class="n">algorithms</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">:</span><span class="si">{}</span><span class="s2"> --&gt; </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">alg</span><span class="o">.</span><span class="n">provider</span><span class="p">()</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span> <span class="n">alg</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span> <span class="n">alg</span><span class="o">.</span><span class="n">displayName</span><span class="p">()))</span>
+</pre></div>
+</div>
+<p><strong>Obtenir de l’aide sur un algo.</strong></p>
+<p><em>L’argument de</em> <code class="docutils literal notranslate"><span class="pre">processing.algorithmHelp</span></code> <em>est de la forme “provider_name:algo_name”.</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">processing</span>
+<span class="n">provider</span> <span class="o">=</span> <span class="s1">&#39;qgis&#39;</span>
+<span class="n">algo</span> <span class="o">=</span> <span class="s1">&#39;randomselection&#39;</span>
+<span class="n">processing</span><span class="o">.</span><span class="n">algorithmHelp</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">provider</span><span class="p">,</span> <span class="n">algo</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
