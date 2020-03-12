@@ -7,6 +7,12 @@ Exercice 6 : Manipulation de couches vecteurs et géotraitements
   :figwidth: 98%
 
 
+.. rubric:: \ 
+|
+
+  **⚠** *Vous devrez envoyer le script permettant de répondre aux questions 4-5-6-7-8 à la fin du TP* **⚠**
+
+
 Objectif
 --------
 
@@ -146,11 +152,21 @@ Procédure
 - **Q6. Créer une nouvelle liste contenant le nom des communes qui croisent cette zone tampon. Combien sont-elles ?**
 
 
-- Bien que nous aillons pu manipuler la zone tampon précédemment créée, elle n'a pas été ajoutée à la carte.
+- Bien que nous aillons pu manipuler la zone tampon précédemment créée, elle n'a pas encore été ajoutée à la carte.
   En effet cette géométrie n'appartient pour l'instant à aucune entité ni à aucune couche.
 
-  **Q7. Quelles étapes peuvent-être mises en oeuvres pour afficher cette zone sur la carte ?** *(à formuler oralement/textuellement d'abords puis éventuellement en Python)*
+  **Q7. Quelles étapes peuvent-être mises en oeuvres pour afficher cette zone sur la carte ? Écrivez le code nécessaire créer une nouvelle couche contenant cette zone tampon et pour l'ajouter sur la carte.**
 
+- **Q8. En utilisant les éléments vus précédemment, la documentation PyQgis ainsi que les ressources présentes sur le Web :**
+
+  * **1) Créer une nouvelle sélection sur la couche des communes : celles qui intersectent la couche de la zone tampon créée dans la question précédente** *(les entités sélectionnées doivent s'afficher en jaune sur la carte)*
+  * **2) Sauvegarder uniquement les entités sélectionnés dans une nouvelle couche au format Shapefile.**
+
+.. raw:: html
+
+   <hr width="100%" size="18">
+
+- **Déjà terminé !?** Prenez connaissance de la documentation de PyQgis sur la communication avec l'utilisateur : `Communicating with the user <https://docs.qgis.org/3.4/en/docs/pyqgis_developer_cookbook/communicating.html>`_. Testez et modifiez les différents exemples qui sont proposés de façon à bien les comprendre : ces aspects seront utiles si vous souhaitez développer un plugin pour QGIS en Python.
 
 
 .. rubric:: Footnotes

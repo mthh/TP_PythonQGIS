@@ -94,3 +94,12 @@ div[aria-label="source link"] {
 #link-doc-pyqgis > a > img {
   width: 22px;
 }
+
+#exercice-6-manipulation-de-couches-vecteurs-et-geotraitements > blockquote:first-of-type {
+  border-color: #d63f97;
+  border-style: solid;
+  background-color: #ffbbbe;
+  color: #000;
+  text-align: center;
+  font-weight: bold;
+}

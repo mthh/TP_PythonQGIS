@@ -118,6 +118,12 @@
 <div class="figure align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/ex6_intro.png"><img alt="_images/ex6_intro.png" src="_images/ex6_intro.png" style="width: 40%;" /></a>
 </div>
+<p class="rubric"></p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<blockquote>
+<div><strong>⚠</strong> <em>Vous devrez envoyer le script permettant de répondre aux questions 4-5-6-7-8 à la fin du TP</em> <strong>⚠</strong></div></blockquote>
 <div class="section" id="objectif">
 <h2>Objectif<a class="headerlink" href="#objectif" title="Lien permanent vers ce titre">¶</a></h2>
 <p>L’objectif de cet exercice est de continuer à se familiariser avec :</p>
@@ -200,10 +206,19 @@ On peut créer une zone tampon de 250m autour du cours d’eau de la manière su
 </li>
 <li><p class="first"><strong>Q6. Créer une nouvelle liste contenant le nom des communes qui croisent cette zone tampon. Combien sont-elles ?</strong></p>
 </li>
-<li><p class="first">Bien que nous aillons pu manipuler la zone tampon précédemment créée, elle n’a pas été ajoutée à la carte.
+<li><p class="first">Bien que nous aillons pu manipuler la zone tampon précédemment créée, elle n’a pas encore été ajoutée à la carte.
 En effet cette géométrie n’appartient pour l’instant à aucune entité ni à aucune couche.</p>
-<p><strong>Q7. Quelles étapes peuvent-être mises en oeuvres pour afficher cette zone sur la carte ?</strong> <em>(à formuler oralement/textuellement d’abords puis éventuellement en Python)</em></p>
+<p><strong>Q7. Quelles étapes peuvent-être mises en oeuvres pour afficher cette zone sur la carte ? Écrivez le code nécessaire créer une nouvelle couche contenant cette zone tampon et pour l’ajouter sur la carte.</strong></p>
 </li>
+<li><p class="first"><strong>Q8. En utilisant les éléments vus précédemment, la documentation PyQgis ainsi que les ressources présentes sur le Web :</strong></p>
+<ul class="simple">
+<li><strong>1) Créer une nouvelle sélection sur la couche des communes : celles qui intersectent la couche de la zone tampon créée dans la question précédente</strong> <em>(les entités sélectionnées doivent s’afficher en jaune sur la carte)</em></li>
+<li><strong>2) Sauvegarder uniquement les entités sélectionnés dans une nouvelle couche au format Shapefile.</strong></li>
+</ul>
+</li>
+</ul>
+<hr width="100%" size="18"><ul class="simple">
+<li><strong>Déjà terminé !?</strong> Prenez connaissance de la documentation de PyQgis sur la communication avec l’utilisateur : <a class="reference external" href="https://docs.qgis.org/3.4/en/docs/pyqgis_developer_cookbook/communicating.html">Communicating with the user</a>. Testez et modifiez les différents exemples qui sont proposés de façon à bien les comprendre : ces aspects seront utiles si vous souhaitez développer un plugin pour QGIS en Python.</li>
 </ul>
 <p class="rubric">Footnotes</p>
 <table class="docutils footnote" frame="void" id="f1" rules="none">
