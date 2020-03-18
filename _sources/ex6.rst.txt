@@ -7,7 +7,7 @@ Exercice 6 : Manipulation de couches vecteurs et géotraitements
   :figwidth: 98%
 
 
-.. rubric:: \ 
+.. rubric:: \
 |
 
   **⚠** *Vous devrez envoyer le script permettant de répondre aux questions 4-5-6-7-8 à la fin du TP* **⚠**
@@ -167,6 +167,12 @@ Procédure
    <hr width="100%" size="18">
 
 - **Déjà terminé !?** Prenez connaissance de la documentation de PyQgis sur la communication avec l'utilisateur : `Communicating with the user <https://docs.qgis.org/3.4/en/docs/pyqgis_developer_cookbook/communicating.html>`_. Testez et modifiez les différents exemples qui sont proposés de façon à bien les comprendre : ces aspects seront utiles si vous souhaitez développer un plugin pour QGIS en Python.
+
+
+.. raw:: html
+
+   <hr width="100%" size="18">
+   <p class="align-center"><strong>💡 <a href="solutions/s_ex6.html">Solution de l'exercice 6</a></strong></p>
 
 
 .. rubric:: Footnotes

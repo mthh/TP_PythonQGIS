@@ -56,6 +56,23 @@
       </div>
   <div id="left-column">
     <div class="sphinxsidebar">
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Contenu</h2>
+    <div class="sidebar-localtoc">
+      <ul>
+<li><a class="reference internal" href="#">Exercice 7 : Construction d’un plugin</a><ul>
+<li><a class="reference internal" href="#objectif">Objectif</a></li>
+<li><a class="reference internal" href="#donnees-et-outils-necessaires">Données et outils nécessaires</a></li>
+<li><a class="reference internal" href="#mise-en-situation">Mise en situation</a></li>
+<li><a class="reference internal" href="#procedure">Procédure</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+</div>
   <h4>Sujet précédent</h4>
   <p class="topless"><a href="ex6.html"
                         title="Chapitre précédent">Exercice 6 : Manipulation de couches vecteurs et géotraitements</a></p>
@@ -101,6 +118,341 @@
 <h1>Exercice 7 : Construction d’un plugin<a class="headerlink" href="#exercice-7-construction-d-un-plugin" title="Lien permanent vers ce titre">¶</a></h1>
 <div class="figure align-center" style="width: 98%">
 <img alt="_images/ex7_logo_plugin_builder.png" src="_images/ex7_logo_plugin_builder.png" />
+</div>
+<div class="section" id="objectif">
+<h2>Objectif<a class="headerlink" href="#objectif" title="Lien permanent vers ce titre">¶</a></h2>
+<p>L’objectif de cet exercice est de créer un premier plugin pour QGIS.</p>
+<p>L’outil <code class="docutils literal notranslate"><span class="pre">Qt</span> <span class="pre">Designer</span> <span class="pre">5</span></code> va être nécessaire pour construire l’interface graphique.</p>
+<p>Dans le cas de l’utilisation de Windows, on préférera une installation de QGIS réalisée
+avec <a class="reference external" href="https://www.qgis.org/fr/site/forusers/download.html#windows">OSgeo4W</a> qui donnera
+accès à la possibilité d’installer facilement les composants nécessaires au développement
+de plugins (tels que les outils <code class="docutils literal notranslate"><span class="pre">Qt</span> <span class="pre">Designer</span></code> et <code class="docutils literal notranslate"><span class="pre">pyuic5</span></code>) et d’accéder
+à une console système paramétrée correctement pour les utiliser.</p>
+</div>
+<div class="section" id="donnees-et-outils-necessaires">
+<h2>Données et outils nécessaires<a class="headerlink" href="#donnees-et-outils-necessaires" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="line-block">
+<div class="line">-&gt; <strong>Qt Designer 5</strong> (normallement installé lors d’une nouvelle installation de QGIS).</div>
+<div class="line">-&gt; Plugin QGIS <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code>.</div>
+<div class="line">-&gt; Couche des départements français (<code class="docutils literal notranslate"><span class="pre">TP_Python_Qgis/data/ex7/departements_2015.shp</span></code>) pour vérifier le fonctionnement du plugin.</div>
+</div>
+<div class="line-block">
+<div class="line">-&gt; Le résultat de ce TP est disponible à l’adresse : <a class="reference external" href="https://github.com/mthh/TP_PythonQGIS_plugin/">https://github.com/mthh/TP_PythonQGIS_plugin/</a> (code, archive du plugin prêt à être installé, etc.).</div>
+</div>
+</div>
+<div class="section" id="mise-en-situation">
+<h2>Mise en situation<a class="headerlink" href="#mise-en-situation" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Pour les besoins d’une structure territoriale qui doit fusionner ses communes,
+nous devons développer un plugin proposant à l’utilisateur de <strong>sélectionner
+des polygones voisins et de les fusionner</strong>.</p>
+<p>Un formulaire sera ouvert pour permettre à l’utilisateur de <strong>saisir les nouveaux
+attributs de cette entité</strong> (nom de la commune fusionnée, nouveaux codes, etc.)</p>
+<p><em>Attention:</em> Une fois ces informations validées, les entités dont sont issues la fusion seront
+supprimées de la couche en question.</p>
+</div>
+<div class="section" id="procedure">
+<h2>Procédure<a class="headerlink" href="#procedure" title="Lien permanent vers ce titre">¶</a></h2>
+<ul class="simple">
+<li>Démarrer QGIS 3.</li>
+<li>Installer l’extension <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code> et l’extension <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Reloader</span></code>
+depuis le gestionnaire des extensions (Menu <code class="docutils literal notranslate"><span class="pre">Extension</span> <span class="pre">&gt;</span> <span class="pre">Gestionnaire</span> <span class="pre">des</span> <span class="pre">extensions</span></code>)</li>
+</ul>
+<div class="figure align-center" style="width: 98%">
+<a class="reference internal image-reference" href="_images/ex7_extension.png"><img alt="_images/ex7_extension.png" src="_images/ex7_extension.png" style="width: 100%;" /></a>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">L’extension <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code> va seulement être utilisée lors de la création du plugin.
+Elle permet de créer l’ensemble des fichiers nécessaires au développement d’un plugin
+et va nommer les fichiers et les prototypes de classes et de fichiers d’interface
+au regard du nom et de la description donnée au plugin à créer.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">L’extension <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Reloader</span></code> va permettre de recharger le plugin dans QGIS au cours de son développement.
+Elle permet, en un clic, de charger la dernière version d’un plugin (à partir du répertoire d’installation par défaut des plugins).
+Cette extension est dans la catégorie extension expérimentale, si ce n’est pas déjà fait, il est nécessaire d’autoriser l’installation de ce type
+d’extensions.</p>
+</div>
+<div class="figure align-center" style="width: 98%">
+<a class="reference internal image-reference" href="_images/ex7_extension_exp.png"><img alt="_images/ex7_extension_exp.png" src="_images/ex7_extension_exp.png" style="width: 100%;" /></a>
+</div>
+<ul>
+<li><p class="first">Ouvrir <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code> (Menu <code class="docutils literal notranslate"><span class="pre">Extension</span> <span class="pre">&gt;</span> <span class="pre">Plugin</span> <span class="pre">Builder</span> <span class="pre">&gt;</span> <span class="pre">Plugin</span> <span class="pre">Builder</span></code>).</p>
+</li>
+<li><p class="first">Saisir les différentes informations demandées :</p>
+<dl class="docutils">
+<dt>Pour respecter les conventions Python :</dt>
+<dd><ul class="first last simple">
+<li>nom de classe en <em>CamelCase</em> <a class="footnote-reference" href="#f1" id="id1">[1]</a></li>
+<li>nom du module en minuscule avec underscore si besoin <a class="footnote-reference" href="#f2" id="id2">[2]</a></li>
+</ul>
+</dd>
+<dt>Pour respecter les conventions de publication des plugins QGIS :</dt>
+<dd><ul class="first last simple">
+<li>on évite le mot «&nbsp;plugin&nbsp;» dans la nom du plugin <a class="footnote-reference" href="#f3" id="id3">[3]</a></li>
+</ul>
+</dd>
+</dl>
+<div class="figure align-center" style="width: 98%">
+<img alt="_images/ex7_builder_fields.png" src="_images/ex7_builder_fields.png" />
+</div>
+<div class="figure align-center" id="id4" style="width: 98%">
+<img alt="_images/ex7_builder_fields2.png" src="_images/ex7_builder_fields2.png" />
+<p class="caption"><span class="caption-text">On choisi le type de template à utiliser pour la fenêtre qui va être créée,
+le nom qui sera utilisé dans le menu de QGIS et le menu dans lequel sera ajouté.</span></p>
+</div>
+</li>
+<li><p class="first">Les panneaux suivants peuvent être laissés par défaut, à l’exception du dernier où il est
+nécessaire de sélectionner l’emplacement à utiliser pour stocker le code généré pour ce plugin.</p>
+<div class="figure align-center" style="width: 98%">
+<img alt="_images/ex7_builder_fields3.png" src="_images/ex7_builder_fields3.png" />
+</div>
+</li>
+<li><p class="first">Le développement de ce plugin va se passer en plusieurs étapes.
+Dans un premier temps nous allons éditer le fichier <code class="docutils literal notranslate"><span class="pre">.ui</span></code> qui est utilisé par Qt.
+Ces fichiers (au format XML) sont utilisé par Qt / PyQt pour générer du code (au format C++ dans le cas de Qt, en Python dans notre cas avec PyQt),
+soit lors de l’éxécution du programme qui les appelle, soit lors d’une étape préalable de compilation.</p>
+</li>
+<li><p class="first">Ouvrir l’outil <code class="docutils literal notranslate"><span class="pre">QtDesigner</span></code> (<code class="docutils literal notranslate"><span class="pre">Démarrer</span> <span class="pre">-&gt;</span> <span class="pre">Tous</span> <span class="pre">les</span> <span class="pre">programmes</span> <span class="pre">-&gt;</span> <span class="pre">OSGeo4W</span> <span class="pre">-&gt;</span> <span class="pre">QtDesigner</span> <span class="pre">pour</span> <span class="pre">QGIS</span> <span class="pre">X.xx</span></code> sur Windows)
+et charger le fichier <code class="docutils literal notranslate"><span class="pre">neighbor_merger_dialog_base.ui</span></code> généré précédemment par <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Builder</span></code>.</p>
+<p>Pour le besoin de notre plugin nous allons avoir besoin d’une liste déroulante
+permettant de sélectionner à quelle couche doit s’appliquer le traitement.
+Ce type d’élément s’apelle <code class="docutils literal notranslate"><span class="pre">QComboBox</span></code> dans Qt.</p>
+<p>QGIS est fourni avec différents éléments facilitant le développement de plugins tels qu’une classe <code class="docutils literal notranslate"><span class="pre">QgsMapLayerComboBox</span></code> :
+il s’agit d’une sous-classe de <code class="docutils literal notranslate"><span class="pre">QComboBox</span></code> qui est directement alimentée par la liste des couches chargées dans QGIS.
+Cet objet va également permettre de filter le type de couche à afficher en fonction de leur type de géométrie par exemple;
+nous allons utiliser cette fonctionnalité.</p>
+<div class="figure align-center" style="width: 98%">
+<a class="reference internal image-reference" href="_images/ex7_qtdesigner_combobox.png"><img alt="_images/ex7_qtdesigner_combobox.png" src="_images/ex7_qtdesigner_combobox.png" style="width: 100%;" /></a>
+</div>
+<p>Une fois cet élément ajouté à la fenêtre, aller dans <em>l’éditeur de propriété</em> et changer son nom de <code class="docutils literal notranslate"><span class="pre">mMapLayerComboBox</span></code> vers <code class="docutils literal notranslate"><span class="pre">targetLayerComboBox</span></code>.</p>
+<p>Changer ensuite les filtres relatifs aux couches affichées dans cette liste déroulante afin de n’autoriser que les <code class="docutils literal notranslate"><span class="pre">Polygon</span> <span class="pre">Layer</span></code>.</p>
+<div class="figure align-center" style="width: 98%">
+<a class="reference internal image-reference" href="_images/ex7_qtdesigner_end.png"><img alt="_images/ex7_qtdesigner_end.png" src="_images/ex7_qtdesigner_end.png" style="width: 100%;" /></a>
+</div>
+<p>Sauvegarder ce fichier et fermer <code class="docutils literal notranslate"><span class="pre">QtDesigner</span></code>.</p>
+</li>
+<li><p class="first">Les étapes suivantes (écriture du code du plugin, etc.) ne nécessitent pas d’utiliser l’éditeur de code fournit avec Python; il est conseiller d’utiliser un éditeur plus confortable.</p>
+<p>Les principales briques nécessaires pour écrire le code sont les suivantes :</p>
+<ul>
+<li><p class="first">Identifier les entités sélectionnées dans la couche demandée par l’utilisateur</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">selected</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">selectedFeatures</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Fusionner les géométries de ces entités en une nouvelle géométrie. Cette opération est généralement appelée une union
+(toutefois il s’agit d’un mot réservé en C++, la méthode a donc été appelée <code class="docutils literal notranslate"><span class="pre">combine</span></code> dans l’API QGIS et donc par
+extension dans PyQgis).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">geoms</span> <span class="o">=</span> <span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span> <span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">selected</span><span class="p">]</span>
+<span class="n">merged_geom</span> <span class="o">=</span> <span class="n">QgsGeometry</span><span class="p">(</span><span class="n">geoms</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">geoms</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+    <span class="n">merged_geom</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Créer une nouvelle entité utilisant cette géométrie et ouvrir le formulaire proposant à l’utilisateur de saisir ses attributs.
+/!Ne pas oublier que la couche doit être en mode édition (voir exercice 3) au moment de l’ouverture du formulaire,
+comme au moment de l’ajout de la nouvelle entité ou au moment de la suppression des anciennes entités !</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">new_feature</span> <span class="o">=</span> <span class="n">QgsFeature</span><span class="p">()</span>
+<span class="n">new_feature</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">merged_geom</span><span class="p">)</span>
+<span class="n">new_feature</span><span class="o">.</span><span class="n">setFields</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">fields</span><span class="p">())</span>
+<span class="n">validated</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">openFeatureForm</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">new_feature</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">layer</span><span class="o">.</span><span class="n">dataProvider</span><span class="p">()</span><span class="o">.</span><span class="n">addFeature</span><span class="p">(</span><span class="n">new_feature</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Gérer quelques erreurs possibles : les entités sélectionnées ne sont pas réellement voisines par exemple.</p>
+</li>
+<li><p class="first">Enlever les anciennes entités une fois que la nouvelle a été ajoutée avec succès :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">selected</span><span class="p">:</span>
+    <span class="n">layer</span><span class="o">.</span><span class="n">deleteFeature</span><span class="p">(</span><span class="n">ft</span><span class="o">.</span><span class="n">id</span><span class="p">())</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">On va aussi définir une fonction qui affichera un message d’erreur si nécessaire:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">display_error</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+    <span class="n">iface</span><span class="o">.</span><span class="n">messageBar</span><span class="p">()</span><span class="o">.</span><span class="n">pushMessage</span><span class="p">(</span>
+        <span class="s2">&quot;Erreur&quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">Qgis</span><span class="o">.</span><span class="n">Critical</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">L’essentiel de la logique peut ainsi être résumée ainsi :</p>
+<div class="spoiler blq docutils container">
+<p>Solution :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">merge_selected_features</span><span class="p">(</span><span class="n">layer</span><span class="p">):</span>
+    <span class="c1"># Récupération de la liste des entités (QgsFeature) sélectionnées :</span>
+    <span class="n">selected</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">selectedFeatures</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">display_error</span><span class="p">(</span><span class="s1">&#39;Le nombre d</span><span class="se">\&#39;</span><span class="s1">entités sélectionné est insuffisant&#39;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Déselectionne les entités sélectionnés :</span>
+    <span class="n">layer</span><span class="o">.</span><span class="n">removeSelection</span><span class="p">()</span>
+
+    <span class="c1"># Récupération des géométries (QgsGeometry)</span>
+    <span class="c1"># des entités sélectionnées :</span>
+    <span class="n">geoms</span> <span class="o">=</span> <span class="p">[</span><span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span> <span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">selected</span><span class="p">]</span>
+
+    <span class="c1"># Fusion des entités dans la nouvelle géométrie &#39;merged_geom&#39; :</span>
+    <span class="n">merged_geom</span> <span class="o">=</span> <span class="n">QgsGeometry</span><span class="p">(</span><span class="n">geoms</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">geoms</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="n">merged_geom</span> <span class="o">=</span> <span class="n">merged_geom</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span>
+
+    <span class="c1"># Création de la nouvelle entité utilisant cette géométrie</span>
+    <span class="c1"># (il est nécessaire de lui dire les champs à utiliser</span>
+    <span class="c1">#  avant l&#39;ouverture du formulaire)</span>
+    <span class="n">new_feature</span> <span class="o">=</span> <span class="n">QgsFeature</span><span class="p">()</span>
+    <span class="n">new_feature</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">merged_geom</span><span class="p">)</span>
+    <span class="n">new_feature</span><span class="o">.</span><span class="n">setFields</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">fields</span><span class="p">())</span>
+
+    <span class="c1"># Entre en mode édition :</span>
+    <span class="n">layer</span><span class="o">.</span><span class="n">startEditing</span><span class="p">()</span>
+
+    <span class="c1"># Ouverture du formulaire relatif à la nouvelle entité :</span>
+    <span class="n">valid</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">openFeatureForm</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">new_feature</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">valid</span><span class="p">:</span>
+        <span class="c1"># Sortie du mode édition sans valider d&#39;éventuels changements</span>
+        <span class="c1"># et affichage d&#39;un message d&#39;erreur</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">rollBack</span><span class="p">()</span>
+        <span class="n">display_error</span><span class="p">(</span><span class="s1">&#39;Erreur dans la saisie des attributs&#39;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Ajout de la nouvelle entité :</span>
+    <span class="n">valid</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">dataProvider</span><span class="p">()</span><span class="o">.</span><span class="n">addFeature</span><span class="p">(</span><span class="n">new_feature</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">valid</span><span class="p">:</span>
+        <span class="c1"># Sortie du mode édition sans valider d&#39;éventuels changements</span>
+        <span class="c1"># et affichage d&#39;un message d&#39;erreur</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">rollBack</span><span class="p">()</span>
+        <span class="n">display_error</span><span class="p">(</span><span class="s1">&#39;Erreur lors de l</span><span class="se">\&#39;</span><span class="s1">ajout de la nouvelle entité&#39;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Suppression des entités dont est issues la fusion :</span>
+    <span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">selected</span><span class="p">:</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">deleteFeature</span><span class="p">(</span><span class="n">ft</span><span class="o">.</span><span class="n">id</span><span class="p">())</span>
+
+    <span class="c1"># Validation des changements :</span>
+    <span class="n">layer</span><span class="o">.</span><span class="n">commitChanges</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p class="first">Les étapes suivantes consistent à intégrer cette logique à notre plugin.</p>
+</li>
+</ul>
+<ul>
+<li><p class="first"><strong>Bonus</strong> : on veut vérifier que les poylgones à fusionner sont bien voisins.
+Comment s’y prendre ? Pour deux polygones ? Pour 3, 4 ou un nombre indéterminé ?</p>
+<div class="spoiler blq docutils container">
+<p>Solution :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">all_touches_one_group</span><span class="p">(</span><span class="n">geoms</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Étant donné une liste de `QgsGeometry` cette fonction retourne un tuple</span>
+<span class="sd">    dont le premier élément contient une valeur booléene (True / False, en</span>
+<span class="sd">    fonction de si les géométries se touchent en formant un seul groupe)</span>
+<span class="sd">    et dont le deuxième élément contient la raison si la réponse est False,</span>
+<span class="sd">    ou un message vide sinon.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">geoms</span><span class="p">))}</span>
+    <span class="c1"># Pour chaque géométrie on va créer une liste de</span>
+    <span class="c1"># ses voisines directes</span>
+    <span class="k">for</span> <span class="n">ix1</span><span class="p">,</span> <span class="n">g1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">geoms</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ix2</span><span class="p">,</span> <span class="n">g2</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">geoms</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">ix1</span> <span class="o">==</span> <span class="n">ix2</span><span class="p">:</span> <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">g1</span><span class="o">.</span><span class="n">touches</span><span class="p">(</span><span class="n">g2</span><span class="p">):</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">ix1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ix2</span><span class="p">)</span>
+
+    <span class="c1"># Si au moins une d&#39;entre elles à cette liste de vide,</span>
+    <span class="c1"># c&#39;est qu&#39;elle n&#39;a aucune voisine</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">li</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">li</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;Au moins une géométrie est isolée&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Pas besoin de continuer les vérifications s&#39;il n&#39;y a que</span>
+    <span class="c1"># deux géomtries, elles sont bien voisines :</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">geoms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+    <span class="c1"># On va regarder si on peut parcourir l&#39;ensemble des géométries</span>
+    <span class="c1"># en allant de géométrie qui se touche à géométrie qui se touche</span>
+
+    <span class="c1"># Un `set` pour garder une trace des polygones parcourus</span>
+    <span class="n">seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="c1"># Une fonction récursive est définie pour parcourir les polygones</span>
+    <span class="c1"># qui n&#39;ont pas encore été vus</span>
+    <span class="k">def</span> <span class="nf">go_through</span><span class="p">(</span><span class="n">li</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">li</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">seen</span><span class="p">:</span>
+                <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                <span class="n">go_through</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">item</span><span class="p">])</span>
+
+    <span class="c1"># On applique cette fonction de manière arbitraire au premier polygone</span>
+    <span class="n">start_list</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">ix</span> <span class="ow">in</span> <span class="n">start_list</span><span class="p">:</span>
+        <span class="n">go_through</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">ix</span><span class="p">])</span>
+
+    <span class="c1"># On vérifie que le nombre de polygones parcourus est égal au</span>
+    <span class="c1"># nombre de polygones en entrée, sinon c&#39;est qu&#39;il y a plusieurs</span>
+    <span class="c1"># groupes distincts de polygones qui se touchent</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">seen</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">geoms</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;Les géométries sont en plusieurs groupes distincts&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</li>
+</ul>
+</li>
+<li><p class="first">Sur windows ouvrir l’intépréteur de commande fournit à l’installation de QGIS en ouvrant
+<code class="docutils literal notranslate"><span class="pre">Démarrer</span> <span class="pre">-&gt;</span> <span class="pre">Tous</span> <span class="pre">les</span> <span class="pre">programmes</span> <span class="pre">-&gt;</span> <span class="pre">OSGeo4W</span> <span class="pre">-&gt;</span> <span class="pre">OSGeo4W</span> <span class="pre">Shell</span></code></p>
+</li>
+<li><p class="first">Sur GNU/Linux ou Mac OS X ouvrir la console système habituelle.</p>
+</li>
+<li><p class="first">Se rendre dans le dossier précédemment choisit pour enregistrer le code de votre plugin :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Par exemple pour gnu/linux ou mac os x</span>
+<span class="n">cd</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">mthh</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">neighbor_merger</span>
+
+<span class="c1"># Par exemple pour windows</span>
+<span class="n">cd</span> <span class="n">C</span><span class="p">:</span>\<span class="n">home</span>\<span class="n">matthieu</span>\<span class="n">Desktop</span>\<span class="n">code</span>\<span class="n">neighbor_merger</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Utiliser l’utilitaire <code class="docutils literal notranslate"><span class="pre">Make</span></code> pour préparer le code et le déplacer à l’emplacement des plugins QGIS.</p>
+<ul class="simple">
+<li>Pour installer localement le plugin on utilisera la commande  <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">deploy</span></code>.</li>
+<li>Pour créer une archive zippée du plugin on pourra utiliser <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">zip</span></code>.</li>
+<li>Les différentes actions relatives à ces commandes (<code class="docutils literal notranslate"><span class="pre">zip</span></code>, <code class="docutils literal notranslate"><span class="pre">deploy</span></code>, etc.)
+sont décrite dans le fichier nommé <code class="docutils literal notranslate"><span class="pre">Makefile</span></code>. C’est dans ce fichier
+qu’il sera nécessaire de préciser si d’autres éléments (données d’exemple,
+images, etc.) doivent être prise en compte lors de l’installation du plugin.</li>
+</ul>
+</li>
+<li><p class="first">Il est normalement maintenant possible d’activer ce nouveau plugin depuis le menu <code class="docutils literal notranslate"><span class="pre">Extension</span> <span class="pre">&gt;</span> <span class="pre">Gestionnaire</span> <span class="pre">des</span> <span class="pre">extensions</span></code>. Lors de chaque changement qui sera effectué
+sur le code du plugin, vous devrez le redéployer à l’emplacement des plugins QGIS en utilisant la commande <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">deploy</span></code> vue précédemment. Il sera ensuite nécessaire de
+recharger votre plugin dans QGIS avec l’extension <code class="docutils literal notranslate"><span class="pre">Plugin</span> <span class="pre">Reloader</span></code>.</p>
+</li>
+</ul>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="f1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://www.python.org/dev/peps/pep-0008/#id41">https://www.python.org/dev/peps/pep-0008/#id41</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="f2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="https://www.python.org/dev/peps/pep-0008/#id40">https://www.python.org/dev/peps/pep-0008/#id40</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="f3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="https://plugins.qgis.org/">https://plugins.qgis.org/</a></td></tr>
+</tbody>
+</table>
 </div>
 </div>
 
