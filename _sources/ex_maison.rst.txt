@@ -237,7 +237,7 @@ Pour y répondre nous allons utiliser les couches de données suivantes :
 
 - ``IRIS_MENAGE_PARIS`` : les données socio-économique disponibles au niveau des **IRIS** situés à Paris (les données proviennent de l'APUR [#f1]_ et ont été enrichies avec des données de l'INSEE [#f2]_). dispose de plusieurs champs qui vont nous intéresser, ``RDEC_MED16`` : le revenu médian déclaré par ménage, ``nb_tmm`` le ...
 
-- ``STATION_METRO`` : les stations de métro situés dans Paris (les données proviennent de l'APUR [#f3]_). Cette couche dispose notamment d'un champ nommé ``L_STATION`` : le nom de la station.
+- ``STATION_METRO_PARIS`` : les stations de métro situés dans Paris (les données proviennent de l'APUR [#f3]_). Cette couche dispose notamment d'un champ nommé ``L_STATION`` : le nom de la station.
 
 
 .. rubric:: \
@@ -249,7 +249,7 @@ La décompresser dans votre espace de travail.
 
 Créer un nouveau projet QGIS utilisant la projection **EPSG:2154 (Lambert 93 / RGF 93)**.
 
-Ajouter les couches ``STATION_METRO.shp`` et ``IRIS_MENAGE_PARIS.shp`` et s'assurer qu'elles sont bien dans la même projection que le projet.
+Ajouter les couches ``STATION_METRO_PARIS.shp`` et ``IRIS_MENAGE_PARIS.shp`` et s'assurer qu'elles sont bien dans la même projection que le projet.
 
 .. figure:: img/tp8_8.png
   :width: 100%
@@ -262,14 +262,14 @@ Ajouter les couches ``STATION_METRO.shp`` et ``IRIS_MENAGE_PARIS.shp`` et s'assu
 
 ..
 
-**1.** Obtenir une référence Python aux couches ``STATION_METRO`` et ``IRIS_MENAGE_PARIS``. Appliquer le style du fichier ``Style_STATION_METRO_PARIS.qml`` à la couche ``STATION_METRO``.
+**1.** Obtenir une référence Python aux couches ``STATION_METRO_PARIS`` et ``IRIS_MENAGE_PARIS``. Appliquer le style du fichier ``Style_STATION_METRO_PARIS.qml`` à la couche ``STATION_METRO_PARIS``.
 
 .. figure:: img/tp8_9.png
   :width: 100%
   :align: center
   :figwidth: 98%
 
-**2.** À partir de la couche ``IRIS_MENAGE_PARIS`` et en utilisant l'aglorithme ``native:dissolve``, créer une couche correspondant à l'emprise de la ville de Paris, l'ajouter au projet actuel et la renommer ``COMMUNE_PARIS``.
+**2.** À partir de la couche ``IRIS_MENAGE_PARIS`` et en utilisant l'aglorithme ``native:dissolve``, **créer une couche correspondant à l'emprise de la ville de Paris, l'ajouter au projet actuel et la renommer** ``COMMUNE_PARIS``.
 
 .. figure:: img/tp8_10.png
   :width: 100%
@@ -277,26 +277,26 @@ Ajouter les couches ``STATION_METRO.shp`` et ``IRIS_MENAGE_PARIS.shp`` et s'assu
   :figwidth: 98%
 
 
-**3.** En vous aidant de l'exemple vu au dessus, calculez les polygones de voronoi qui correspondant à la couche `STATION_METRO` en utilisant un buffer de 20% et ajoutez les à la carte.
-En utilisant vous connaissance en SIG, sélectionnez puis éxécutez ensuite le géotraitement qui vous permet de découper ces polygones de voronoi par la couche obtenue `COMMUNE_PARIS` afin d'obtenir le résultat suivant :
+**3.** En vous aidant de l'exemple vu au dessus, **calculez les polygones de voronoi qui correspondant à la couche** ``STATION_METRO_PARIS`` **en utilisant un buffer de 20% et ajoutez les à la carte**.
+En utilisant vous connaissance en SIG, **sélectionnez puis éxécutez ensuite le géotraitement qui vous permet de découper ces polygones de voronoi par la couche obtenue** ``COMMUNE_PARIS`` afin d'obtenir le résultat suivant :
 
 .. figure:: img/tp8_11.png
   :width: 100%
   :align: center
   :figwidth: 98%
 
-Ajoutez ce résultat au projet actuel.
+**Ajoutez ce résultat au projet actuel et renommer la couche** : ``VORONOI_METRO_PARIS``.
 
 
 **4.** En utilisant les notions vues dans les TP précédents, calculer ..
 
+Enfin, appliquer le style ``Style_VORONOI_METRO_PARIS.qml`` à la couche ``VORONOI_METRO_PARIS``.
 .. figure:: img/tp8_12.png
   :width: 100%
   :align: center
   :figwidth: 98%
 
 **5.** En utilisant des éléments vus dans les TP précédents, réorganiser les couches afin qu'elles apparaissent dans l'ordre qui suit :
-
 
 .. figure:: img/tp8_13.png
   :width: 100%
