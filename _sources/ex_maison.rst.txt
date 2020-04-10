@@ -277,20 +277,24 @@ Ajouter les couches ``STATION_METRO_PARIS.shp`` et ``IRIS_MENAGE_PARIS.shp`` et 
   :figwidth: 98%
 
 
-**3.** En vous aidant de l'exemple vu au dessus, **calculez les polygones de voronoi qui correspondant à la couche** ``STATION_METRO_PARIS`` **en utilisant un buffer de 20% et ajoutez les à la carte**.
-En utilisant vous connaissance en SIG, **sélectionnez puis éxécutez ensuite le géotraitement qui vous permet de découper ces polygones de voronoi par la couche obtenue** ``COMMUNE_PARIS`` afin d'obtenir le résultat suivant :
+**3.** En vous aidant de l'exemple vu au dessus, **calculez les polygones de voronoi qui correspondant à la couche** ``STATION_METRO_PARIS`` **en utilisant un buffer de 20%**. Il n'est pas nécessaire d'ajouter ce résultat intermédiaire au projet.
+
+En utilisant vous connaissance en SIG, **sélectionnez puis éxécutez ensuite le géotraitement qui vous permet de découper ces polygones de voronoi par la couche obtenue** ``COMMUNE_PARIS`` afin d'obtenir le résultat qui suit.
+
+**Ajoutez ce résultat au projet actuel et renommer la couche** : ``VORONOI_METRO_PARIS``.
+
 
 .. figure:: img/tp8_11.png
   :width: 100%
   :align: center
   :figwidth: 98%
 
-**Ajoutez ce résultat au projet actuel et renommer la couche** : ``VORONOI_METRO_PARIS``.
-
 
 **4.** En utilisant les notions vues dans les TP précédents, calculer ..
 
 Enfin, appliquer le style ``Style_VORONOI_METRO_PARIS.qml`` à la couche ``VORONOI_METRO_PARIS``.
+
+
 .. figure:: img/tp8_12.png
   :width: 100%
   :align: center
