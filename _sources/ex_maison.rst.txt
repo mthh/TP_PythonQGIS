@@ -1,0 +1,310 @@
+Exercice final / à faire à la maison
+====================================
+
+.. figure:: img/tp8_0.png
+  :width: 40%
+  :align: center
+  :figwidth: 98%
+
+
+.. rubric:: \
+|
+
+  **⚠** *Vous devez envoyer le script permettant de répondre à l'ensemble des questions* **⚠**
+
+
+Objectif
+--------
+
+- Découvrir et utiliser les algorithmes de la boite à outil de géotraitement (*processing algorithms*) en Python.
+
+- Combiner plusieurs géo-traitements pour répondre à une question d'analyse spatiale.
+
+
+Nouvelles notions
+-----------------
+
+L'ensemble des **géo-traitements** disponibles sous forme de boites de dialogues dans QGIS est également accessible au travers de l'API Python.
+C'est également le cas pour les géo-traitements proposées dans QGIS par les extensions GRASS, SAGA et GDAL.
+
+Contraitement aux manipulations que nous avons effectuées auparavant, ces géo-traitements prennent en entrée une (ou plusieurs) couche(s) et produisent généralement une couche en sortie.
+Il s'agit par exemple de traitements tels que :
+
+- Création d'une zone tampon
+
+- Création de Polygones Voronoi
+
+- Création d'une grille au format vecteur
+
+- Rastériserisation d'une couche vecteur
+
+- Etc.
+
+En utilisant le code suivant, il est possible de lister l'ensemble des algorithmes disponibles dans QGIS :
+
+::
+
+  for alg in QgsApplication.processingRegistry().algorithms():
+      print("{} --> {}".format(alg.id(), alg.displayName()))
+
+Le texte qui s'affiche est de la forme :
+
+::
+
+  ...
+  native:centroids --> Centroïdes
+  native:clip --> Couper
+  ...
+
+La partie de gauche désigne l'idenfifiant de l'algorithme (``native:centroids`` par exemple)
+et celle de droite son intitulé (``Centroïdes`` par exemple) dans la langue utilisée par QGIS *(ici le français - attention certains intitulés ne sont toutefois pas traduits)*.
+Il est ainsi possible d'accéder en Python à l'ensemble des géo-traitements de la boite à outils.
+
+.. figure:: img/tp8_1.png
+  :width: 100%
+  :align: center
+  :figwidth: 98%
+
+L'accès à ces algorithmes se fait via le module ``processing``.
+
+::
+
+  import processing
+
+
+**➜ La fonction** ``algorithmHelp`` **va permettre d'afficher l'aide d'un algorithme**:
+
+::
+
+  processing.algorithmHelp("native:centroids")
+
+
+Il est indispensable de lire la documentation d'un algorithme avant de l'utiliser : c'est elle qui indique quels sont les paramètres requis pour l'utiliser.
+
+  L'aide des différents géo-traitements peut également être affichée au format HTML à partir de la page : https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/index.html.
+
+::
+
+  Centroïdes (native:centroids)
+
+  Cet algorithme créé un nouvelle couche de type point, ou les points représentent le barycentre des entités d'une couche d'entrée.
+
+  Les attributs associés aux points dans la couche de sortie  sont ceux des points de la couche d'origine.
+
+
+  ----------------
+  Input parameters
+  ----------------
+
+  INPUT: Couche source
+
+  	Parameter type:	QgsProcessingParameterFeatureSource
+
+  	Accepted data types:
+  		- str: ID de couche
+  		- str: nom de couche
+  		- str: couche source
+  		- QgsProcessingFeatureSourceDefinition
+  		- QgsProperty
+  		- QgsVectorLayer
+
+  ALL_PARTS: Créer un centroïde pour chaque partie
+
+  	Parameter type:	QgsProcessingParameterBoolean
+
+  	Accepted data types:
+  		- bool
+  		- int
+  		- str
+  		- QgsProperty
+
+  OUTPUT: Centroïdes
+
+  	Parameter type:	QgsProcessingParameterFeatureSink
+
+  	Accepted data types:
+  		- str: fichier vecteur de destination, par ex. 'd:/test.shp'
+  		- str: 'memory:' pour stocker le résultat dans une couche temporaire en mémoire
+  		- str: using vector provider ID prefix and destination URI, e.g. 'postgres:…' to store result in PostGIS table
+  		- QgsProcessingOutputLayerDefinition
+  		- QgsProperty
+
+  ----------------
+  Outputs
+  ----------------
+
+  OUTPUT:  <QgsProcessingOutputVectorLayer>
+  	Centroïdes
+
+Cette aide nous apprend :
+
+- Que l'algorithme s'utilise avec 3 paramètres d'entrés : ``INPUT``, ``ALL_PARTS`` et ``OUTPUT`` *(nous allons voir comment les utiliser simplement ensuite)*,
+- Que le résultat attendu est de type ``QgsProcessingOutputVectorLayer`` : cet objet va nous permettre d'obtenir une couche de type ``QgsVectorLayer`` comme manipulé dans les TP précédents si l'éxécution se déroule sans problème.
+
+**➜ La fonction** ``run`` **va permettre d'éxécuter l'algorithme**.
+
+Son premier argument est l'identifiant de l'algorithme à éxécuter et son second argument est un dictionnaire Python (objet ``dict``) décrivant
+les paramètres de l'algorithme (couche(s) en entrées, type de sortie, éventuelles options.)
+
+L'exemple suivant utilise une de mes couches (nommée ``park`` dans mon projet QGIS) pour calculer le centroide de chaque entité.
+Le résultat est stocké dans une couche temporaire en mémoire et est ajouté au projet actuel.
+
+::
+
+  layer = QgsProject.instance().mapLayersByName("park")[0]
+  result = processing.run(
+      "native:centroids",
+      {'INPUT': layer, 'ALL_PARTS': False, 'OUTPUT': 'TEMPORARY_OUTPUT'}
+  )
+  QgsProject.instance().addMapLayer(result['OUTPUT'])
+
+L'exécution du code précédent correspond ainsi à l'action suivante dans l'interface de QGIS :
+
+.. figure:: img/tp8_2.png
+  :width: 100%
+  :align: center
+  :figwidth: 98%
+
+Dans l'interface, on retrouve également après l'éxécution, dans l'onglet ``Journal`` le dictionnaire des **paramètres en entrée**
+utilisé pour ce géo-traitement :
+
+.. figure:: img/tp8_3.png
+  :width: 100%
+  :align: center
+  :figwidth: 98%
+
+Puisque l'on obtient une nouvelle couche, il est ainsi possible d'enchainer plusieurs traitements de ce type de manière simple.
+Si je cherche à créer des polygones de Voronoi qui correspondent à mes parks (cet algorithme nécessite une couche de points en entrée),
+je peux ainsi réaliser les traitements suivants :
+
+::
+
+   input_layer = QgsProject.instance().mapLayersByName("park")[0]
+   # 1. Calcul des centroides
+   result_centroids = processing.run(
+     "native:centroids",
+     {'INPUT': input_layer, 'ALL_PARTS': False, 'OUTPUT': 'TEMPORARY_OUTPUT'})
+   centroid_layer = result_centroids['OUTPUT']
+   # 2. Calcul des polygones de voronoi
+   # et choix d'un chemin pour enregister le résultat :
+   result_voronoi = processing.run(
+     "qgis:voronoipolygons",
+     {'INPUT': centroid_layer, 'BUFFER': 5, 'OUTPUT': 'TEMPORARY_OUTPUT'})
+   # 3. Ajout des polygones de voronoi au projet
+   QgsProject.instance().addMapLayer(result_voronoi['OUTPUT'])
+
+
+.. figure:: img/tp8_4.png
+  :width: 100%
+  :align: center
+  :figwidth: 98%
+
+.. figure:: img/tp8_5.png
+  :width: 100%
+  :align: center
+  :figwidth: 98%
+
+Ici ``result_voronoi['OUTPUT']`` est un objet de type ``QgsVectorLayer`` comme manipulé dans les TP précédents : il est possible de changer son nom dans l'interface et ceci
+est conseillé afin d'identifier plus facilement vos couches.
+
+::
+
+  result_voronoi['OUTPUT'].setName('voronoi_park')
+
+.. figure:: img/tp8_6.png
+  :width: 60%
+  :align: center
+  :figwidth: 98%
+
+Exercice
+--------
+
+Nous souhaitons savoir plus sur le profil socio-démographique des habitants de Paris en utilisant un découpage original : celui qui peut être obtenus à partir des stations de métros.
+
+.. figure:: img/tp8_7.png
+  :width: 100%
+  :align: center
+  :figwidth: 98%
+
+En effet nous souhaitons répondre à plusieurs questions telles que:
+
+- quels sont les niveaux de revenus à proximité de ma station de métro ?
+
+- quelles stations de métro sont situées dans les zones les plus dénsément peuplées ?
+
+
+Pour y répondre nous allons utiliser les couches de données suivantes :
+
+- ``IRIS_MENAGE_PARIS`` : les données socio-économique disponibles au niveau des **IRIS** situés à Paris (les données proviennent de l'APUR [#f1]_ et ont été enrichies avec des données de l'INSEE [#f2]_). dispose de plusieurs champs qui vont nous intéresser, ``RDEC_MED16`` : le revenu médian déclaré par ménage, ``nb_tmm`` le ...
+
+- ``STATION_METRO`` : les stations de métro situés dans Paris (les données proviennent de l'APUR [#f3]_). Cette couche dispose notamment d'un champ nommé ``L_STATION`` : le nom de la station.
+
+
+.. rubric:: \
+|
+
+**0.** Télécharger l'archive zippée qui contient les données : http://ldkflsdkfl.fdlfsk
+
+La décompresser dans votre espace de travail.
+
+Créer un nouveau projet QGIS utilisant la projection **EPSG:2154 (Lambert 93 / RGF 93)**.
+
+Ajouter les couches ``STATION_METRO.shp`` et ``IRIS_MENAGE_PARIS.shp`` et s'assurer qu'elles sont bien dans la même projection que le projet.
+
+.. figure:: img/tp8_8.png
+  :width: 100%
+  :align: center
+  :figwidth: 98%
+
+..
+
+  **⚠** *L'ensemble des étapes suivantes doit être effectué en Python. Une capture d'écran vous indique quel est le résultat attendu à l'issue de chaque étape.* **⚠**
+
+..
+
+**1.** Obtenir une référence Python aux couches ``STATION_METRO`` et ``IRIS_MENAGE_PARIS``. Appliquer le style du fichier ``Style_STATION_METRO_PARIS.qml`` à la couche ``STATION_METRO``.
+
+.. figure:: img/tp8_9.png
+  :width: 100%
+  :align: center
+  :figwidth: 98%
+
+**2.** À partir de la couche ``IRIS_MENAGE_PARIS`` et en utilisant l'aglorithme ``native:dissolve``, créer une couche correspondant à l'emprise de la ville de Paris, l'ajouter au projet actuel et la renommer ``COMMUNE_PARIS``.
+
+.. figure:: img/tp8_10.png
+  :width: 100%
+  :align: center
+  :figwidth: 98%
+
+
+**3.** En vous aidant de l'exemple vu au dessus, calculez les polygones de voronoi qui correspondant à la couche `STATION_METRO` en utilisant un buffer de 20% et ajoutez les à la carte.
+En utilisant vous connaissance en SIG, sélectionnez puis éxécutez ensuite le géotraitement qui vous permet de découper ces polygones de voronoi par la couche obtenue `COMMUNE_PARIS` afin d'obtenir le résultat suivant :
+
+.. figure:: img/tp8_11.png
+  :width: 100%
+  :align: center
+  :figwidth: 98%
+
+Ajoutez ce résultat au projet actuel.
+
+
+**4.** En utilisant les notions vues dans les TP précédents, calculer ..
+
+.. figure:: img/tp8_12.png
+  :width: 100%
+  :align: center
+  :figwidth: 98%
+
+**5.** En utilisant des éléments vus dans les TP précédents, réorganiser les couches afin qu'elles apparaissent dans l'ordre qui suit :
+
+
+.. figure:: img/tp8_13.png
+  :width: 100%
+  :align: center
+  :figwidth: 98%
+
+.. rubric:: Footnotes
+
+.. [#f1] APUR (Atelier Parisien d'Urbanisme) - Jeu de données "RECENSEMENT IRIS MENAGE" : https://opendata.apur.org/datasets/recensement-iris-menage. Données téléchargées le 08/04/2020.
+.. [#f2] INSEE - Jeu de données" Revenus, pauvreté et niveau de vie en 2016 (IRIS)"" : https://www.insee.fr/fr/statistiques/4295611. Données téléchargées le 08/04/2020.
+.. [#f3] APUR (Atelier Parisien d'Urbanisme) - Jeu de données "STATION TRANSPORT" : https://opendata.apur.org/datasets/station-transport. Données téléchargées le 08/04/2020.

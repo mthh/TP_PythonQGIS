@@ -49,6 +49,16 @@ Manipulation des couches de données
   QgsProject.instance().clear()
 
 
+**Charger un fichier de style (Symbologie, étiquettes, etc.) au format .qml**
+::
+
+  layer.loadNamedStyle("path/to/file.qml")
+
+**Renommer une couche**
+::
+
+  layer.setName("roads")
+
 **Obtenir le système de coordonnées de référence (CRS)**
 ::
 
@@ -62,11 +72,11 @@ Manipulation des couches de données
 
   filename = "sample.gpkg"
   layer = QgsVectorLayer(filename, "test", "ogr")
-  subLayers =layer.dataProvider().subLayers()
+  subLayers = layer.dataProvider().subLayers()
 
   for subLayer in subLayers:
       name = subLayer.split('!!::!!')[1]
-      uri = "%s|layername=%s" % (fileName, name,)
+      uri = "%s|layername=%s" % (filename, name,)
       # Création de la couche
       sub_vlayer = QgsVectorLayer(uri, name, 'ogr')
       # Ajout au projet
@@ -126,8 +136,6 @@ Couches vecteurs
   layer.setOpacity(0.5)
 
 
-
-
 Couches raster
 ^^^^^^^^^^^^^^^^
 
@@ -177,7 +185,7 @@ Processing algorithms
 
 **Obtenir de l'aide sur un algo.**
 
-*L'argument de* ``processing.algorithmHelp`` *est de la forme 'provider_name:algo_name'.*
+*L'argument de* ``processing.algorithmHelp`` *est l'identifiant d'un algorithme, de la forme 'provider_name:algo_name'.*
 
 ::
 
@@ -185,3 +193,16 @@ Processing algorithms
   provider = 'qgis'
   algo = 'randomselection'
   processing.algorithmHelp("{}:{}".format(provider, algo))
+
+
+**Exécuter un algo.**
+
+*La fonction* ``processing.run`` *attend toujours deux arguments: une chaine de caractères contenant l'identifiant d'un algorithme et un dictionnaire
+contenant les paramètres à utiliser.*
+
+::
+
+  import processing
+  algo_name = "qgis:buffer"
+  algo_params = {'INPUT': layer, 'DISTANCE': 100, 'OUTPUT': 'TEMPORARY_OUTPUT'}
+  processing.run(algo_name, algo_params)

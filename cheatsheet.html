@@ -150,6 +150,14 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 </pre></div>
 </div>
+<p><strong>Charger un fichier de style (Symbologie, étiquettes, etc.) au format .qml</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span><span class="o">.</span><span class="n">loadNamedStyle</span><span class="p">(</span><span class="s2">&quot;path/to/file.qml&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Renommer une couche</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span><span class="o">.</span><span class="n">setName</span><span class="p">(</span><span class="s2">&quot;roads&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 <p><strong>Obtenir le système de coordonnées de référence (CRS)</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayers</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
     <span class="n">crs</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">crs</span><span class="p">()</span><span class="o">.</span><span class="n">authid</span><span class="p">()</span>
@@ -159,11 +167,11 @@
 <p><strong>Charger toutes les couches d’un GeoPackage</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;sample.gpkg&quot;</span>
 <span class="n">layer</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;ogr&quot;</span><span class="p">)</span>
-<span class="n">subLayers</span> <span class="o">=</span><span class="n">layer</span><span class="o">.</span><span class="n">dataProvider</span><span class="p">()</span><span class="o">.</span><span class="n">subLayers</span><span class="p">()</span>
+<span class="n">subLayers</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">dataProvider</span><span class="p">()</span><span class="o">.</span><span class="n">subLayers</span><span class="p">()</span>
 
 <span class="k">for</span> <span class="n">subLayer</span> <span class="ow">in</span> <span class="n">subLayers</span><span class="p">:</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">subLayer</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;!!::!!&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">|layername=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="n">name</span><span class="p">,)</span>
+    <span class="n">uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">|layername=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">name</span><span class="p">,)</span>
     <span class="c1"># Création de la couche</span>
     <span class="n">sub_vlayer</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s1">&#39;ogr&#39;</span><span class="p">)</span>
     <span class="c1"># Ajout au projet</span>
@@ -251,11 +259,20 @@
 </pre></div>
 </div>
 <p><strong>Obtenir de l’aide sur un algo.</strong></p>
-<p><em>L’argument de</em> <code class="docutils literal notranslate"><span class="pre">processing.algorithmHelp</span></code> <em>est de la forme “provider_name:algo_name”.</em></p>
+<p><em>L’argument de</em> <code class="docutils literal notranslate"><span class="pre">processing.algorithmHelp</span></code> <em>est l’identifiant d’un algorithme, de la forme “provider_name:algo_name”.</em></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">processing</span>
 <span class="n">provider</span> <span class="o">=</span> <span class="s1">&#39;qgis&#39;</span>
 <span class="n">algo</span> <span class="o">=</span> <span class="s1">&#39;randomselection&#39;</span>
 <span class="n">processing</span><span class="o">.</span><span class="n">algorithmHelp</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">provider</span><span class="p">,</span> <span class="n">algo</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Exécuter un algo.</strong></p>
+<p><em>La fonction</em> <code class="docutils literal notranslate"><span class="pre">processing.run</span></code> <em>attend toujours deux arguments: une chaine de caractères contenant l’identifiant d’un algorithme et un dictionnaire
+contenant les paramètres à utiliser.</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">processing</span>
+<span class="n">algo_name</span> <span class="o">=</span> <span class="s2">&quot;qgis:buffer&quot;</span>
+<span class="n">algo_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;INPUT&#39;</span><span class="p">:</span> <span class="n">layer</span><span class="p">,</span> <span class="s1">&#39;DISTANCE&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;OUTPUT&#39;</span><span class="p">:</span> <span class="s1">&#39;TEMPORARY_OUTPUT&#39;</span><span class="p">}</span>
+<span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">algo_name</span><span class="p">,</span> <span class="n">algo_params</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
