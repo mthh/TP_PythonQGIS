@@ -280,7 +280,7 @@ est conseillé afin d’identifier plus facilement vos couches.</p>
 <p>En effet nous pourrions vouloir répondre à plusieurs questions telles que:</p>
 <ul class="simple">
 <li><strong>quels sont les niveaux de revenus à proximité de ma station de métro ?</strong></li>
-<li>quelles stations de métro sont situées dans les zones les plus dénsément peuplées ?</li>
+<li>quelles stations de métro sont situées dans les zones les plus densément peuplées ?</li>
 <li>aux alentour de quelles stations sont principalement localisées les résidences secondaires ?</li>
 </ul>
 <p class="rubric"></p>
@@ -290,13 +290,13 @@ est conseillé afin d’identifier plus facilement vos couches.</p>
 <p>Nous allons répondre à la première de ces questions en utilisant les couches de données suivantes :</p>
 <ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">IRIS_MENAGE_PARIS</span></code> : les données socio-économique disponibles au niveau des <a class="reference external" href="https://fr.wikipedia.org/wiki/%C3%8Elots_regroup%C3%A9s_pour_l%27information_statistique">IRIS</a> situés à Paris (les données proviennent de l’APUR <a class="footnote-reference" href="#f1" id="id1">[1]</a> et ont été enrichies avec des données de l’INSEE <a class="footnote-reference" href="#f2" id="id2">[2]</a>). Le principal champ qui nous intéresse dans cette couche est <code class="docutils literal notranslate"><span class="pre">RDEC_MED16</span></code> : le revenu médian déclaré par ménage.</li>
-<li><code class="docutils literal notranslate"><span class="pre">STATION_METRO_PARIS</span></code> : les stations de métro situés dans Paris (les données proviennent de l’APUR <a class="footnote-reference" href="#f3" id="id3">[3]</a>). Cette couche dispose notamment d’un champ nommé <code class="docutils literal notranslate"><span class="pre">L_STATION</span></code> : le nom de la station.</li>
+<li><code class="docutils literal notranslate"><span class="pre">STATION_METRO_PARIS</span></code> : les stations de métro situées dans Paris (les données proviennent de l’APUR <a class="footnote-reference" href="#f3" id="id3">[3]</a>). Cette couche dispose notamment d’un champ nommé <code class="docutils literal notranslate"><span class="pre">L_STATION</span></code> : le nom de la station.</li>
 </ul>
 <p class="rubric"></p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p><strong>0.</strong> Télécharger l’archive zippée qui contient les données : <a class="reference external" href="http://ldkflsdkfl.fdlfsk">http://ldkflsdkfl.fdlfsk</a></p>
+<p><strong>0.</strong> Télécharger l’archive zippée qui contient les données : <a class="reference external" href="https://mthh.github.io/TP_PythonQGIS/_static/data_pyqgis.zip">https://mthh.github.io/TP_PythonQGIS/_static/data_pyqgis.zip</a></p>
 <p>La décompresser dans votre espace de travail.</p>
 <p>Créer un nouveau projet QGIS utilisant la projection <strong>EPSG:2154 (Lambert 93 / RGF 93)</strong>.</p>
 <p>Ajouter les couches <code class="docutils literal notranslate"><span class="pre">STATION_METRO_PARIS.shp</span></code> et <code class="docutils literal notranslate"><span class="pre">IRIS_MENAGE_PARIS.shp</span></code> et s’assurer qu’elles sont bien dans la même projection que le projet.</p>
@@ -321,15 +321,40 @@ est conseillé afin d’identifier plus facilement vos couches.</p>
 <a class="reference internal image-reference" href="_images/tp8_11.png"><img alt="_images/tp8_11.png" src="_images/tp8_11.png" style="width: 100%;" /></a>
 </div>
 <p><strong>4.</strong> En utilisant les notions vues dans les TP précédents, <strong>calculer, pour chaque polygone de Voronoi, la moyenne des salaires médians</strong> (champ <code class="docutils literal notranslate"><span class="pre">RDEC_MED16</span></code>) <strong>des IRIS intersectés</strong> (couche <code class="docutils literal notranslate"><span class="pre">IRIS_MENAGE_PARIS</span></code>).</p>
+<p>Pour chaque polygone de Voronoi, cette valeur doit être stockée dans le champ <code class="docutils literal notranslate"><span class="pre">MOY_RDEC</span></code> (pour <em>moyenne des revenus déclarés</em>) qu’il est nécessaire de créer au préalable.</p>
 <p><strong>⚠</strong> Attention lors de la réalisation de ce calcul : les IRIS qui présentent la valeur 0 ne doivent pas être pris en compte dans le calcul de la moyenne <em>(la valeur 0 n’indique pas un salaire médian de 0 mais la non restitution de la valeur de l’indicateur pour l’IRIS concerné pour des raisons de confidentialité des données)</em>.</p>
 <p>Enfin, <strong>appliquer le style</strong> <code class="docutils literal notranslate"><span class="pre">Style_VORONOI_METRO_PARIS.qml</span></code> <strong>à la couche</strong> <code class="docutils literal notranslate"><span class="pre">VORONOI_METRO_PARIS</span></code>.</p>
 <div class="figure align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/tp8_12.png"><img alt="_images/tp8_12.png" src="_images/tp8_12.png" style="width: 100%;" /></a>
 </div>
-<p><strong>5.</strong> En utilisant des éléments vus dans les TP précédents, <strong>réorganiser les couches</strong> afin qu’elles apparaissent dans l’ordre qui suit :</p>
+<p><strong>5.</strong> En utilisant des éléments vus dans les TP précédents, <strong>écrire le code nécessaire à organiser les couches</strong> afin qu’elles apparaissent dans l’ordre de la liste qui suit :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">layer_order</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;STATION_METRO_PARIS&#39;</span><span class="p">,</span> <span class="s1">&#39;VORONOI_METRO_PARIS&#39;</span><span class="p">,</span> <span class="s1">&#39;COMMUNE_PARIS&#39;</span><span class="p">,</span> <span class="s1">&#39;IRIS_MENAGE_PARIS&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
 <div class="figure align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/tp8_13.png"><img alt="_images/tp8_13.png" src="_images/tp8_13.png" style="width: 100%;" /></a>
 </div>
+<p><strong>6.</strong> Écrire une fonction Python <code class="docutils literal notranslate"><span class="pre">affiche_salaire_station</span></code> qui accepte un argument, le nom d’une station de métro, et qui affiche la valeur calculée à l’étape 4.</p>
+<p>Cette fonction doit donc se présenter de la forme suivante :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">affiche_salaire_station</span><span class="p">(</span><span class="n">nom_station</span><span class="p">):</span>
+    <span class="c1"># le code permettant d&#39;afficher</span>
+    <span class="c1"># la valeur pour la station &#39;nom_station&#39;</span>
+</pre></div>
+</div>
+<p>Par exemple si on l’invoque avec le nom <code class="docutils literal notranslate"><span class="pre">PORTE</span> <span class="pre">DE</span> <span class="pre">PANTIN</span></code> on doit obtenir le résultat suivant :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">affiche_salaire_station</span><span class="p">(</span><span class="s1">&#39;PORTE DE PANTIN&#39;</span><span class="p">)</span>
+<span class="c1"># &quot;La moyenne des salaires médians autour de la station &#39;PORTE DE PANTIN&#39; est de 17048.71 euros&quot;</span>
+</pre></div>
+</div>
+<p><strong>🚀 Question bonus 🚀</strong> Lors de l’étape <strong>4</strong> le calcul réalisé n’est pas très précis : en effet, tous les IRIS qui intersectent un polygone de Voronoi
+sont pris en compte à égalité alors qu’il serait plus correct de prendre en compte ces valeurs au prorata des surfaces concernées lors du calcul de la moyenne.</p>
+<p><strong>Répéter la logique de la question 4 en mettant en oeuvre la consigne précédente en stockant cette fois le résultat dans un champ appelé</strong> <code class="docutils literal notranslate"><span class="pre">MOY_RDEC_P</span></code> (pour <em>moyenne des revenus déclarés au prorata</em>).</p>
+<p class="rubric"></p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<blockquote>
+<div><strong>Le script est à envoyer à l’adresse</strong> <a class="reference external" href="mailo:matthieu.viry&#64;univ-grenoble-alpes.fr">matthieu.viry&#64;univ-grenoble-alpes.fr</a>.</div></blockquote>
 <p class="rubric">Footnotes</p>
 <table class="docutils footnote" frame="void" id="f1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>

@@ -230,7 +230,7 @@ En effet nous pourrions vouloir répondre à plusieurs questions telles que:
 
 - **quels sont les niveaux de revenus à proximité de ma station de métro ?**
 
-- quelles stations de métro sont situées dans les zones les plus dénsément peuplées ?
+- quelles stations de métro sont situées dans les zones les plus densément peuplées ?
 
 - aux alentour de quelles stations sont principalement localisées les résidences secondaires ?
 
@@ -242,13 +242,13 @@ Nous allons répondre à la première de ces questions en utilisant les couches 
 
 - ``IRIS_MENAGE_PARIS`` : les données socio-économique disponibles au niveau des `IRIS <https://fr.wikipedia.org/wiki/%C3%8Elots_regroup%C3%A9s_pour_l%27information_statistique>`_ situés à Paris (les données proviennent de l'APUR [#f1]_ et ont été enrichies avec des données de l'INSEE [#f2]_). Le principal champ qui nous intéresse dans cette couche est ``RDEC_MED16`` : le revenu médian déclaré par ménage.
 
-- ``STATION_METRO_PARIS`` : les stations de métro situés dans Paris (les données proviennent de l'APUR [#f3]_). Cette couche dispose notamment d'un champ nommé ``L_STATION`` : le nom de la station.
+- ``STATION_METRO_PARIS`` : les stations de métro situées dans Paris (les données proviennent de l'APUR [#f3]_). Cette couche dispose notamment d'un champ nommé ``L_STATION`` : le nom de la station.
 
 
 .. rubric:: \
 |
 
-**0.** Télécharger l'archive zippée qui contient les données : http://ldkflsdkfl.fdlfsk
+**0.** Télécharger l'archive zippée qui contient les données : https://mthh.github.io/TP_PythonQGIS/_static/data_pyqgis.zip
 
 La décompresser dans votre espace de travail.
 
@@ -299,6 +299,8 @@ En utilisant vos connaissances en SIG, **sélectionner puis éxécuter ensuite l
 
 **4.** En utilisant les notions vues dans les TP précédents, **calculer, pour chaque polygone de Voronoi, la moyenne des salaires médians** (champ ``RDEC_MED16``) **des IRIS intersectés** (couche ``IRIS_MENAGE_PARIS``).
 
+Pour chaque polygone de Voronoi, cette valeur doit être stockée dans le champ ``MOY_RDEC`` (pour *moyenne des revenus déclarés*) qu'il est nécessaire de créer au préalable.
+
 **⚠** Attention lors de la réalisation de ce calcul : les IRIS qui présentent la valeur 0 ne doivent pas être pris en compte dans le calcul de la moyenne *(la valeur 0 n'indique pas un salaire médian de 0 mais la non restitution de la valeur de l'indicateur pour l'IRIS concerné pour des raisons de confidentialité des données)*.
 
 Enfin, **appliquer le style** ``Style_VORONOI_METRO_PARIS.qml`` **à la couche** ``VORONOI_METRO_PARIS``.
@@ -310,12 +312,50 @@ Enfin, **appliquer le style** ``Style_VORONOI_METRO_PARIS.qml`` **à la couche**
   :figwidth: 98%
 
 
-**5.** En utilisant des éléments vus dans les TP précédents, **réorganiser les couches** afin qu'elles apparaissent dans l'ordre qui suit :
+**5.** En utilisant des éléments vus dans les TP précédents, **écrire le code nécessaire à organiser les couches** afin qu'elles apparaissent dans l'ordre de la liste qui suit :
+
+::
+
+  layer_order = ['STATION_METRO_PARIS', 'VORONOI_METRO_PARIS', 'COMMUNE_PARIS', 'IRIS_MENAGE_PARIS']
+
 
 .. figure:: img/tp8_13.png
   :width: 100%
   :align: center
   :figwidth: 98%
+
+**6.** Écrire une fonction Python ``affiche_salaire_station`` qui accepte un argument, le nom d'une station de métro, et qui affiche la valeur calculée à l'étape 4.
+
+Cette fonction doit donc se présenter de la forme suivante :
+
+::
+
+  def affiche_salaire_station(nom_station):
+      # le code permettant d'afficher
+      # la valeur pour la station 'nom_station'
+
+Par exemple si on l'invoque avec le nom ``PORTE DE PANTIN`` on doit obtenir le résultat suivant :
+
+::
+
+  affiche_salaire_station('PORTE DE PANTIN')
+  # "La moyenne des salaires médians autour de la station 'PORTE DE PANTIN' est de 17048.71 euros"
+
+
+**🚀 Question bonus 🚀** Lors de l'étape **4** le calcul réalisé n'est pas très précis : en effet, tous les IRIS qui intersectent un polygone de Voronoi
+sont pris en compte à égalité alors qu'il serait plus correct de prendre en compte ces valeurs au prorata des surfaces concernées lors du calcul de la moyenne.
+
+**Répéter la logique de la question 4 en mettant en oeuvre la consigne précédente en stockant cette fois le résultat dans un champ appelé** ``MOY_RDEC_P`` (pour *moyenne des revenus déclarés au prorata*).
+
+
+.. rubric:: \
+|
+
+..
+
+  **Le script est à envoyer à l'adresse** `matthieu.viry@univ-grenoble-alpes.fr <mailo:matthieu.viry@univ-grenoble-alpes.fr>`_.
+
+..
 
 .. rubric:: Footnotes
 
