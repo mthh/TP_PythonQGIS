@@ -57,7 +57,7 @@ Le texte qui s'affiche est de la forme :
   ...
 
 La partie de gauche désigne l'idenfifiant de l'algorithme (``native:centroids`` par exemple)
-et celle de droite son intitulé (``Centroïdes`` par exemple) dans la langue utilisée par QGIS *(ici le français - attention certains intitulés ne sont toutefois pas traduits)*.
+et celle de droite son intitulé (``Centroïdes`` par exemple) dans la langue utilisée par QGIS *(ici le français - certains intitulés ne sont toutefois pas traduits)*.
 Il est ainsi possible d'accéder en Python à l'ensemble des géo-traitements de la boite à outils.
 
 .. figure:: img/tp8_1.png
@@ -138,8 +138,8 @@ Il est indispensable de lire la documentation d'un algorithme avant de l'utilise
 
 Cette aide nous apprend :
 
-- Que l'algorithme s'utilise avec 3 paramètres d'entrés : ``INPUT``, ``ALL_PARTS`` et ``OUTPUT`` *(nous allons voir comment les utiliser simplement ensuite)*,
-- Que le résultat attendu est de type ``QgsProcessingOutputVectorLayer`` : cet objet va nous permettre d'obtenir une couche de type ``QgsVectorLayer`` comme manipulé dans les TP précédents si l'éxécution se déroule sans problème.
+- Que l'algorithme s'utilise avec 3 paramètres d'entrée : ``INPUT``, ``ALL_PARTS`` et ``OUTPUT`` *(nous allons voir comment les utiliser simplement ensuite)*,
+- Que le résultat attendu est de type ``QgsProcessingOutputVectorLayer`` : cet objet va nous permettre d'obtenir une couche de type ``QgsVectorLayer`` comme manipulée dans les TP précédents si l'éxécution se déroule sans problème.
 
 **➜ La fonction** ``run`` **va permettre d'éxécuter l'algorithme**.
 
@@ -219,23 +219,28 @@ est conseillé afin d'identifier plus facilement vos couches.
 Exercice
 --------
 
-Nous souhaitons savoir plus sur le profil socio-démographique des habitants de Paris en utilisant un découpage original : celui qui peut être obtenus à partir des stations de métros.
+Nous souhaitons en savoir plus sur le profil socio-démographique des habitants de Paris en utilisant un découpage original : celui qui peut être obtenus à partir des stations de métros.
 
 .. figure:: img/tp8_7.png
   :width: 100%
   :align: center
   :figwidth: 98%
 
-En effet nous souhaitons répondre à plusieurs questions telles que:
+En effet nous pourrions vouloir répondre à plusieurs questions telles que:
 
-- quels sont les niveaux de revenus à proximité de ma station de métro ?
+- **quels sont les niveaux de revenus à proximité de ma station de métro ?**
 
 - quelles stations de métro sont situées dans les zones les plus dénsément peuplées ?
 
+- aux alentour de quelles stations sont principalement localisées les résidences secondaires ?
 
-Pour y répondre nous allons utiliser les couches de données suivantes :
+.. rubric:: \
+|
 
-- ``IRIS_MENAGE_PARIS`` : les données socio-économique disponibles au niveau des **IRIS** situés à Paris (les données proviennent de l'APUR [#f1]_ et ont été enrichies avec des données de l'INSEE [#f2]_). dispose de plusieurs champs qui vont nous intéresser, ``RDEC_MED16`` : le revenu médian déclaré par ménage, ``nb_tmm`` le ...
+
+Nous allons répondre à la première de ces questions en utilisant les couches de données suivantes :
+
+- ``IRIS_MENAGE_PARIS`` : les données socio-économique disponibles au niveau des `IRIS <https://fr.wikipedia.org/wiki/%C3%8Elots_regroup%C3%A9s_pour_l%27information_statistique>`_ situés à Paris (les données proviennent de l'APUR [#f1]_ et ont été enrichies avec des données de l'INSEE [#f2]_). Le principal champ qui nous intéresse dans cette couche est ``RDEC_MED16`` : le revenu médian déclaré par ménage.
 
 - ``STATION_METRO_PARIS`` : les stations de métro situés dans Paris (les données proviennent de l'APUR [#f3]_). Cette couche dispose notamment d'un champ nommé ``L_STATION`` : le nom de la station.
 
@@ -262,14 +267,16 @@ Ajouter les couches ``STATION_METRO_PARIS.shp`` et ``IRIS_MENAGE_PARIS.shp`` et 
 
 ..
 
-**1.** Obtenir une référence Python aux couches ``STATION_METRO_PARIS`` et ``IRIS_MENAGE_PARIS``. Appliquer le style du fichier ``Style_STATION_METRO_PARIS.qml`` à la couche ``STATION_METRO_PARIS``.
+**1.** **Obtenir une référence Python aux couches** ``STATION_METRO_PARIS`` **et** ``IRIS_MENAGE_PARIS``. **Appliquer le style du fichier** ``Style_STATION_METRO_PARIS.qml`` **à la couche** ``STATION_METRO_PARIS``.
 
 .. figure:: img/tp8_9.png
   :width: 100%
   :align: center
   :figwidth: 98%
 
-**2.** À partir de la couche ``IRIS_MENAGE_PARIS`` et en utilisant l'aglorithme ``native:dissolve``, **créer une couche correspondant à l'emprise de la ville de Paris, l'ajouter au projet actuel et la renommer** ``COMMUNE_PARIS``.
+**2.** À partir de la couche ``IRIS_MENAGE_PARIS`` et en utilisant l'aglorithme ``native:dissolve``, **créer une couche correspondant à l'emprise de la ville de Paris**.
+
+**L'ajouter au projet actuel et la renommer** ``COMMUNE_PARIS``.
 
 .. figure:: img/tp8_10.png
   :width: 100%
@@ -277,11 +284,11 @@ Ajouter les couches ``STATION_METRO_PARIS.shp`` et ``IRIS_MENAGE_PARIS.shp`` et 
   :figwidth: 98%
 
 
-**3.** En vous aidant de l'exemple vu au dessus, **calculez les polygones de voronoi qui correspondant à la couche** ``STATION_METRO_PARIS`` **en utilisant un buffer de 20%**. Il n'est pas nécessaire d'ajouter ce résultat intermédiaire au projet.
+**3.** En vous aidant de l'exemple vu au dessus, **calculer les polygones de voronoi qui correspondant à la couche** ``STATION_METRO_PARIS`` **en utilisant un buffer de 20%**. Il n'est pas nécessaire d'ajouter ce résultat intermédiaire au projet.
 
-En utilisant vous connaissance en SIG, **sélectionnez puis éxécutez ensuite le géotraitement qui vous permet de découper ces polygones de voronoi par la couche obtenue** ``COMMUNE_PARIS`` afin d'obtenir le résultat qui suit.
+En utilisant vos connaissances en SIG, **sélectionner puis éxécuter ensuite le géotraitement qui vous permet de découper ces polygones de voronoi par la couche obtenue** ``COMMUNE_PARIS`` afin d'obtenir le résultat qui suit.
 
-**Ajoutez ce résultat au projet actuel et renommer la couche** : ``VORONOI_METRO_PARIS``.
+**Ajouter ce résultat au projet actuel et renommer la couche** : ``VORONOI_METRO_PARIS``.
 
 
 .. figure:: img/tp8_11.png
@@ -290,9 +297,11 @@ En utilisant vous connaissance en SIG, **sélectionnez puis éxécutez ensuite l
   :figwidth: 98%
 
 
-**4.** En utilisant les notions vues dans les TP précédents, calculer ..
+**4.** En utilisant les notions vues dans les TP précédents, **calculer, pour chaque polygone de Voronoi, la moyenne des salaires médians** (champ ``RDEC_MED16``) **des IRIS intersectés** (couche ``IRIS_MENAGE_PARIS``).
 
-Enfin, appliquer le style ``Style_VORONOI_METRO_PARIS.qml`` à la couche ``VORONOI_METRO_PARIS``.
+**⚠** Attention lors de la réalisation de ce calcul : les IRIS qui présentent la valeur 0 ne doivent pas être pris en compte dans le calcul de la moyenne *(la valeur 0 n'indique pas un salaire médian de 0 mais la non restitution de la valeur de l'indicateur pour l'IRIS concerné pour des raisons de confidentialité des données)*.
+
+Enfin, **appliquer le style** ``Style_VORONOI_METRO_PARIS.qml`` **à la couche** ``VORONOI_METRO_PARIS``.
 
 
 .. figure:: img/tp8_12.png
@@ -300,7 +309,8 @@ Enfin, appliquer le style ``Style_VORONOI_METRO_PARIS.qml`` à la couche ``VORON
   :align: center
   :figwidth: 98%
 
-**5.** En utilisant des éléments vus dans les TP précédents, réorganiser les couches afin qu'elles apparaissent dans l'ordre qui suit :
+
+**5.** En utilisant des éléments vus dans les TP précédents, **réorganiser les couches** afin qu'elles apparaissent dans l'ordre qui suit :
 
 .. figure:: img/tp8_13.png
   :width: 100%

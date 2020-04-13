@@ -143,7 +143,7 @@ Il s’agit par exemple de traitements tels que :</p>
 </pre></div>
 </div>
 <p>La partie de gauche désigne l’idenfifiant de l’algorithme (<code class="docutils literal notranslate"><span class="pre">native:centroids</span></code> par exemple)
-et celle de droite son intitulé (<code class="docutils literal notranslate"><span class="pre">Centroïdes</span></code> par exemple) dans la langue utilisée par QGIS <em>(ici le français - attention certains intitulés ne sont toutefois pas traduits)</em>.
+et celle de droite son intitulé (<code class="docutils literal notranslate"><span class="pre">Centroïdes</span></code> par exemple) dans la langue utilisée par QGIS <em>(ici le français - certains intitulés ne sont toutefois pas traduits)</em>.
 Il est ainsi possible d’accéder en Python à l’ensemble des géo-traitements de la boite à outils.</p>
 <div class="figure align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/tp8_1.png"><img alt="_images/tp8_1.png" src="_images/tp8_1.png" style="width: 100%;" /></a>
@@ -213,8 +213,8 @@ Il est ainsi possible d’accéder en Python à l’ensemble des géo-traitement
 </div>
 <p>Cette aide nous apprend :</p>
 <ul class="simple">
-<li>Que l’algorithme s’utilise avec 3 paramètres d’entrés : <code class="docutils literal notranslate"><span class="pre">INPUT</span></code>, <code class="docutils literal notranslate"><span class="pre">ALL_PARTS</span></code> et <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> <em>(nous allons voir comment les utiliser simplement ensuite)</em>,</li>
-<li>Que le résultat attendu est de type <code class="docutils literal notranslate"><span class="pre">QgsProcessingOutputVectorLayer</span></code> : cet objet va nous permettre d’obtenir une couche de type <code class="docutils literal notranslate"><span class="pre">QgsVectorLayer</span></code> comme manipulé dans les TP précédents si l’éxécution se déroule sans problème.</li>
+<li>Que l’algorithme s’utilise avec 3 paramètres d’entrée : <code class="docutils literal notranslate"><span class="pre">INPUT</span></code>, <code class="docutils literal notranslate"><span class="pre">ALL_PARTS</span></code> et <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> <em>(nous allons voir comment les utiliser simplement ensuite)</em>,</li>
+<li>Que le résultat attendu est de type <code class="docutils literal notranslate"><span class="pre">QgsProcessingOutputVectorLayer</span></code> : cet objet va nous permettre d’obtenir une couche de type <code class="docutils literal notranslate"><span class="pre">QgsVectorLayer</span></code> comme manipulée dans les TP précédents si l’éxécution se déroule sans problème.</li>
 </ul>
 <p><strong>➜ La fonction</strong> <code class="docutils literal notranslate"><span class="pre">run</span></code> <strong>va permettre d’éxécuter l’algorithme</strong>.</p>
 <p>Son premier argument est l’identifiant de l’algorithme à éxécuter et son second argument est un dictionnaire Python (objet <code class="docutils literal notranslate"><span class="pre">dict</span></code>) décrivant
@@ -273,18 +273,23 @@ est conseillé afin d’identifier plus facilement vos couches.</p>
 </div>
 <div class="section" id="exercice">
 <h2>Exercice<a class="headerlink" href="#exercice" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Nous souhaitons savoir plus sur le profil socio-démographique des habitants de Paris en utilisant un découpage original : celui qui peut être obtenus à partir des stations de métros.</p>
+<p>Nous souhaitons en savoir plus sur le profil socio-démographique des habitants de Paris en utilisant un découpage original : celui qui peut être obtenus à partir des stations de métros.</p>
 <div class="figure align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/tp8_7.png"><img alt="_images/tp8_7.png" src="_images/tp8_7.png" style="width: 100%;" /></a>
 </div>
-<p>En effet nous souhaitons répondre à plusieurs questions telles que:</p>
+<p>En effet nous pourrions vouloir répondre à plusieurs questions telles que:</p>
 <ul class="simple">
-<li>quels sont les niveaux de revenus à proximité de ma station de métro ?</li>
+<li><strong>quels sont les niveaux de revenus à proximité de ma station de métro ?</strong></li>
 <li>quelles stations de métro sont situées dans les zones les plus dénsément peuplées ?</li>
+<li>aux alentour de quelles stations sont principalement localisées les résidences secondaires ?</li>
 </ul>
-<p>Pour y répondre nous allons utiliser les couches de données suivantes :</p>
+<p class="rubric"></p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Nous allons répondre à la première de ces questions en utilisant les couches de données suivantes :</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">IRIS_MENAGE_PARIS</span></code> : les données socio-économique disponibles au niveau des <strong>IRIS</strong> situés à Paris (les données proviennent de l’APUR <a class="footnote-reference" href="#f1" id="id1">[1]</a> et ont été enrichies avec des données de l’INSEE <a class="footnote-reference" href="#f2" id="id2">[2]</a>). dispose de plusieurs champs qui vont nous intéresser, <code class="docutils literal notranslate"><span class="pre">RDEC_MED16</span></code> : le revenu médian déclaré par ménage, <code class="docutils literal notranslate"><span class="pre">nb_tmm</span></code> le …</li>
+<li><code class="docutils literal notranslate"><span class="pre">IRIS_MENAGE_PARIS</span></code> : les données socio-économique disponibles au niveau des <a class="reference external" href="https://fr.wikipedia.org/wiki/%C3%8Elots_regroup%C3%A9s_pour_l%27information_statistique">IRIS</a> situés à Paris (les données proviennent de l’APUR <a class="footnote-reference" href="#f1" id="id1">[1]</a> et ont été enrichies avec des données de l’INSEE <a class="footnote-reference" href="#f2" id="id2">[2]</a>). Le principal champ qui nous intéresse dans cette couche est <code class="docutils literal notranslate"><span class="pre">RDEC_MED16</span></code> : le revenu médian déclaré par ménage.</li>
 <li><code class="docutils literal notranslate"><span class="pre">STATION_METRO_PARIS</span></code> : les stations de métro situés dans Paris (les données proviennent de l’APUR <a class="footnote-reference" href="#f3" id="id3">[3]</a>). Cette couche dispose notamment d’un champ nommé <code class="docutils literal notranslate"><span class="pre">L_STATION</span></code> : le nom de la station.</li>
 </ul>
 <p class="rubric"></p>
@@ -300,26 +305,28 @@ est conseillé afin d’identifier plus facilement vos couches.</p>
 </div>
 <blockquote>
 <div><strong>⚠</strong> <em>L’ensemble des étapes suivantes doit être effectué en Python. Une capture d’écran vous indique quel est le résultat attendu à l’issue de chaque étape.</em> <strong>⚠</strong></div></blockquote>
-<p><strong>1.</strong> Obtenir une référence Python aux couches <code class="docutils literal notranslate"><span class="pre">STATION_METRO_PARIS</span></code> et <code class="docutils literal notranslate"><span class="pre">IRIS_MENAGE_PARIS</span></code>. Appliquer le style du fichier <code class="docutils literal notranslate"><span class="pre">Style_STATION_METRO_PARIS.qml</span></code> à la couche <code class="docutils literal notranslate"><span class="pre">STATION_METRO_PARIS</span></code>.</p>
+<p><strong>1.</strong> <strong>Obtenir une référence Python aux couches</strong> <code class="docutils literal notranslate"><span class="pre">STATION_METRO_PARIS</span></code> <strong>et</strong> <code class="docutils literal notranslate"><span class="pre">IRIS_MENAGE_PARIS</span></code>. <strong>Appliquer le style du fichier</strong> <code class="docutils literal notranslate"><span class="pre">Style_STATION_METRO_PARIS.qml</span></code> <strong>à la couche</strong> <code class="docutils literal notranslate"><span class="pre">STATION_METRO_PARIS</span></code>.</p>
 <div class="figure align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/tp8_9.png"><img alt="_images/tp8_9.png" src="_images/tp8_9.png" style="width: 100%;" /></a>
 </div>
-<p><strong>2.</strong> À partir de la couche <code class="docutils literal notranslate"><span class="pre">IRIS_MENAGE_PARIS</span></code> et en utilisant l’aglorithme <code class="docutils literal notranslate"><span class="pre">native:dissolve</span></code>, <strong>créer une couche correspondant à l’emprise de la ville de Paris, l’ajouter au projet actuel et la renommer</strong> <code class="docutils literal notranslate"><span class="pre">COMMUNE_PARIS</span></code>.</p>
+<p><strong>2.</strong> À partir de la couche <code class="docutils literal notranslate"><span class="pre">IRIS_MENAGE_PARIS</span></code> et en utilisant l’aglorithme <code class="docutils literal notranslate"><span class="pre">native:dissolve</span></code>, <strong>créer une couche correspondant à l’emprise de la ville de Paris</strong>.</p>
+<p><strong>L’ajouter au projet actuel et la renommer</strong> <code class="docutils literal notranslate"><span class="pre">COMMUNE_PARIS</span></code>.</p>
 <div class="figure align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/tp8_10.png"><img alt="_images/tp8_10.png" src="_images/tp8_10.png" style="width: 100%;" /></a>
 </div>
-<p><strong>3.</strong> En vous aidant de l’exemple vu au dessus, <strong>calculez les polygones de voronoi qui correspondant à la couche</strong> <code class="docutils literal notranslate"><span class="pre">STATION_METRO_PARIS</span></code> <strong>en utilisant un buffer de 20%</strong>. Il n’est pas nécessaire d’ajouter ce résultat intermédiaire au projet.</p>
-<p>En utilisant vous connaissance en SIG, <strong>sélectionnez puis éxécutez ensuite le géotraitement qui vous permet de découper ces polygones de voronoi par la couche obtenue</strong> <code class="docutils literal notranslate"><span class="pre">COMMUNE_PARIS</span></code> afin d’obtenir le résultat qui suit.</p>
-<p><strong>Ajoutez ce résultat au projet actuel et renommer la couche</strong> : <code class="docutils literal notranslate"><span class="pre">VORONOI_METRO_PARIS</span></code>.</p>
+<p><strong>3.</strong> En vous aidant de l’exemple vu au dessus, <strong>calculer les polygones de voronoi qui correspondant à la couche</strong> <code class="docutils literal notranslate"><span class="pre">STATION_METRO_PARIS</span></code> <strong>en utilisant un buffer de 20%</strong>. Il n’est pas nécessaire d’ajouter ce résultat intermédiaire au projet.</p>
+<p>En utilisant vos connaissances en SIG, <strong>sélectionner puis éxécuter ensuite le géotraitement qui vous permet de découper ces polygones de voronoi par la couche obtenue</strong> <code class="docutils literal notranslate"><span class="pre">COMMUNE_PARIS</span></code> afin d’obtenir le résultat qui suit.</p>
+<p><strong>Ajouter ce résultat au projet actuel et renommer la couche</strong> : <code class="docutils literal notranslate"><span class="pre">VORONOI_METRO_PARIS</span></code>.</p>
 <div class="figure align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/tp8_11.png"><img alt="_images/tp8_11.png" src="_images/tp8_11.png" style="width: 100%;" /></a>
 </div>
-<p><strong>4.</strong> En utilisant les notions vues dans les TP précédents, calculer ..</p>
-<p>Enfin, appliquer le style <code class="docutils literal notranslate"><span class="pre">Style_VORONOI_METRO_PARIS.qml</span></code> à la couche <code class="docutils literal notranslate"><span class="pre">VORONOI_METRO_PARIS</span></code>.</p>
+<p><strong>4.</strong> En utilisant les notions vues dans les TP précédents, <strong>calculer, pour chaque polygone de Voronoi, la moyenne des salaires médians</strong> (champ <code class="docutils literal notranslate"><span class="pre">RDEC_MED16</span></code>) <strong>des IRIS intersectés</strong> (couche <code class="docutils literal notranslate"><span class="pre">IRIS_MENAGE_PARIS</span></code>).</p>
+<p><strong>⚠</strong> Attention lors de la réalisation de ce calcul : les IRIS qui présentent la valeur 0 ne doivent pas être pris en compte dans le calcul de la moyenne <em>(la valeur 0 n’indique pas un salaire médian de 0 mais la non restitution de la valeur de l’indicateur pour l’IRIS concerné pour des raisons de confidentialité des données)</em>.</p>
+<p>Enfin, <strong>appliquer le style</strong> <code class="docutils literal notranslate"><span class="pre">Style_VORONOI_METRO_PARIS.qml</span></code> <strong>à la couche</strong> <code class="docutils literal notranslate"><span class="pre">VORONOI_METRO_PARIS</span></code>.</p>
 <div class="figure align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/tp8_12.png"><img alt="_images/tp8_12.png" src="_images/tp8_12.png" style="width: 100%;" /></a>
 </div>
-<p><strong>5.</strong> En utilisant des éléments vus dans les TP précédents, réorganiser les couches afin qu’elles apparaissent dans l’ordre qui suit :</p>
+<p><strong>5.</strong> En utilisant des éléments vus dans les TP précédents, <strong>réorganiser les couches</strong> afin qu’elles apparaissent dans l’ordre qui suit :</p>
 <div class="figure align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/tp8_13.png"><img alt="_images/tp8_13.png" src="_images/tp8_13.png" style="width: 100%;" /></a>
 </div>

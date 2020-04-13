@@ -95,6 +95,8 @@ div[aria-label="source link"] {
   width: 22px;
 }
 
+#exercice-final-a-faire-a-la-maison > blockquote:first-of-type,
+#exercice-final-a-faire-a-la-maison #exercice > blockquote:first-of-type,
 #exercice-6-manipulation-de-couches-vecteurs-et-geotraitements > blockquote:first-of-type {
   border-color: #d63f97;
   border-style: solid;
@@ -102,4 +104,12 @@ div[aria-label="source link"] {
   color: #000;
   text-align: center;
   font-weight: bold;
+}
+
+#exercice-final-a-faire-a-la-maison table.footnote {
+  text-align: left;
+}
+
+#exercice-final-a-faire-a-la-maison #exercice div.line {
+  border-top: solid 1px black;
 }
