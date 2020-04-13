@@ -37,6 +37,7 @@ LP ESSIG - Université Grenoble Alpes
    ex5
    ex6
    ex7
+   ex_maison
 
 .. raw:: html
 

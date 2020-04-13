@@ -50,13 +50,21 @@ Exercice 5
 Exercice 6
 ----------
 
-...
+- Tracé du Canal du Furon au format Shapefile. Source : BD TOPO v2., `IGN <http://professionnels.ign.fr/bdtopo>`_. Données téléchargées le 28/02/2019.
+
+- Vommunes de France Métropolitaine. Source : `ADMIN EXPRESS COG 2.0 2019, IGN <http://professionnels.ign.fr/>`_. Données téléchargées le 10/03/2020.
 
 
-Exercice 7
-----------
 
-...
+Exercice à la maison
+--------------------
+
+- Localisation des stations de métro. Source : APUR (Atelier Parisien d'Urbanisme) - Jeu de données "STATION TRANSPORT" : https://opendata.apur.org/datasets/station-transport. Données téléchargées le 08/04/2020.
+
+- Découpage et données des IRIS : APUR (Atelier Parisien d'Urbanisme) - Jeu de données "RECENSEMENT IRIS MENAGE" : https://opendata.apur.org/datasets/recensement-iris-menage. Données téléchargées le 08/04/2020.
+
+- Données sur les revenus au niveau IRIS : INSEE - Jeu de données "Revenus, pauvreté et niveau de vie en 2016 (IRIS)" : https://www.insee.fr/fr/statistiques/4295611. Données téléchargées le 08/04/2020.
+
 
 
 .. _`Natural Earth`: https://www.naturalearthdata.com
