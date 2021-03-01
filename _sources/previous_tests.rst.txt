@@ -10,3 +10,5 @@ Sujet d'exam des années précédentes
 
 
 - `Mars 2019 <_static/PythonQGIS_2019.pdf>`_ *(avec QGIS 2)*
+
+- *Mars 2020 (en controle continu)*

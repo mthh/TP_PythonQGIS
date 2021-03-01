@@ -35,7 +35,7 @@ Quelle(s) version(s) utiliser ?
 -------------------------------
 
 .. note::
-  **Ce TP a été conçu QGIS 3. Il a été testé avec les versions 3.4 (LTR) et 3.13 (dev).**
+  **Ce TP a été conçu QGIS 3. Il a été testé avec les versions 3.4 (LTR), 3.10 et 3.13 (dev).**
 
 | Par rapport à QGIS 2.x, la version 3 présente l'avantage d'utiliser **Python 3** et **Qt 5**.
 | Depuis novembre 2018, la dernière version maintenue sur le long terme (LTR) est la version 3.4.

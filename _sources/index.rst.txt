@@ -5,18 +5,20 @@ TP Python pour QGIS
   :class: logo-uga
   :align: center
 
-LP ESSIG - Université Grenoble Alpes
-------------------------------------
+LP ESSIG (2020-2021) - Université Grenoble Alpes
+------------------------------------------------
 
 .. rst-class:: center
 
-**Ce TP d'introduction est dédié à la programmation Python pour le logiciel SIG QGIS. Au programme :**
+**Cette série de TP est dédiée à la programmation Python pour le logiciel QGIS. Au programme :**
 
 .. rst-class:: intro
 
-- **Utilisation de la console Python-QGIS**
-- **Lancement de scripts**
-- **Construction de plugins avec Plugin Builder**
+- **Familiarisation avec la console Python-QGIS & lancement de scripts**
+- **Édition des attributs d'une couche**
+- **Réalisation de géotraitements**
+- **Automatisation d'action répétitives**
+- **Communication avec l'utilisateur et construction de plugins**
 
 
 .. image:: img/python_qgis_logo.svg
@@ -33,11 +35,6 @@ LP ESSIG - Université Grenoble Alpes
    ex1
    ex2
    ex3
-   ex4
-   ex5
-   ex6
-   ex7
-   ex_maison
 
 .. raw:: html
 
