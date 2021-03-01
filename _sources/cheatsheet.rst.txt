@@ -2,7 +2,7 @@ Cheatsheet
 ==========
 
 
-  Voir également la `cheatsheet dans le documentation officielle PyQgis <https://docs.qgis.org/3.4/en/docs/pyqgis_developer_cookbook/cheat_sheet.html>`_.
+  Voir également la `cheatsheet dans le documentation officielle PyQgis <https://docs.qgis.org/3.16/en/docs/pyqgis_developer_cookbook/cheat_sheet.html>`_.
 
 
 Canvas

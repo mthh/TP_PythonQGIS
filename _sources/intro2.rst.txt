@@ -16,7 +16,7 @@ il est notamment compatible avec GNU/Linux, Max OS X et Windows.
 
 Depuis QGIS 0.9 le logiciel dispose d'une API python permettant :
 
-- d'appeler l'API depus la console Python de QGIS.
+- d'appeler l'API depuis la console Python de QGIS.
 - de créer des plugins pour QGIS.
 - de créer des applications externes appelant les fonctionnalités de QGIS.
 
@@ -35,14 +35,14 @@ Quelle(s) version(s) utiliser ?
 -------------------------------
 
 .. note::
-  **Ce TP a été conçu QGIS 3. Il a été testé avec les versions 3.4 (LTR), 3.10 et 3.13 (dev).**
+  **Ce TP a été conçu QGIS 3.**
 
 | Par rapport à QGIS 2.x, la version 3 présente l'avantage d'utiliser **Python 3** et **Qt 5**.
 | Depuis novembre 2018, la dernière version maintenue sur le long terme (LTR) est la version 3.4.
 | Le versionnement et le développement de QGIS suivent un planning temporel : une nouvelle version stable tous les 4 mois.
 | La liste des fonctionnalités ajoutées à chaque version peut être consultée en ligne : http://changelog.qgis.org/en/qgis/version/list/.
 
-La **documentation complète** de l'API python qui va être utilisée est disponible en ligne : https://qgis.org/pyqgis/3.4/.
+La **documentation complète** de l'API python qui va être utilisée est disponible en ligne : https://qgis.org/pyqgis/3.16/.
 
 *Avant la version 3 on ne trouve de documentation de ce type pour l'API PyQgis mais il est possible de se référer à la documentation complète
 de l'API QGIS en C++ dont est dérivée l'API Python :* https://qgis.org/api/2.18/
