@@ -236,4 +236,4 @@ spécifique ? Il est possible de définir des fonctions Python qui seront appel�
 .. rubric:: Footnotes
 
 .. [#f1] `© les contributeurs d’OpenStreetMap <https://www.openstreetmap.org/copyright>`_. Source : http://download.geofabrik.de/europe/malta.html. Données téléchargées le 01/03/2020.
-.. [#f2] Adaptés depuis les styles de `MrXsquared <https://github.com/MrXsquared/>`_. Données téléchargées le 01/03/2020.
+.. [#f2] Adaptés depuis les styles de `MrXsquared <https://github.com/MrXsquared/>`_, maintenant maintenus `ici <https://github.com/mkoenigb/OSM-Geofabrik_Universal-QML-Style>`_. Données téléchargées le 01/03/2020.
