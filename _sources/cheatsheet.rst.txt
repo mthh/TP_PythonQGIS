@@ -17,7 +17,7 @@ Canvas
 Manipulation des couches de données
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**Lister les couches actives dans l'interface**
+**Lister les couches affichées sur la carte**
 ::
 
   iface.mapCanvas().layers() # Retourne une liste
@@ -54,10 +54,12 @@ Manipulation des couches de données
 
   layer.loadNamedStyle("path/to/file.qml")
 
+
 **Renommer une couche**
 ::
 
   layer.setName("roads")
+
 
 **Obtenir le système de coordonnées de référence (CRS)**
 ::
@@ -146,11 +148,13 @@ Couches raster
   if not layer:
       print("Raster layer failed to load!")
 
+
 **Obtenir le nombre de bandes**
 ::
 
   # layer is a QgsRasterLayer
   layer.bandCount()
+
 
 **Obtenir la valeur qui correspond à des coordonnées sur une bande**
 ::
