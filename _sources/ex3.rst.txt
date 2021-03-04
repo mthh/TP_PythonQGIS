@@ -72,6 +72,14 @@ Cet exerice mobilise plusieurs notions nouvelles :
            QgsField("Champ_3", QVariant.Double)])
       layer.updateFields()
 
+    - mise à jour d'une entité après l'avoir modifiée
+
+    ::
+
+      # La couche `layer` doit être en cours d'édition !
+      # `ft` est une variable de type QgsFeature
+      layer.updateFeature(ft)
+
 
     - utilisation de prédicats spatiaux (intersects, disjoint, etc.)
 
@@ -122,6 +130,7 @@ La méthode à utiliser peut être décrite de la manière suivante :
       * trouver ceux qui sont réelement voisins du pays **P**
       * enregistrer le nom des voisins de **P** dans le champ ``NEIGHBORS``
       * enregistrer la somme de la population de ces voisins dans le champ ``SUM``
+      * mettre à jour l'entité en question
 
   Validation des changements effectués sur la couche.
 

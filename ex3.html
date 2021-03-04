@@ -182,6 +182,14 @@ le noms des voisins et l’autre contenant la population totale de ces voisins.<
 </pre></div>
 </div>
 <ul class="simple">
+<li>mise à jour d’une entité après l’avoir modifiée</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># La couche `layer` doit être en cours d&#39;édition !</span>
+<span class="c1"># `ft` est une variable de type QgsFeature</span>
+<span class="n">layer</span><span class="o">.</span><span class="n">updateFeature</span><span class="p">(</span><span class="n">ft</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
 <li>utilisation de prédicats spatiaux (intersects, disjoint, etc.)</li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Obtenir la géométrie d&#39;une entité :</span>
@@ -227,6 +235,7 @@ le noms des voisins et l’autre contenant la population totale de ces voisins.<
 <li>trouver ceux qui sont réelement voisins du pays <strong>P</strong></li>
 <li>enregistrer le nom des voisins de <strong>P</strong> dans le champ <code class="docutils literal notranslate"><span class="pre">NEIGHBORS</span></code></li>
 <li>enregistrer la somme de la population de ces voisins dans le champ <code class="docutils literal notranslate"><span class="pre">SUM</span></code></li>
+<li>mettre à jour l’entité en question</li>
 </ul>
 </li>
 </ul>
