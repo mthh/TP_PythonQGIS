@@ -1,5 +1,5 @@
-Exercice final / à faire à la maison
-====================================
+Exercice supplémentaire / en option
+===================================
 
 .. figure:: img/tp8_0.png
   :width: 40%
@@ -9,8 +9,6 @@ Exercice final / à faire à la maison
 
 .. rubric:: \
 |
-
-  **⚠** *Vous devez envoyer le script permettant de répondre à l'ensemble des questions* **⚠**
 
 
 Objectif
@@ -347,15 +345,6 @@ sont pris en compte à égalité alors qu'il serait plus correct de prendre en c
 
 **Répéter la logique de la question 4 en mettant en oeuvre la consigne précédente en stockant cette fois le résultat dans un champ appelé** ``MOY_RDEC_P`` (pour *moyenne des revenus déclarés au prorata*).
 
-
-.. rubric:: \
-|
-
-..
-
-  **Le script est à envoyer à l'adresse** `matthieu.viry@univ-grenoble-alpes.fr <mailo:matthieu.viry@univ-grenoble-alpes.fr>`_.
-
-..
 
 .. rubric:: Footnotes
 

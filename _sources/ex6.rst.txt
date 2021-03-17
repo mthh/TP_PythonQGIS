@@ -25,7 +25,7 @@ L'objectif de cet exercice est de continuer à se familiariser avec :
 Données
 -------
 
-| • La couche des communes de France Métropolitaine (Polygone - Source : ADMIN EXPRESS COG 2.0 2019, IGN [#f1]_) ➜ `Téléchargement <ftp://Admin_Express_ext:Dahnoh0eigheeFok@ftp3.ign.fr/ADMIN-EXPRESS-COG_2-0__SHP__FRA_L93_2019-09-24.7z.001>`_
+| • La couche des communes de France Métropolitaine (Polygone - Source : ADMIN EXPRESS COG 2.0 2019, IGN [#f1]_) ➜ `Téléchargement <https://cloud.univ-grenoble-alpes.fr/index.php/s/CoiH6M7sfzEGyms>`_
 | • Tracé du Canal du Furon ``Canal_Furon.shp`` (Ligne - Source : BD TOPO 2.0, IGN [#f2]_) ➜ `Téléchargement <https://mthh.github.io/TP_PythonQGIS/_static/CanalFuron.zip>`_
 
 
