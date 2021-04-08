@@ -15,7 +15,7 @@
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>Exercice supplémentaire / en option &#8212; Documentation PythonQGIS_TP 2020</title>
+    <title>Exercice 8 : Boite à outils de géotraitement &#8212; Documentation PythonQGIS_TP 2020</title>
     <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
@@ -28,6 +28,8 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Recherche" href="search.html" />
+    <link rel="next" title="Cheatsheet" href="cheatsheet.html" />
+    <link rel="prev" title="Exercice 6 : Manipulation de couches vecteurs et géotraitements" href="ex6.html" />
   
    
 
@@ -38,6 +40,12 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="Index général"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="cheatsheet.html" title="Cheatsheet"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="ex6.html" title="Exercice 6 : Manipulation de couches vecteurs et géotraitements"
+             accesskey="P">précédent</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2020</a> &#187;</li> 
       </ul>
     </div>
@@ -53,7 +61,7 @@
     <h2>Contenu</h2>
     <div class="sidebar-localtoc">
       <ul>
-<li><a class="reference internal" href="#">Exercice supplémentaire / en option</a><ul>
+<li><a class="reference internal" href="#">Exercice 8 : Boite à outils de géotraitement</a><ul>
 <li><a class="reference internal" href="#objectif">Objectif</a></li>
 <li><a class="reference internal" href="#nouvelles-notions">Nouvelles notions</a></li>
 <li><a class="reference internal" href="#exercice">Exercice</a></li>
@@ -64,10 +72,16 @@
     </div>
   </div>
 </div>
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="ex6.html"
+                        title="Chapitre précédent">Exercice 6 : Manipulation de couches vecteurs et géotraitements</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="cheatsheet.html"
+                        title="Chapitre suivant">Cheatsheet</a></p>
   <div role="note" aria-label="source link">
     <h3>Cette page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/ex_maison.rst.txt"
+      <li><a href="_sources/ex8.rst.txt"
             rel="nofollow">Montrer le code source</a></li>
     </ul>
    </div>
@@ -93,14 +107,14 @@
             <ol class="breadcrumb">
               <li><a href="index.html">Docs</a></li>
               
-              <li>Exercice supplémentaire / en option</li>
+              <li>Exercice 8 : Boite à outils de géotraitement</li>
             </ol>
           </div>
           
           <div class="document clearer body">
             
-  <div class="section" id="exercice-supplementaire-en-option">
-<h1>Exercice supplémentaire / en option<a class="headerlink" href="#exercice-supplementaire-en-option" title="Lien permanent vers ce titre">¶</a></h1>
+  <div class="section" id="exercice-8-boite-a-outils-de-geotraitement">
+<h1>Exercice 8 : Boite à outils de géotraitement<a class="headerlink" href="#exercice-8-boite-a-outils-de-geotraitement" title="Lien permanent vers ce titre">¶</a></h1>
 <div class="figure align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/tp8_0.png"><img alt="_images/tp8_0.png" src="_images/tp8_0.png" style="width: 40%;" /></a>
 </div>
@@ -111,20 +125,20 @@
 <div class="section" id="objectif">
 <h2>Objectif<a class="headerlink" href="#objectif" title="Lien permanent vers ce titre">¶</a></h2>
 <ul class="simple">
-<li>Découvrir et utiliser les algorithmes de la boite à outil de géotraitement (<em>processing algorithms</em>) en Python.</li>
-<li>Combiner plusieurs géo-traitements pour répondre à une question d’analyse spatiale.</li>
+<li>Découvrir et utiliser les algorithmes de la boite à outils de géotraitement (<em>processing algorithms</em>) en Python.</li>
+<li>Combiner plusieurs géotraitements pour répondre à une question d’analyse spatiale.</li>
 </ul>
 </div>
 <div class="section" id="nouvelles-notions">
 <h2>Nouvelles notions<a class="headerlink" href="#nouvelles-notions" title="Lien permanent vers ce titre">¶</a></h2>
-<p>L’ensemble des <strong>géo-traitements</strong> disponibles sous forme de boites de dialogues dans QGIS est également accessible au travers de l’API Python.
-C’est également le cas pour les géo-traitements proposées dans QGIS par les extensions GRASS, SAGA et GDAL.</p>
-<p>Contraitement aux manipulations que nous avons effectuées auparavant, ces géo-traitements prennent en entrée une (ou plusieurs) couche(s) et produisent généralement une couche en sortie.
+<p>L’ensemble des <strong>géotraitements</strong> disponibles sous forme de boites de dialogues dans QGIS est également accessible au travers de l’API Python.
+C’est également le cas pour les géotraitements proposées dans QGIS par les extensions GRASS, SAGA et GDAL.</p>
+<p>Contraitement aux manipulations que nous avons effectuées auparavant, ces géotraitements prennent en entrée une (ou plusieurs) couche(s) et produisent généralement une couche en sortie.
 Il s’agit par exemple de traitements tels que :</p>
 <ul class="simple">
-<li>Création d’une zone tampon</li>
 <li>Création de Polygones Voronoi</li>
 <li>Création d’une grille au format vecteur</li>
+<li>Fusion des entités d’un couche</li>
 <li>Rastériserisation d’une couche vecteur</li>
 <li>Etc.</li>
 </ul>
@@ -142,7 +156,7 @@ Il s’agit par exemple de traitements tels que :</p>
 </div>
 <p>La partie de gauche désigne l’idenfifiant de l’algorithme (<code class="docutils literal notranslate"><span class="pre">native:centroids</span></code> par exemple)
 et celle de droite son intitulé (<code class="docutils literal notranslate"><span class="pre">Centroïdes</span></code> par exemple) dans la langue utilisée par QGIS <em>(ici le français - certains intitulés ne sont toutefois pas traduits)</em>.
-Il est ainsi possible d’accéder en Python à l’ensemble des géo-traitements de la boite à outils.</p>
+Il est ainsi possible d’accéder en Python à l’ensemble des géotraitements de la boite à outils.</p>
 <div class="figure align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/tp8_1.png"><img alt="_images/tp8_1.png" src="_images/tp8_1.png" style="width: 100%;" /></a>
 </div>
@@ -156,7 +170,7 @@ Il est ainsi possible d’accéder en Python à l’ensemble des géo-traitement
 </div>
 <p>Il est indispensable de lire la documentation d’un algorithme avant de l’utiliser : c’est elle qui indique quels sont les paramètres requis pour l’utiliser.</p>
 <blockquote>
-<div>L’aide des différents géo-traitements peut également être affichée au format HTML à partir de la page : <a class="reference external" href="https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/index.html">https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/index.html</a>.</div></blockquote>
+<div>L’aide des différents géotraitements peut également être affichée au format HTML à partir de la page : <a class="reference external" href="https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/index.html">https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/index.html</a>.</div></blockquote>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Centroïdes</span> <span class="p">(</span><span class="n">native</span><span class="p">:</span><span class="n">centroids</span><span class="p">)</span>
 
 <span class="n">Cet</span> <span class="n">algorithme</span> <span class="n">créé</span> <span class="n">un</span> <span class="n">nouvelle</span> <span class="n">couche</span> <span class="n">de</span> <span class="nb">type</span> <span class="n">point</span><span class="p">,</span> <span class="n">ou</span> <span class="n">les</span> <span class="n">points</span> <span class="n">représentent</span> <span class="n">le</span> <span class="n">barycentre</span> <span class="n">des</span> <span class="n">entités</span> <span class="n">d</span><span class="s1">&#39;une couche d&#39;</span><span class="n">entrée</span><span class="o">.</span>
@@ -232,7 +246,7 @@ Le résultat est stocké dans une couche temporaire en mémoire et est ajouté a
 <a class="reference internal image-reference" href="_images/tp8_2.png"><img alt="_images/tp8_2.png" src="_images/tp8_2.png" style="width: 100%;" /></a>
 </div>
 <p>Dans l’interface, on retrouve également après l’éxécution, dans l’onglet <code class="docutils literal notranslate"><span class="pre">Journal</span></code> le dictionnaire des <strong>paramètres en entrée</strong>
-utilisé pour ce géo-traitement :</p>
+utilisé pour ce géotraitement :</p>
 <div class="figure align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/tp8_3.png"><img alt="_images/tp8_3.png" src="_images/tp8_3.png" style="width: 100%;" /></a>
 </div>
@@ -372,6 +386,18 @@ sont pris en compte à égalité alors qu’il serait plus correct de prendre en
 
           </div>
             
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="ex6.html" title="Chapitre précédent (use the left arrow)">Exercice 6 : Manipulation de couches vecteurs et géotraitements</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="cheatsheet.html" title="Chapitre suivant (use the right arrow)">Cheatsheet</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
         </div>
         <div class="clearfix"></div>
     </div>
@@ -381,6 +407,12 @@ sont pris en compte à égalité alors qu’il serait plus correct de prendre en
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="Index général"
              >index</a></li>
+        <li class="right" >
+          <a href="cheatsheet.html" title="Cheatsheet"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="ex6.html" title="Exercice 6 : Manipulation de couches vecteurs et géotraitements"
+             >précédent</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2020</a> &#187;</li> 
       </ul>
     </div>

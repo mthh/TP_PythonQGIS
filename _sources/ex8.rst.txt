@@ -1,5 +1,5 @@
-Exercice supplémentaire / en option
-===================================
+Exercice 8 : Boite à outils de géotraitement
+============================================
 
 .. figure:: img/tp8_0.png
   :width: 40%
@@ -14,25 +14,25 @@ Exercice supplémentaire / en option
 Objectif
 --------
 
-- Découvrir et utiliser les algorithmes de la boite à outil de géotraitement (*processing algorithms*) en Python.
+- Découvrir et utiliser les algorithmes de la boite à outils de géotraitement (*processing algorithms*) en Python.
 
-- Combiner plusieurs géo-traitements pour répondre à une question d'analyse spatiale.
+- Combiner plusieurs géotraitements pour répondre à une question d'analyse spatiale.
 
 
 Nouvelles notions
 -----------------
 
-L'ensemble des **géo-traitements** disponibles sous forme de boites de dialogues dans QGIS est également accessible au travers de l'API Python.
-C'est également le cas pour les géo-traitements proposées dans QGIS par les extensions GRASS, SAGA et GDAL.
+L'ensemble des **géotraitements** disponibles sous forme de boites de dialogues dans QGIS est également accessible au travers de l'API Python.
+C'est également le cas pour les géotraitements proposées dans QGIS par les extensions GRASS, SAGA et GDAL.
 
-Contraitement aux manipulations que nous avons effectuées auparavant, ces géo-traitements prennent en entrée une (ou plusieurs) couche(s) et produisent généralement une couche en sortie.
+Contraitement aux manipulations que nous avons effectuées auparavant, ces géotraitements prennent en entrée une (ou plusieurs) couche(s) et produisent généralement une couche en sortie.
 Il s'agit par exemple de traitements tels que :
-
-- Création d'une zone tampon
 
 - Création de Polygones Voronoi
 
 - Création d'une grille au format vecteur
+
+- Fusion des entités d'un couche
 
 - Rastériserisation d'une couche vecteur
 
@@ -56,7 +56,7 @@ Le texte qui s'affiche est de la forme :
 
 La partie de gauche désigne l'idenfifiant de l'algorithme (``native:centroids`` par exemple)
 et celle de droite son intitulé (``Centroïdes`` par exemple) dans la langue utilisée par QGIS *(ici le français - certains intitulés ne sont toutefois pas traduits)*.
-Il est ainsi possible d'accéder en Python à l'ensemble des géo-traitements de la boite à outils.
+Il est ainsi possible d'accéder en Python à l'ensemble des géotraitements de la boite à outils.
 
 .. figure:: img/tp8_1.png
   :width: 100%
@@ -79,7 +79,7 @@ L'accès à ces algorithmes se fait via le module ``processing``.
 
 Il est indispensable de lire la documentation d'un algorithme avant de l'utiliser : c'est elle qui indique quels sont les paramètres requis pour l'utiliser.
 
-  L'aide des différents géo-traitements peut également être affichée au format HTML à partir de la page : https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/index.html.
+  L'aide des différents géotraitements peut également être affichée au format HTML à partir de la page : https://docs.qgis.org/3.10/en/docs/user_manual/processing_algs/index.html.
 
 ::
 
@@ -164,7 +164,7 @@ L'exécution du code précédent correspond ainsi à l'action suivante dans l'in
   :figwidth: 98%
 
 Dans l'interface, on retrouve également après l'éxécution, dans l'onglet ``Journal`` le dictionnaire des **paramètres en entrée**
-utilisé pour ce géo-traitement :
+utilisé pour ce géotraitement :
 
 .. figure:: img/tp8_3.png
   :width: 100%
