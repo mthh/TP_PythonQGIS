@@ -6,7 +6,7 @@ Exercice 1
 
 - `Pays du monde <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip>`_
 
-Source : `Natural Earth`_
+Source : **Natural Earth** - https://www.naturalearthdata.com
 
 
 Exercice 2
@@ -16,55 +16,54 @@ Exercice 2
 
 - `Aéroports <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_airports.zip>`_
 
-Source : `Natural Earth`_
+Source : **Natural Earth** - https://www.naturalearthdata.com
 
-
-Exercice 3
-----------
-
-- `Pays du monde <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip>`_
-
-Source : `Natural Earth`_
-
-
-Exercice 4
-----------
-
-- Données **OpenStreetMap** (transformées en Shapefile par GeoFabrik) pour Malte.
-  Attribution : `© les contributeurs d’OpenStreetMap (licence OdBl) <https://www.openstreetmap.org/copyright>`_.
-  Source : https://download.geofabrik.de/europe/malta.html. Données téléchargées le 01/03/2020.
-
-
-- Styles QGIS pour données OSM
-  Adaptés depuis les styles de `© MrXsquared (licence MIT) <https://github.com/MrXsquared/>`_. Données téléchargées le 01/03/2020.
-
-
-Exercice 5
-----------
-
-- Tracé du Canal du Furon au format Shapefile. Source : BD TOPO v2., `IGN <http://professionnels.ign.fr/bdtopo>`_. Données téléchargées le 28/02/2019.
-
-- Modèle Numérique de Terrain, résolution de 25m. Source : `European Environment Agency <https://www.eea.europa.eu/data-and-maps/data/copernicus-land-monitoring-service-eu-dem>`_. Données téléchargées le 28/02/2019.
-
-
-Exercice 6
-----------
-
-- Tracé du Canal du Furon au format Shapefile. Source : BD TOPO v2., `IGN <http://professionnels.ign.fr/bdtopo>`_. Données téléchargées le 28/02/2019.
-
-- Vommunes de France Métropolitaine. Source : `ADMIN EXPRESS COG 2.0 2019, IGN <http://professionnels.ign.fr/>`_. Données téléchargées le 10/03/2020.
-
-
-
-Exercice à la maison
---------------------
-
-- Localisation des stations de métro. Source : APUR (Atelier Parisien d'Urbanisme) - Jeu de données "STATION TRANSPORT" : https://opendata.apur.org/datasets/station-transport. Données téléchargées le 08/04/2020.
-
-- Découpage et données des IRIS : APUR (Atelier Parisien d'Urbanisme) - Jeu de données "RECENSEMENT IRIS MENAGE" : https://opendata.apur.org/datasets/recensement-iris-menage. Données téléchargées le 08/04/2020.
-
-- Données sur les revenus au niveau IRIS : INSEE - Jeu de données "Revenus, pauvreté et niveau de vie en 2016 (IRIS)" : https://www.insee.fr/fr/statistiques/4295611. Données téléchargées le 08/04/2020.
-
-
-
-.. _`Natural Earth`: https://www.naturalearthdata.com
+..
+.. Exercice 3
+.. ----------
+..
+.. - `Pays du monde <https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip>`_
+..
+.. Source : `Natural Earth`_
+..
+..
+.. Exercice 4
+.. ----------
+..
+.. - Données **OpenStreetMap** (transformées en Shapefile par GeoFabrik) pour Malte.
+..   Attribution : `© les contributeurs d’OpenStreetMap (licence OdBl) <https://www.openstreetmap.org/copyright>`_.
+..   Source : https://download.geofabrik.de/europe/malta.html. Données téléchargées le 01/03/2020.
+..
+..
+.. - Styles QGIS pour données OSM
+..   Adaptés depuis les styles de `© MrXsquared (licence MIT) <https://github.com/MrXsquared/>`_. Données téléchargées le 01/03/2020.
+..
+..
+.. Exercice 5
+.. ----------
+..
+.. - Tracé du Canal du Furon au format Shapefile. Source : BD TOPO v2., `IGN <http://professionnels.ign.fr/bdtopo>`_. Données téléchargées le 28/02/2019.
+..
+.. - Modèle Numérique de Terrain, résolution de 25m. Source : `European Environment Agency <https://www.eea.europa.eu/data-and-maps/data/copernicus-land-monitoring-service-eu-dem>`_. Données téléchargées le 28/02/2019.
+..
+..
+.. Exercice 6
+.. ----------
+..
+.. - Tracé du Canal du Furon au format Shapefile. Source : BD TOPO v2., `IGN <http://professionnels.ign.fr/bdtopo>`_. Données téléchargées le 28/02/2019.
+..
+.. - Vommunes de France Métropolitaine. Source : `ADMIN EXPRESS COG 2.0 2019, IGN <http://professionnels.ign.fr/>`_. Données téléchargées le 10/03/2020.
+..
+..
+..
+.. Exercice à la maison
+.. --------------------
+..
+.. - Localisation des stations de métro. Source : APUR (Atelier Parisien d'Urbanisme) - Jeu de données "STATION TRANSPORT" : https://opendata.apur.org/datasets/station-transport. Données téléchargées le 08/04/2020.
+..
+.. - Découpage et données des IRIS : APUR (Atelier Parisien d'Urbanisme) - Jeu de données "RECENSEMENT IRIS MENAGE" : https://opendata.apur.org/datasets/recensement-iris-menage. Données téléchargées le 08/04/2020.
+..
+.. - Données sur les revenus au niveau IRIS : INSEE - Jeu de données "Revenus, pauvreté et niveau de vie en 2016 (IRIS)" : https://www.insee.fr/fr/statistiques/4295611. Données téléchargées le 08/04/2020.
+..
+..
+..

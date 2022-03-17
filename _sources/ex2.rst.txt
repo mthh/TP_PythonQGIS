@@ -159,14 +159,7 @@ Procédure
   | Connaissez-vous une autre méthode pour filtrer les aéroports selon leur type ?
 
 
-.. raw:: html
-
-   <hr width="100%" size="18">
-   <p class="align-center"><strong>💡 <a href="solutions/s_ex2.html">Solution de l'exercice 2</a></strong></p>
-
-
-
 .. rubric:: Footnotes
 
-.. [#f1] http://www.naturalearthdata.com/. Consulté le 01/03/2020.
+.. [#f1] http://www.naturalearthdata.com/. Consulté le 16/03/2022.
 .. [#f2] https://docs.python.org/3/library/csv.html
