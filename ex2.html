@@ -28,7 +28,7 @@
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Recherche" href="search.html" />
-    <link rel="next" title="Cheatsheet" href="cheatsheet.html" />
+    <link rel="next" title="Exercice 3 : Géométries et calcul de champ" href="ex3.html" />
     <link rel="prev" title="Exercice 1 : Prise en main" href="ex1.html" />
   
    
@@ -41,7 +41,7 @@
           <a href="genindex.html" title="Index général"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="cheatsheet.html" title="Cheatsheet"
+          <a href="ex3.html" title="Exercice 3 : Géométries et calcul de champ"
              accesskey="N">suivant</a> |</li>
         <li class="right" >
           <a href="ex1.html" title="Exercice 1 : Prise en main"
@@ -76,8 +76,8 @@
   <p class="topless"><a href="ex1.html"
                         title="Chapitre précédent">Exercice 1 : Prise en main</a></p>
   <h4>Sujet suivant</h4>
-  <p class="topless"><a href="cheatsheet.html"
-                        title="Chapitre suivant">Cheatsheet</a></p>
+  <p class="topless"><a href="ex3.html"
+                        title="Chapitre suivant">Exercice 3 : Géométries et calcul de champ</a></p>
   <div role="note" aria-label="source link">
     <h3>Cette page</h3>
     <ul class="this-page-menu">
@@ -176,22 +176,29 @@ QGIS offre de nombreux modes de rendu des couches (catégorisé, gradué, etc.) 
 <ul>
 <li><p class="first">Parcourir les différentes entités de la couche :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
+<span class="c1"># Pour chaque entité dans la couche ...</span>
 <span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">ft</span><span class="p">)</span>
+    <span class="c1"># afficher son nom par exemple ...</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Accéder aux attributs de chaque enregistrement :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
+    <span class="c1"># Avec la notation entre crochet et le nom du champ à utiliser</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Accéder à la géométrie de chaque enregistrement :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
+<span class="c1"># Pour chaque entité dans la couche active ..</span>
 <span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
+    <span class="c1"># On demande la géométrie de l&#39;entité</span>
     <span class="n">geom</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+    <span class="c1"># On sait que chaque géométrie de la couche</span>
+    <span class="c1"># est de type &quot;Point&quot;</span>
     <span class="n">geom_point</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
     <span class="c1"># L&#39;objet `QgsPointXY` a notamment une méthode `x` et une méthode `y`</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">geom_point</span><span class="p">,</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">y</span><span class="p">())</span>
@@ -211,16 +218,8 @@ différentes entités dans une liste de compréhension :</p>
 L’export au format CSV va nécessiter de structurer les valeurs relatives à
 chaque enregistrement (ici à chaque aéroport) sous forme d’une liste.
 Le module <code class="docutils literal notranslate"><span class="pre">csv</span></code> de la bibliothèque standard <a class="footnote-reference" href="#f2" id="id3">[2]</a> se chargera d’écrire
-correctement les valeurs de chaque enregistrement selon le type de fichier CSV souhaité.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
-    <span class="n">geom_point</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
-    <span class="c1"># Nos enregistrements seront donc de la forme suivante</span>
-    <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">y</span><span class="p">()]</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">Il suffit de quelques lignes supplémentaires pour écrire ces informations dans un fichier :</p>
+correctement les valeurs de chaque enregistrement selon le type de fichier CSV souhaité.
+Étudiez l’exemple suivant qui créé un fichier CSV de tous les aéroports présents dans la couche :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">csv</span>
 
 <span class="n">output_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/home/mthh/airports.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
@@ -230,10 +229,12 @@ correctement les valeurs de chaque enregistrement selon le type de fichier CSV s
 <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">header_line</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
-    <span class="c1"># Les résultats ne sont pas encore filtrés selon le type d&#39;aeroport !</span>
+    <span class="c1"># Ici les résultats ne sont pas encore filtés selon le type d&#39;aéroport</span>
     <span class="n">geom_point</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
-    <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span>
-        <span class="p">[</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">y</span><span class="p">()])</span>
+    <span class="c1"># Une liste contenant les 4 valeurs, dans le même ordre</span>
+    <span class="c1"># que l&#39;entête (header_line)</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">ft</span><span class="p">[</span><span class="s1">&#39;iata_code&#39;</span><span class="p">],</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">geom_point</span><span class="o">.</span><span class="n">y</span><span class="p">()]</span>
+    <span class="n">csv_writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 
 <span class="n">output_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
@@ -243,9 +244,10 @@ correctement les valeurs de chaque enregistrement selon le type de fichier CSV s
 </li>
 <li><div class="first line-block">
 <div class="line"><strong>À vous de jouer !</strong></div>
-<div class="line"><strong>Reprendre le script précédent afin de n’exporter que les aéroports de type</strong> <cite>major</cite> <strong>et</strong> <cite>major and military</cite>.</div>
+<div class="line"><strong>Vous devez reprendre le script précédent afin de n’exporter que les aéroports de type</strong> <cite>major</cite> <strong>et</strong> <cite>major and military</cite>.</div>
+<div class="line"><strong>Vous devez également ajouter une nouvelle colonne appellée «&nbsp;type&nbsp;» et contenant le type d’aéroport</strong> (<cite>major</cite> ou <cite>major and military</cite>) pour chacun d’entre eux.</div>
 <div class="line">Enregistrer ce script sous le nom <code class="docutils literal notranslate"><span class="pre">export_airports.py</span></code>.</div>
-<div class="line">Exécuter le script pour vérifier de son bon fonctionnement.</div>
+<div class="line">Exécuter le script pour vérifier son bon fonctionnement.</div>
 <div class="line">Le fichier CSV exporté doit être reconnu correctement par l’OS et s’ouvrir dans le tableur habituel (LibreOffice Calc, Microsoft Excel, etc.).</div>
 <div class="line"><strong>Combien de lignes contient ce nouveau fichier CSV ?</strong></div>
 <div class="line">Connaissez-vous une autre méthode pour filtrer les aéroports selon leur type ?</div>
@@ -278,7 +280,7 @@ correctement les valeurs de chaque enregistrement selon le type de fichier CSV s
       </div>
     
       <div class="pull-right">
-        <a class="btn btn-default" href="cheatsheet.html" title="Chapitre suivant (use the right arrow)">Cheatsheet</a>
+        <a class="btn btn-default" href="ex3.html" title="Chapitre suivant (use the right arrow)">Exercice 3 : Géométries et calcul de champ</a>
       </div>
     </div>
     <div class="clearer"></div>
@@ -293,7 +295,7 @@ correctement les valeurs de chaque enregistrement selon le type de fichier CSV s
           <a href="genindex.html" title="Index général"
              >index</a></li>
         <li class="right" >
-          <a href="cheatsheet.html" title="Cheatsheet"
+          <a href="ex3.html" title="Exercice 3 : Géométries et calcul de champ"
              >suivant</a> |</li>
         <li class="right" >
           <a href="ex1.html" title="Exercice 1 : Prise en main"

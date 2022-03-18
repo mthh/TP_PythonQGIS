@@ -82,8 +82,10 @@ Procédure
     ::
 
       layer = iface.activeLayer()
+      # Pour chaque entité dans la couche ...
       for ft in layer.getFeatures():
-          print(ft)
+          # afficher son nom par exemple ...
+          print(ft['name'])
 
 
   * Accéder aux attributs de chaque enregistrement :
@@ -91,6 +93,7 @@ Procédure
 
       layer = iface.activeLayer()
       for ft in layer.getFeatures():
+          # Avec la notation entre crochet et le nom du champ à utiliser
           print(ft['name'], ft['iata_code'], ft['type'])
 
 
@@ -98,8 +101,12 @@ Procédure
     ::
 
       layer = iface.activeLayer()
+      # Pour chaque entité dans la couche active ..
       for ft in layer.getFeatures():
+          # On demande la géométrie de l'entité
           geom = ft.geometry()
+          # On sait que chaque géométrie de la couche
+          # est de type "Point"
           geom_point = geom.asPoint()
           # L'objet `QgsPointXY` a notamment une méthode `x` et une méthode `y`
           print(geom_point, geom_point.x(), geom_point.y())
@@ -120,16 +127,7 @@ Procédure
     chaque enregistrement (ici à chaque aéroport) sous forme d'une liste.
     Le module ``csv`` de la bibliothèque standard [#f2]_ se chargera d'écrire
     correctement les valeurs de chaque enregistrement selon le type de fichier CSV souhaité.
-    ::
-
-      layer = iface.activeLayer()
-      for ft in layer.getFeatures():
-          geom_point = ft.geometry().asPoint()
-          # Nos enregistrements seront donc de la forme suivante
-          row = [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()]
-
-
-  * Il suffit de quelques lignes supplémentaires pour écrire ces informations dans un fichier :
+    Étudiez l'exemple suivant qui créé un fichier CSV de tous les aéroports présents dans la couche :
 
     ::
 
@@ -142,18 +140,21 @@ Procédure
       csv_writer.writerow(header_line)
 
       for ft in layer.getFeatures():
-          # Les résultats ne sont pas encore filtrés selon le type d'aeroport !
+          # Ici les résultats ne sont pas encore filtés selon le type d'aéroport
           geom_point = ft.geometry().asPoint()
-          csv_writer.writerow(
-              [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()])
+          # Une liste contenant les 4 valeurs, dans le même ordre
+          # que l'entête (header_line)
+          row = [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()]
+          csv_writer.writerow(row)
 
       output_file.close()
 
 
 * | **À vous de jouer !**
-  | **Reprendre le script précédent afin de n'exporter que les aéroports de type** `major` **et** `major and military`.
+  | **Vous devez reprendre le script précédent afin de n'exporter que les aéroports de type** `major` **et** `major and military`.
+  | **Vous devez également ajouter une nouvelle colonne appellée "type" et contenant le type d'aéroport** (`major` ou `major and military`) pour chacun d'entre eux.
   | Enregistrer ce script sous le nom ``export_airports.py``.
-  | Exécuter le script pour vérifier de son bon fonctionnement.
+  | Exécuter le script pour vérifier son bon fonctionnement.
   | Le fichier CSV exporté doit être reconnu correctement par l'OS et s'ouvrir dans le tableur habituel (LibreOffice Calc, Microsoft Excel, etc.).
   | **Combien de lignes contient ce nouveau fichier CSV ?**
   | Connaissez-vous une autre méthode pour filtrer les aéroports selon leur type ?
