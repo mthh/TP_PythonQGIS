@@ -1,0 +1,181 @@
+Exercice 5 : Manipulation de couches vecteurs et géotraitements
+===============================================================
+
+.. figure:: img/ex6_intro.png
+  :width: 40%
+  :align: center
+  :figwidth: 98%
+
+
+Objectif
+--------
+
+L'objectif de cet exercice est de continuer à se familiariser avec :
+
+- la manipulation des couches dans l'interface de QGIS
+- la réalisation de géotraitements
+
+
+Données
+-------
+
+| • La couche des communes de France Métropolitaine (Polygone - Source : ADMIN EXPRESS COG 2.0 2019, IGN [#f1]_) ➜ `Téléchargement <https://cloud.univ-grenoble-alpes.fr/index.php/s/CoiH6M7sfzEGyms>`_
+| • Tracé du Canal du Furon ``Canal_Furon.shp`` (Ligne - Source : BD TOPO 2.0, IGN [#f2]_) ➜ `Téléchargement <https://mthh.github.io/TP_PythonQGIS/_static/CanalFuron.zip>`_
+
+
+Procédure
+---------
+
+- Ouvrir QGIS.
+
+- Ouvrir la console Python.
+
+.. - Lors de l'exercice 4, les couches ont été ajoutées en Python depuis le dossier qui les contenait.
+..   Si le projet n'a pas été sauvegardé dans le même dossier, il est possible de modifier le chemin d'accès
+..   à chacune des couches en Python et, par exemple, sans utiliser QGIS.
+..
+..   En effet, les projets QGIS sont stockés au format XML et la bibliothèque standard Python propose plusieurs
+..   solutions pour lire et modifier ce format de fichiers. Nous allons, en quelques lignes, changer le chemins de chacune des
+..   couches d'un projet QGIS.
+..
+..   ::
+..
+..     import xml.etree.ElementTree as ET
+..     import os
+..
+..     # Le chemin correspondant aux couches shapefile
+..     # depuis le projet .qgs a modifier
+..     # (correspondant ici a 'data/ex4')
+..     prefix = os.path.join('data', 'ex4')
+..
+..     # Ouverture du projet
+..     tree = ET.parse('projet_exo4.qgs')
+..     root = tree.getroot()
+..
+..     # Pour chaque groupe de couches dans notre projet :
+..     for layer_group in root.findall('layer-tree-group'):
+..         # Pour chaque couche (chaque noeud 'layer-tree-layer')
+..         # le chemin est dans l'attribut source
+..         for layer in layer_group.findall('layer-tree-layer'):
+..             # Recuperation du nom du fichier
+..             src = layer.get('source')
+..             # Join le nom du dossier et le nom du chemin
+..             new_src = os.path.join(prefix, src)
+..             # Remplace le chemin par la chemin avec prefix
+..             layer.set('source', new_src)
+..
+..
+..     # Ecriture du resultat
+..     tree.write('projet_exo4.qgs')
+..
+..
+..   On peut maintenant essayer d'ouvrir à nouveau le projet dans l'interface.
+..
+.. - Ouvrir un nouveau projet, en cliquant sur l'icone dans l'interface ou en Python :
+..   ::
+..
+..     QgsProject.instance().clear()
+..
+
+- Ajouter la couche ``Canal_Furon.shp`` et la couche ``COMMUNES.shp`` et obtenir l'objet Python
+  correspondant à chacune des couches.
+  ::
+
+    furon = QgsProject.instance().mapLayersByName("Canal_Furon")[0]
+    communes = QgsProject.instance().mapLayersByName("COMMUNE")[0]
+
+
+- La couche ``Canal_Furon.shp`` ne contient qu'une entité, on accède directement à sa géométrie de la façon suivante :
+  ::
+
+    ft_furon = list(furon.getFeatures())[0]
+    geom_furon = ft_furon.geometry()
+
+
+- **Q1. Quel est le type de l'objet** ``geom_furon`` **?**
+
+  .. container:: spoiler blq
+
+     Solution
+     ::
+
+       print(type(geom_furon))
+       # Il s'agit d'un objet de type `QgsGeometry`.
+
+
+- **Q2**.Étant-donné les deux couches d'informations dont on dispose, **quel prédicat
+  spatial peut-on utiliser** pour répondre à la question suivante : **Quelle sont les communes traversées par le Canal du Furon ?**
+
+  .. container:: spoiler blq
+
+     Solution
+     ::
+
+       # On peut utiliser le prédicat spatial `intersects`.
+
+
+- **Q3. Comment ce problème pourrait-il être formulé d'un point de vue algorithmique ?**
+
+  .. container:: spoiler blq
+
+     Solution
+
+       Soit **L** une liste vide
+
+       Pour chaque entité **FT** de la couche *communes* :
+
+        - Si la *geometrie* de **FT** intersecte la *géometrie* du **cours d'eau** :
+
+          - Ajout du nom de **FT** à la liste **L**.
+
+
+- **Q4. Créer une liste qui contient le nom des communes traversées par le canal du Furon.**
+
+
+- Les objets ``QgsGeometry`` disposent d'une méthode buffer qui retourne une nouvelle ``QgsGeometry``.
+  On peut créer une zone tampon de 250m autour du cours d'eau de la manière suivante :
+  ::
+
+    geom_buffer = geom_furon.buffer(250., 8)
+
+
+- **Q5. Quelle type de géométrie est obtenu en résultat ? Écrivez l'instruction qui permet d'afficher cette information.**
+
+
+
+- **Q6. Créer une nouvelle liste contenant le nom des communes qui croisent cette zone tampon. Combien sont-elles ?**
+
+
+- Bien que nous aillons pu manipuler la zone tampon précédemment créée, elle n'a pas encore été ajoutée à la carte.
+  En effet cette géométrie n'appartient pour l'instant à aucune entité ni à aucune couche.
+
+  **Q7. Quelles étapes peuvent-être mises en oeuvres pour afficher cette zone sur la carte ? Écrivez le code nécessaire créer une nouvelle couche contenant cette zone tampon et pour l'ajouter sur la carte.**
+
+- **Q8. En utilisant les éléments vus précédemment, la documentation PyQgis ainsi que les ressources présentes sur le Web :**
+
+  * **1) Créer une nouvelle sélection sur la couche des communes : celles qui intersectent la couche de la zone tampon créée dans la question précédente** *(les entités sélectionnées doivent s'afficher en jaune sur la carte)*
+  * **2) Sauvegarder uniquement les entités sélectionnés dans une nouvelle couche au format Shapefile.**
+
+.. raw:: html
+
+   <hr width="100%" size="18">
+
+
+- **Déjà terminé !?**
+
+ 1. Faites vérifier vos résultats.
+
+ 2. Prenez le temps de consulter les sujets proposés lors des contrôles des connaissances de 2019 et 2021 avant de passer à l'exercice suivant !
+
+ 3. Prenez connaissance de la documentation de PyQgis sur la communication avec l'utilisateur : `Communicating with the user <https://docs.qgis.org/3.4/en/docs/pyqgis_developer_cookbook/communicating.html>`_. Testez et modifiez les différents exemples qui sont proposés de façon à bien les comprendre : ces aspects seront utiles si vous souhaitez développer un plugin pour QGIS en Python.
+
+
+.. raw:: html
+
+   <hr width="100%" size="18">
+
+
+.. rubric:: Footnotes
+
+.. [#f1] Institut national de l'information géographique et forestière : https://geoservices.ign.fr/documentation/diffusion/telechargement-donnees-libres.html#admin-express. Données téléchargées le 10/03/2020.
+.. [#f2] Institut national de l'information géographique et forestière : http://professionnels.ign.fr/bdtopo. Données téléchargées le 28/02/2019.

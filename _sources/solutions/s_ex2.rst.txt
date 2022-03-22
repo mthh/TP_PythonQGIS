@@ -1,0 +1,101 @@
+Correction - Exercice 2 : Manipulation des attributs d'une couche
+=================================================================
+
+
+L'exercice peut être réalisé de plusieurs manière. On se concentre, dans les 4 blocs de code qui suivent, sur la manière de filtrer les entités.
+Le code complet est fourni en bas de la page.
+
+En effet il est soit possible d'itérer sur l'ensemble des entités de la couche et de vérifier que le champ ``type`` de chaque entité
+et bien, soit ``major``, soit ``major and military`` :
+
+.. code-block:: python
+  :emphasize-lines: 2
+
+  for ft in layer.getFeatures():
+      if ft['type'] in ('major', 'major and military'):
+          geom_point = ft.geometry().asPoint()
+          csv_writer.writerow(
+              [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()])
+
+
+
+.. code-block:: python
+  :emphasize-lines: 2
+
+  for ft in layer.getFeatures():
+      if ft['type'] == 'major' or ft['type'] == 'major and military':
+          geom_point = ft.geometry().asPoint()
+          csv_writer.writerow(
+              [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()])
+
+Au regard des valeurs prises par le champ ``type`` il est également possible de vérifier
+que la chaine de caractère du champ type commence bien par ``major`` en utilisant
+la méthode ``startswith`` :
+
+.. code-block:: python
+  :emphasize-lines: 2
+
+  for ft in layer.getFeatures():
+      if ft['type'].startswith('major'):
+          geom_point = ft.geometry().asPoint()
+          csv_writer.writerow(
+              [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()])
+
+
+Enfin, il est également possible d'utiliser une *expression* QGIS. Depuis QGIS 3 il est désormais possible de passer directement la chaine de caractère qui
+correspond à l'expression souhaitée en argument de la méthode ``getFeatures`` :
+
+.. code-block:: python
+  :emphasize-lines: 1
+
+  for ft in layer.getFeatures("\"type\" LIKE 'major%'"):
+      geom_point = ft.geometry().asPoint()
+      csv_writer.writerow(
+        [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()])
+
+.. raw:: html
+
+  <hr width="100%" size="18">
+
+**Code complet permettant d'exporter le fichier csv attendu:**
+
+``Exercice2.py``
+
+.. code-block:: python
+
+  import csv
+
+  # Attention au chemin que vous souhaitez utiliser !
+  output_file = open('/home/mthh/airports.csv', 'w', newline='')
+  csv_writer = csv.writer(output_file)
+
+  # On prépare et on écrit d'abord la ligne d'en-tete
+  header_line = ["Nom", "Code_IATA", "Latitude", "Longitude"]
+  csv_writer.writerow(header_line)
+
+  # Attention à ce que la couche active dans l'interface
+  # soit celle des aeroports
+  layer = iface.activeLayer()
+
+  # On parcours l'ensemble des entités de la couche ...
+  for ft in layer.getFeatures():
+      if ft['type'] in ('major', 'major and military'):
+          # ... mais on n'écrit que celles qui répondent
+          # à notre condition
+          geom_point = ft.geometry().asPoint()
+          nb_char_written = csv_writer.writerow(
+              [ft['name'], ft['iata_code'], geom_point.x(), geom_point.y()])
+
+  output_file.close()
+
+
+➜ Le fichier attendu doit comporter **382** lignes (ligne d'en-tête incluse)
+
+➜ Il est possible de changer le séparateur utilisé lors de l'écriture du fichier CSV pour utiliser le caractère ``;`` par exemple.
+Il faut pour cela utiliser l'argument ``delimiter`` lors de la création de l'objet ``writer`` :
+
+.. code-block:: python
+
+  csv_writer = csv.writer(output_file, delimiter=';')
+
+➜ La documentation officielle Python fait état des différentes manières d'écrire des fichiers CSV : https://docs.python.org/fr/3/library/csv.html
