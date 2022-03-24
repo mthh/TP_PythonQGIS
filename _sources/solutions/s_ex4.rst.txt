@@ -1,0 +1,145 @@
+Correction - Exercice 4 : Ouverture d'un raster et enrichissement d'une couche vecteur
+======================================================================================
+
+.. figure:: ../img/ex5_mnt_color.png
+  :width: 40%
+  :align: center
+  :figwidth: 98%
+
+
+**Afficher le profil en long du cours d'eau** :
+
+::
+
+  import matplotlib.pyplot as plt
+
+  # Nos 2 couches de référence à utiliser :
+  line_lyr = QgsProject.instance().mapLayersByName("Canal_Furon")[0]
+  dem = QgsProject.instance().mapLayersByName("DEM_N245E395_l93")[0]
+
+  # Récupération de la géométrie du cours d'eau
+  # (la couche ne contient qu'une entité, on peut donc prendre directement
+  # la première)
+  ft = list(line_lyr.getFeatures())[0]
+  geom = ft.geometry()
+  length = geom.length()
+
+  # Nombre de points / distance entre chaque point
+  nb_pts = 50
+  step = length / nb_pts
+
+  # Le fournisseur de données de la couche raster
+  dem_pr = dem.dataProvider()
+
+  # La liste qui va acceuillir les résultats
+  result = []
+
+  # Construction du résultat
+  for dist in range(0, int(length), int(step)):
+      interp = geom.interpolate(dist) # Le resultat est de type `QgsGeometry`
+      res = dem_pr.identify(interp.asPoint(), 1)
+      if res.isValid():
+          _values = res.results() # Retourne un dictionnaire
+          # Distance à la source et la valeur de la 1ere bande (altitude)
+          result.append((dist, _values[1]))
+
+  # Affichage avec matplotlib
+  plt.plot([i[0] for i in result], [i[1] for i in result])
+  plt.xlabel('Distance a la source')
+  plt.ylabel('Altitude')
+  plt.show()
+
+
+.. figure:: ../img/ex5_matplotlib.png
+  :width: 40%
+  :align: center
+  :figwidth: 98%
+
+
+**Créer une couche de point 3D** :
+
+::
+
+  from PyQt5.QtCore import QVariant
+
+  line_lyr = QgsProject.instance().mapLayersByName("Canal_Furon")[0]
+  dem = QgsProject.instance().mapLayersByName("DEM_N245E395_l93")[0]
+
+  # Récupération de la géométrie du cours d'eau
+  ft = list(line_lyr.getFeatures())[0]
+  geom = ft.geometry()
+  length = geom.length()
+
+  # Nombre de points / distance entre chaque point
+  nb_pts = 50
+  step = length / nb_pts
+
+  # Le fournisseur de données de la couche raster
+  dem_pr = dem.dataProvider()
+
+  # Nouvelle couche (en mémoire) de points et son fournisseur de données
+  layer = QgsVectorLayer('Point?crs=EPSG:2154', 'PointsWithAltitude' , 'memory')
+  pr = layer.dataProvider()
+
+  # Spécification de deux champs
+  # (un entier pour l'ID et un entier pour la distance à la source)
+  pr.addAttributes([
+      QgsField("ID",  QVariant.Int),
+      QgsField("dist_source", QVariant.Double),
+  ])
+  layer.updateFields()
+
+  for ix, dist in enumerate(range(0, int(length), int(step))):
+      pt = geom.interpolate(dist).asPoint()
+      # Avec la methode sample on recupere direction la
+      # valeur a l'endroit du point 'pt' (1er argument)
+      # pour la premiere bande (2eme argument)
+      # Cette fonction renvoi un 'tuple' de deux valeurs
+      # la premiere est la valeur a l'endroit du point
+      # et la seconde une valeur booleene qui indique
+      # que l'operation s'est bien deroulee
+      alt, valid = dem_pr.sample(pt, 1)
+      if valid:
+          new_pt = QgsPoint(pt.x(), pt.y(), alt)
+          feat = QgsFeature()
+          feat.setGeometry(QgsGeometry(new_pt))
+          feat.setAttributes([ix, dist])
+          ok = pr.addFeature(feat)
+          if not ok:
+              # Peut se produire si le nombre ou le type d'attribut ne correspondent
+              # pas à ceux attendus pour cette couche
+              print("Erreur lors de la création de l'entité {}".format(ix))
+
+  # Mise à jour de l'étendue de la couche
+  layer.updateExtents()
+
+  # Ajout de la couche
+  QgsProject.instance().addMapLayer(layer)
+
+
+
+.. note::
+  L'API exposée par PyQgis n'est pas toujours très "pythonique".
+  Certaines fonctions vues au cours de cet exercice ne vont pas générer une ``Exception``
+  comme c'est la convention en Python mais vont retourner une valeur booléenne qu'il
+  faudra lire pour s'assurer de la bonne exécution de la fonction en question.
+
+  .. code-block:: python
+     :emphasize-lines: 3,4,10,11
+
+      for ix, dist in enumerate(range(0, int(length), int(step))):
+          pt = geom.interpolate(dist).asPoint()
+          alt, valid = data_pr.sample(pt, 1)
+          if valid:
+              new_pt = QgsPoint(pt)
+              new_pt.setZ(alt)
+              feat = QgsFeature()
+              feat.setGeometry(QgsGeometry(new_pt))
+              feat.setAttributes([ix, dist])
+              ok = pr.addFeature(feat)
+              if not ok:
+                  print("Erreur lors de la création de l'entité {}".format(ix))
+          else:
+              print(
+                "Erreur lors de la récupération de l'altitude pour l'entité {}"
+                .format(ix)")
