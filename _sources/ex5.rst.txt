@@ -173,6 +173,7 @@ Procédure
 .. raw:: html
 
    <hr width="100%" size="18">
+   <p class="align-center"><strong>💡 <a href="solutions/s_ex5.html">Solution de l'exercice 5</a></strong></p>
 
 
 .. rubric:: Footnotes
