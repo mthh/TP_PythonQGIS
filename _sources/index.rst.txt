@@ -61,6 +61,8 @@ LP ESSIG (2021-2022) - Université Grenoble Alpes
    ex3
    ex4
    ex5
+   ex6
+   ex8
 
 .. raw:: html
 
@@ -71,7 +73,6 @@ LP ESSIG (2021-2022) - Université Grenoble Alpes
 
    cheatsheet
    previous_tests
-   data
 
 
 .. other_resources
