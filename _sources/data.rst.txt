@@ -52,7 +52,7 @@ Source : **Natural Earth** - https://www.naturalearthdata.com
 ..
 .. - Tracé du Canal du Furon au format Shapefile. Source : BD TOPO v2., `IGN <http://professionnels.ign.fr/bdtopo>`_. Données téléchargées le 28/02/2019.
 ..
-.. - Vommunes de France Métropolitaine. Source : `ADMIN EXPRESS COG 2.0 2019, IGN <http://professionnels.ign.fr/>`_. Données téléchargées le 10/03/2020.
+.. - Communes de France Métropolitaine. Source : `ADMIN EXPRESS COG 2.0 2019, IGN <http://professionnels.ign.fr/>`_. Données téléchargées le 10/03/2020.
 ..
 ..
 ..

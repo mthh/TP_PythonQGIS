@@ -1,11 +1,11 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<html lang="fr">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
   
   <!-- Licensed under the Apache 2.0 License -->
   <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
@@ -15,21 +15,20 @@
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>Cheatsheet &#8212; Documentation PythonQGIS_TP 2022.03</title>
-    <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <title>Cheatsheet &#8212; Documentation PythonQGIS_TP 2023.03</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/guzzle.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script type="text/javascript" src="_static/js/custom.js"></script>
-    <script type="text/javascript" src="_static/translations.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/js/custom.js"></script>
+    <script src="_static/translations.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Recherche" href="search.html" />
     <link rel="next" title="Sujet d’exam des années précédentes" href="previous_tests.html" />
-    <link rel="prev" title="Exercice à la maison : Boite à outils de géotraitement" href="ex8.html" />
+    <link rel="prev" title="Exercice 4 : Ouverture d’un raster et enrichissement d’une couche vecteur" href="ex4.html" />
   
    
 
@@ -44,9 +43,10 @@
           <a href="previous_tests.html" title="Sujet d’exam des années précédentes"
              accesskey="N">suivant</a> |</li>
         <li class="right" >
-          <a href="ex8.html" title="Exercice à la maison : Boite à outils de géotraitement"
+          <a href="ex4.html" title="Exercice 4 : Ouverture d’un raster et enrichissement d’une couche vecteur"
              accesskey="P">précédent</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2022.03</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2023.03</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Cheatsheet</a></li> 
       </ul>
     </div>
     <div class="container-wrapper">
@@ -75,8 +75,8 @@
   </div>
 </div>
   <h4>Sujet précédent</h4>
-  <p class="topless"><a href="ex8.html"
-                        title="Chapitre précédent">Exercice à la maison : Boite à outils de géotraitement</a></p>
+  <p class="topless"><a href="ex4.html"
+                        title="Chapitre précédent">Exercice 4 : Ouverture d’un raster et enrichissement d’une couche vecteur</a></p>
   <h4>Sujet suivant</h4>
   <p class="topless"><a href="previous_tests.html"
                         title="Chapitre suivant">Sujet d’exam des années précédentes</a></p>
@@ -115,18 +115,19 @@
           
           <div class="document clearer body">
             
-  <div class="section" id="cheatsheet">
+  <section id="cheatsheet">
 <h1>Cheatsheet<a class="headerlink" href="#cheatsheet" title="Lien permanent vers ce titre">¶</a></h1>
 <blockquote>
-<div>Voir également la <a class="reference external" href="https://docs.qgis.org/3.16/en/docs/pyqgis_developer_cookbook/cheat_sheet.html">cheatsheet dans le documentation officielle PyQgis</a>.</div></blockquote>
-<div class="section" id="canvas">
+<div><p>Voir également la <a class="reference external" href="https://docs.qgis.org/3.16/en/docs/pyqgis_developer_cookbook/cheat_sheet.html">cheatsheet dans le documentation officielle PyQgis</a>.</p>
+</div></blockquote>
+<section id="canvas">
 <h2>Canvas<a class="headerlink" href="#canvas" title="Lien permanent vers ce titre">¶</a></h2>
 <p><strong>Accéder au canvas</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">canvas</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="manipulation-des-couches-de-donnees">
+</section>
+<section id="manipulation-des-couches-de-donnees">
 <h2>Manipulation des couches de données<a class="headerlink" href="#manipulation-des-couches-de-donnees" title="Lien permanent vers ce titre">¶</a></h2>
 <p><strong>Lister les couches affichées sur la carte</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">layers</span><span class="p">()</span> <span class="c1"># Retourne une liste</span>
@@ -189,8 +190,8 @@
         <span class="n">tree</span><span class="o">.</span><span class="n">removeChildNode</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="couches-vecteurs">
+</section>
+<section id="couches-vecteurs">
 <h2>Couches vecteurs<a class="headerlink" href="#couches-vecteurs" title="Lien permanent vers ce titre">¶</a></h2>
 <p><strong>Ajout d’une couche vecteur</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">addVectorLayer</span><span class="p">(</span><span class="s2">&quot;input.shp&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;ogr&quot;</span><span class="p">)</span>
@@ -219,8 +220,8 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span><span class="o">.</span><span class="n">setOpacity</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="couches-raster">
+</section>
+<section id="couches-raster">
 <h2>Couches raster<a class="headerlink" href="#couches-raster" title="Lien permanent vers ce titre">¶</a></h2>
 <p><strong>Ajout d’une couche raster</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">addRasterLayer</span><span class="p">(</span><span class="s2">&quot;/path/to/raster/file.tif&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">)</span>
@@ -249,8 +250,8 @@
     <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">results</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="processing-algorithms">
+</section>
+<section id="processing-algorithms">
 <h2>Processing algorithms<a class="headerlink" href="#processing-algorithms" title="Lien permanent vers ce titre">¶</a></h2>
 <p><strong>Obtenir une liste des algo. disponibles</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">alg</span> <span class="ow">in</span> <span class="n">QgsApplication</span><span class="o">.</span><span class="n">processingRegistry</span><span class="p">()</span><span class="o">.</span><span class="n">algorithms</span><span class="p">():</span>
@@ -275,8 +276,8 @@ contenant les paramètres à utiliser.</em></p>
 <span class="n">processing</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">algo_name</span><span class="p">,</span> <span class="n">algo_params</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -284,7 +285,7 @@ contenant les paramètres à utiliser.</em></p>
   <div class="footer-relations">
     
       <div class="pull-left">
-        <a class="btn btn-default" href="ex8.html" title="Chapitre précédent (use the left arrow)">Exercice à la maison : Boite à outils de géotraitement</a>
+        <a class="btn btn-default" href="ex4.html" title="Chapitre précédent (use the left arrow)">Exercice 4 : Ouverture d’un raster et enrichissement d’une couche vecteur</a>
       </div>
     
       <div class="pull-right">
@@ -306,9 +307,10 @@ contenant les paramètres à utiliser.</em></p>
           <a href="previous_tests.html" title="Sujet d’exam des années précédentes"
              >suivant</a> |</li>
         <li class="right" >
-          <a href="ex8.html" title="Exercice à la maison : Boite à outils de géotraitement"
+          <a href="ex4.html" title="Exercice 4 : Ouverture d’un raster et enrichissement d’une couche vecteur"
              >précédent</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2022.03</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2023.03</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Cheatsheet</a></li> 
       </ul>
     </div>
 <script type="text/javascript">
@@ -318,7 +320,7 @@ contenant les paramètres à utiliser.</em></p>
 </script>
 <script type="text/javascript" src="_static/js/bootstrap.js"></script>
   <div class="footer">
-    &copy; Copyright 2018-2022, Matthieu Viry. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    &copy; Copyright 2018-2023, Matthieu Viry. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
   </div>
   </body>
 </html>

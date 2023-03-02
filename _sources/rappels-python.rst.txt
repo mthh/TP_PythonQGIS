@@ -1,0 +1,227 @@
+Rappels Python
+==============
+
+Généralités
+-----------
+
+Lors de l'utilisation interactive de la console Python, la fonction native ``dir()`` pourra s'avérer très utile : en
+effet elle permet d'obtenir une liste d’attributs valides pour l'objet qui lui est donné en argument.
+
+Par exemple, la liste des attributs d'une variable (ici de type ``list``) peut être récupérée
+de la manière suivante :
+
+::
+
+  li = [1, 2, 3]
+  dir(li) # Retourne une liste contenant les attributs de 'li'
+  # On y retrouve des noms de méthodes que vous connaissez comme 'append'
+  # qui permet d'ajouter un élément à la liste
+
+
+Par ailleurs il est possible de connaitre le type de cette variable en utilisant
+la fonction native ``type()`` :
+
+::
+
+  type(iface)
+  # <class 'qgis._gui.QgisInterface'>
+
+Cette fonctionnalité pourra être utile pour aller chercher des informations
+dans la `documentation de l'API PyQgis <https://qgis.org/pyqgis/3.16/>`_
+(ici à propos des objets de type ``QgisInterface``).
+
+
+Formater une chaîne de caractères
+---------------------------------
+
+
+En utilisant la méthode ``format`` des objets de type ``str`` (chaîne de caractères) :
+
+::
+
+  age = 30
+  prenom = 'Jack'
+  result = 'La personne nommée {} a {} ans'.format(prenom, age)
+  print(result)
+
+Pour en savoir plus : https://www.docstring.fr/blog/le-formatage-des-chaines-de-caracteres-avec-python/#la-methode-format.
+
+
+Objets de type "dictionnaire"
+-----------------------------
+
+Un objet de type ``dict`` (un dictionnaire) est une collection permettant de rassembler des
+éléments qui sont identifiés par une **clé**, associée à une **valeur** (on parle souvent de paires clé/valeur).
+
+Il ne s'agit pas d'objets séquentiels comme les listes, mais plutôt d'objets dits de correspondance (*mapping objects* en anglais) ou tableaux associatifs (*associative array*).
+
+La syntaxe qui permet de créer un dictionnaire utilise des **accolades**
+(là où les listes utilisent des crochets) et chaque élément est spécifié au travers de sa clé
+et de sa valeur associée (clé et valeur sont séparées par ``:``).
+
+On peut ensuite accéder à une valeur du dictionnaire en utilisant la clé entourée par des crochets, comme dans l'exemple qui suit :
+
+::
+
+  # Création d'un dictionnaire avec deux éléments :
+  mon_dico = {"age": 30, "prenom": "Jack"}
+
+  # Accéder aux élément :
+  print(mon_dico["age"])
+  print(mon_dico["prenom"])
+
+  # Construction en partant d'un dictionnaire vide
+  mon_dico = {}
+  mon_dico["age"] = 30
+  mon_dico["prenom"] = "Jack"
+
+  # On peut donc modifier la valeur associée à une clé
+  # ou ajouter de nouvelles paires de clé/valeur
+  mon_dico["age"] = 31
+  mon_dico["nom"] = "Dupont"
+
+  print(mon_dico)
+
+Attention, si vous demandez la valeur associée à une clé qui n'existe pas, une erreur de type ``KeyError`` sera renvoyée.
+
+::
+
+  mon_dico = {"age": 30, "prenom": "Jack"}
+
+  print(mon_dico['taille']) # Renvoi "KeyError: 'taille'"
+
+Il est possible de vérifier si une clé est présente dans un dictionnaire, ou même de demander la valeur d'une clé en précisant une
+valeur par défaut si la clé n'existe pas :
+
+::
+
+  mon_dico = {"age": 30, "prenom": "Jack"}
+
+  # Vérifier si une clé existe dans un dictionnaire donné :
+  print('taille' in mon_dico) # Affiche 'False'
+  print('age' in mon_dico) # Affiche 'True'
+
+  # Demander la valeur d'une clé avec une valeur par défaut
+  print(mon_dico.get('age')) # Affiche 30, la valeur correspondant à la clé
+  print(mon_dico.get('taille')) # Affiche None, la valeur par défaut
+  print(mon_dico.get('taille', 170)) # Affiche 170, la valeur par défaut qu'on a spécifié
+
+**Retenez principalement les aspects liés à la construction d'un dictionnaire (vide ou avec des éléments) ainsi que la manière d'accéder (lecture / modification) aux éléments d'un dictionnaire**.
+
+Pour en savoir plus :
+
+- https://fr.wikipedia.org/wiki/Tableau_associatif
+
+- https://docs.python.org/fr/3/tutorial/datastructures.html#dictionaries
+
+- https://python.sdv.univ-paris-diderot.fr/13_dictionnaires_tuples_sets/#132-dictionnaires
+
+- https://gayerie.dev/docs/python/python3/dict.html
+
+
+
+Liste en compréhension
+----------------------
+
+Voyons comment faire une action simple sur les éléments d'une liste : multiplier
+chacun de ses éléments par 2.
+
+::
+
+  ma_liste = [1, 3, 5]
+  resultat = []
+  for nb in ma_liste:
+      resultat.append(nb * 2)
+
+  print(resultat) # va afficher [2, 6, 10]
+
+Ce type de construction peut-être raccourcie en utilisant une **liste en compréhension** :
+
+::
+
+  ma_liste = [1, 3, 5]
+  resultat = [nb * 2 for nb in ma_liste]
+
+  print(resultat) # va afficher [2, 6, 10]
+
+
+Ainsi les listes en compréhension permettent de construire des listes de manière très concise.
+Une classique consiste à construire une liste dont les éléments sont les résultats d'une opération appliquée à chaque élément d'une autre liste ;
+une autre consiste à créer une sous-séquence des éléments respectant une condition donnée.
+
+Des listes de dictionnaires ?
+-----------------------------
+
+Maintenant que nous savons manipuler dictionnaires et listes en compréhension,
+voyons un exemple permettant d'extraire
+toute les valeurs pour un clé spécifique (``age``) des dictionnaires présents
+dans une liste.
+
+::
+
+  # une liste de 3 dictionnaires
+  ma_liste = [
+      {"age": 30, "prenom": "Jack"},
+      {"age": 33, "prenom": "Emma"},
+      {"age": 26, "prenom": "Pierre"}
+  ]
+
+  # boucle traditionnelle
+  les_ages = []
+  for d in ma_liste:
+    les_ages.append(d["age"])
+
+  # liste de compréhension
+  les_ages = [d["age"] for d in ma_liste]
+
+  print(les_ages) # va afficher [30, 33, 26]
+
+Et un exemple permettant de récupérer tous les dictionnaires dont la clé "age"
+est supérieur ou égale à 30 (*filtrage*) :
+
+::
+
+  # une liste de 3 dictionnaires
+  ma_liste = [
+      {"age": 30, "prenom": "Jack"},
+      {"age": 33, "prenom": "Emma"},
+      {"age": 26, "prenom": "Pierre"}
+  ]
+
+  # boucle traditionnelle
+  personne_audessus_30 = []
+  for d in ma_liste:
+      if d["age"] >= 30:
+          personne_audessus_30.append(d)
+
+  # liste de compréhension
+  personne_audessus_30 = [d for d in ma_liste if d["age"] >= 30]
+
+  print(personne_audessus_30)
+  # va afficher
+  # [{"age": 30, "prenom": "Jack"}, {"age": 33, "prenom": "Emma"}]
+
+
+Ou alors de faire la moyenne des âges des personnes décrites dans notre liste :
+
+::
+
+  ma_liste = [
+      {"age": 30, "prenom": "Jack"},
+      {"age": 33, "prenom": "Emma"},
+      {"age": 26, "prenom": "Pierre"}
+  ]
+
+  age_moy = sum([d['age'] for d in ma_liste]) / len(ma_liste)
+
+Pour en savoir plus :
+
+- https://code.tutsplus.com/fr/tutorials/list-comprehensions-in-python--cms-26836
+
+- https://docs.python.org/fr/3/tutorial/datastructures.html#list-comprehensions
+
+
+Si l'utilisation des listes en compréhension n'est pas indispensable (il est toujours possible
+d'effectuer la même opération avec une boucle traditionnelle), il s'agit d'une construction
+qui est souvent rencontrée dans le code Python et elle figure dans la correction
+de certains des exercices de cette série de TP.

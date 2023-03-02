@@ -141,15 +141,8 @@ La méthode à utiliser peut être décrite de la manière suivante :
 
 
 
-.. raw:: html
-
-   <hr width="100%" size="18">
-   <p class="align-center"><strong>💡 <a href="solutions/s_ex3.html">Solution de l'exercice 3</a></strong></p>
-
-
-
 .. rubric:: Footnotes
 
-.. [#f1] http://www.naturalearthdata.com/. Consulté le 16/03/2022.
+.. [#f1] http://www.naturalearthdata.com/. Consulté le 28/02/2023.
 
 .. _`index spatial`: https://fr.wikipedia.org/wiki/Index_spatial

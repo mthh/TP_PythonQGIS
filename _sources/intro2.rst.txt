@@ -1,5 +1,5 @@
-Introduction QGIS et rappels Python
-===================================
+Introduction QGIS
+=================
 
 .. image:: img/QGIS_logo_new.svg
   :width: 18%
@@ -11,7 +11,7 @@ permet de visualiser, gérer, éditer, analyser des données géospatiales et de
 Les formats de données (vecteurs et rasters) qu'il supporte sont très nombreux
 et il permet également de se connecter à différents types de bases de données.
 
-QGIS est developpé en C++ (en utilisant notamment le framework Qt) et
+QGIS est développé en C++ (en utilisant notamment le framework Qt) et
 il est notamment compatible avec GNU/Linux, Max OS X et Windows.
 
 Depuis QGIS 0.9 le logiciel dispose d'une API python permettant :
@@ -68,7 +68,7 @@ a pour but de donner une introduction aux capacités de scripting dans QGIS avec
 
 QGIS fournit une console interactive python. Elle peut être ouverte depuis le
 menu ``Extension > Console Python``, en pressant :kbd:`CTRL` + :kbd:`ALT` + :kbd:`P` ou en appuyant
-sur l'icone qui lui est dédiée.
+sur l'icône qui lui est dédiée.
 
 Lors de l'utilisation de la console Python dans QGIS, une variable ``iface`` est
 déjà existante. Cette variable est une instance de ``QgisInterface`` et elle
@@ -83,158 +83,19 @@ les imports suivants sont réalisés :
   import qgis.utils
 
 
-Rappels Python
---------------
+Rappels sur les données dans les SIG
+------------------------------------
 
-Lors de l'utilisation interactive de la console Python, la fonction native ``dir()`` pourra s'avérer très utile : en
-effet elle permet d'obtenir une liste d’attributs valides pour l'objet qui lui est donné en argument.
+Nous manipulerons des données vectorielles ainsi que des données raster dans cette série de TP.
 
-Par exemple, la liste des attributs d'une variable (ici de type ``list``) peut être récupérée
-de la manière suivante :
-::
+**Données vectorielles**
 
-  a = [1, 2, 3]
-  dir(a) # Retourne une liste contenant les attributs de 'a'
+Comme vous le savez, on parle généralement de **couches** (*layers*) de données vectorielles.
 
+Chaque couche de données contient des **entités** (*features*).
 
-Par ailleurs il est possible de connaitre le type de cette variable en utilisant
-la fonction native ``type()`` :
+Chaque entité contient généralement une **géométrie** (*geometry*) ainsi que **valeurs attributaires** (*attributes*).
 
-::
+Si ce modèle est simple, il est important de bien l'avoir en tête puisque la majorité des opérations que nous réaliserons feront directement appels à cette organisation
+(*pour la couche XXX, parcourir ses entités et, pour chaque entité, appliquer l'opération YYY*).
 
-  type(iface)
-  # <class 'qgis._gui.QgisInterface'>
-
-Cette fonctionnalité pourra être utile pour aller chercher des informations
-dans la `documentation de l'API PyQgis <https://qgis.org/pyqgis/3.16/>`_
-(ici à propos des objets de type ``QgisInterface``).
-
-
-**Formater une chaîne de caractères**
-
-En utilisant la méthode ``format`` des objets de type ``str`` (chaîne de caractères) :
-
-::
-
-  age = 30
-  prenom = 'Jack'
-  result = 'La personne nommée {} a {} ans'.format(prenom, age)
-  print(result)
-
-Pour en savoir plus : https://www.docstring.fr/blog/le-formatage-des-chaines-de-caracteres-avec-python/#la-methode-format.
-
-
-**Objects de type "dictionnaire"**
-
-Un objet de type ``dict`` (un dictionnaire) est une collection permettant de rassembler des
-éléments qui sont identifiés par une **clé**, associée à une **valeur** (on parle souvent de paires clé/valeur).
-
-La syntaxe qui permet de créer un dictionnaire utilise des **accolades**
-(là où les listes utilisent des crochets) et chaque élément est spécifié au travers de sa clé
-et de sa valeur associée (clé et valeur sont séparées par ``:``).
-
-::
-
-  # Un dictionnaire avec deux éléments :
-  mon_dico = {"age": 30, "prenom": "Jack"}
-
-  # Accéder aux élément :
-  print(mon_dico["age"])
-  print(mon_dico["prenom"])
-
-  # Construction en partant d'un dictionnaire vide
-  mon_dico = {}
-  mon_dico["age"] = 30
-  mon_dico["prenom"] = "Jack"
-
-  # On peut donc modifier la valeur associée à une clé
-  # ou ajouter de nouvelles paires de clé/valeur
-  mon_dico["age"] = 31
-  mon_dico["nom"] = "Dupont"
-
-  print(mon_dico)
-
-Pour en savoir plus :
-- https://gayerie.dev/docs/python/python3/dict.html
-- https://python.doctor/page-apprendre-dictionnaire-python
-
-
-**Liste de compréhension**
-
-Voyons comment faire une action simple sur les éléments d'une liste : multiplier
-chacun de ses éléments par 2.
-
-::
-
-  ma_liste = [1, 3, 5]
-  resultat = []
-  for nb in ma_liste:
-      resultat.append(nb * 2)
-
-  print(resultat) # va afficher [2, 6, 10]
-
-Ce type de construction peut-être raccourcie en utilisant une **liste de compréhension** :
-
-::
-
-  ma_liste = [1, 3, 5]
-  resultat = [nb * 2 for nb in ma_liste]
-
-  print(resultat) # va afficher [2, 6, 10]
-
-Maintenant que nous savons manipuler dictionnaires et listes de compréhension,
-voyons un exemple d'une liste de compréhension qui permet d'extraire
-toute les valeurs pour un clé spécifique (``age``) des dictionnaires présents
-dans une liste.
-
-::
-
-  # une liste de 3 dictionnaires
-  ma_liste = [
-      {"age": 30, "prenom": "Jack"},
-      {"age": 33, "prenom": "Emma"},
-      {"age": 26, "prenom": "Pierre"}
-  ]
-
-  # boucle traditionnelle
-  les_ages = []
-  for d in ma_liste:
-    les_ages.append(d["age"])
-
-  # liste de compréhension
-  les_ages = [d["age"] for d in ma_liste]
-
-  print(les_ages) # va afficher [30, 33, 26]
-
-Et un exemple permettant de récupérer tous les dictionnaires dont la clé "age"
-est supérieur ou égale à 30 :
-
-::
-
-  # une liste de 3 dictionnaires
-  ma_liste = [
-      {"age": 30, "prenom": "Jack"},
-      {"age": 33, "prenom": "Emma"},
-      {"age": 26, "prenom": "Pierre"}
-  ]
-
-  # boucle traditionnelle
-  personne_audessus_30 = []
-  for d in ma_liste:
-      if d["age"] >= 30:
-          personne_audessus_30.append(d)
-
-  # liste de compréhension
-  personne_audessus_30 = [d for d in ma_liste if d["age"] >= 30]
-
-  print(personne_audessus_30)
-  # va afficher
-  # [{"age": 30, "prenom": "Jack"}, {"age": 33, "prenom": "Emma"}]
-
-
-Pour en savoir plus : https://code.tutsplus.com/fr/tutorials/list-comprehensions-in-python--cms-26836.
-
-Si l'utilisation des listes de compréhension n'est pas indispensable (il est toujours possible
-d'effectuer la même opération avec une boucle traditionnelle), il s'agit d'une construction
-qui est souvent rencontrée dans le code Python et elle figure dans la correction
-de certains des exercices de cette série de TP.

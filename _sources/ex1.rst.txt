@@ -85,15 +85,10 @@ Tester les actions suivantes dans la console
 - **Par ailleurs, quelle instruction doit être saisie pour savoir de combien de couches se compose le projet en cours ?**
 
 
-.. raw:: html
-
-   <hr width="100%" size="18">
-   <p class="align-center"><strong>💡 <a href="solutions/s_ex1.html">Solution de l'exercice 1</a></strong></p>
-
 
 .. rubric:: Footnotes
 
-.. [#f1] http://www.naturalearthdata.com/. Consulté le 16/03/2022.
+.. [#f1] http://www.naturalearthdata.com/. Consulté le 28/02/2023.
 
 
 .. _Téléchargement: https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip

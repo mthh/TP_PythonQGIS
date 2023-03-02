@@ -1,11 +1,11 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<html lang="fr">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
   
   <!-- Licensed under the Apache 2.0 License -->
   <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
@@ -15,17 +15,16 @@
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>Exercice 2 : Manipulation des attributs d’une couche &#8212; Documentation PythonQGIS_TP 2022.03</title>
-    <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <title>Exercice 2 : Manipulation des attributs d’une couche &#8212; Documentation PythonQGIS_TP 2023.03</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/guzzle.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script type="text/javascript" src="_static/js/custom.js"></script>
-    <script type="text/javascript" src="_static/translations.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/js/custom.js"></script>
+    <script src="_static/translations.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Recherche" href="search.html" />
     <link rel="next" title="Exercice 3 : Géométries et calcul de champ" href="ex3.html" />
@@ -46,7 +45,8 @@
         <li class="right" >
           <a href="ex1.html" title="Exercice 1 : Prise en main"
              accesskey="P">précédent</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2022.03</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2023.03</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Exercice 2 : Manipulation des attributs d’une couche</a></li> 
       </ul>
     </div>
     <div class="container-wrapper">
@@ -113,68 +113,71 @@
           
           <div class="document clearer body">
             
-  <div class="section" id="exercice-2-manipulation-des-attributs-d-une-couche">
+  <section id="exercice-2-manipulation-des-attributs-d-une-couche">
 <h1>Exercice 2 : Manipulation des attributs d’une couche<a class="headerlink" href="#exercice-2-manipulation-des-attributs-d-une-couche" title="Lien permanent vers ce titre">¶</a></h1>
-<div class="section" id="objectif">
+<section id="objectif">
 <h2>Objectif<a class="headerlink" href="#objectif" title="Lien permanent vers ce titre">¶</a></h2>
 <p>À partir d’une couche vecteur de points représentants les principaux aéroports,
 créer un script python permettant d’exporter un fichier CSV contenant,
 pour chaque aéroport <em>majeur</em> son nom, son code, sa latitude et sa longitude.</p>
-</div>
-<div class="section" id="donnees">
+</section>
+<section id="donnees">
 <h2>Données<a class="headerlink" href="#donnees" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Les données proviennent de Natural Earth <a class="footnote-reference" href="#f1" id="id1">[1]</a> :</p>
+<p>Les données proviennent de Natural Earth <a class="footnote-reference brackets" href="#f1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> :</p>
 <div class="line-block">
 <div class="line">• <code class="docutils literal notranslate"><span class="pre">ne_10m_airports.shp</span></code> (Points - Localisation des aéroports) ➜ <a class="reference external" href="https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_airports.zip">Téléchargement</a></div>
 <div class="line">• <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.shp</span></code> (Polygones - Pays du monde) ➜ <a class="reference external" href="https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">Téléchargement</a></div>
 </div>
-</div>
-<div class="section" id="procedure">
+</section>
+<section id="procedure">
 <h2>Procédure<a class="headerlink" href="#procedure" title="Lien permanent vers ce titre">¶</a></h2>
 <ul class="simple">
-<li>Charger la couche vecteur <code class="docutils literal notranslate"><span class="pre">ne_10m_airports.shp</span></code> :<ul>
-<li>soit en faisant un glissé-déposé de ce fichier vers l’interface de QGIS,</li>
-<li>soit en en utilisant le menu <code class="docutils literal notranslate"><span class="pre">Couche</span> <span class="pre">&gt;</span> <span class="pre">Ajouter</span> <span class="pre">une</span> <span class="pre">couche</span> <span class="pre">&gt;</span> <span class="pre">Ajouter</span> <span class="pre">une</span> <span class="pre">couche</span> <span class="pre">vecteur...</span></code></li>
+<li><p>Charger la couche vecteur <code class="docutils literal notranslate"><span class="pre">ne_10m_airports.shp</span></code> :</p>
+<ul>
+<li><p>soit en faisant un glissé-déposé de ce fichier vers l’interface de QGIS,</p></li>
+<li><p>soit en en utilisant le menu <code class="docutils literal notranslate"><span class="pre">Couche</span> <span class="pre">&gt;</span> <span class="pre">Ajouter</span> <span class="pre">une</span> <span class="pre">couche</span> <span class="pre">&gt;</span> <span class="pre">Ajouter</span> <span class="pre">une</span> <span class="pre">couche</span> <span class="pre">vecteur...</span></code></p></li>
 </ul>
 </li>
 </ul>
-<div class="figure align-center" style="width: 98%">
+<figure class="align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/0_qgis_interface.png"><img alt="_images/0_qgis_interface.png" src="_images/0_qgis_interface.png" style="width: 100%;" /></a>
-</div>
+</figure>
 <ul class="simple">
-<li>De manière similaire, charger la couche <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.shp</span></code>.</li>
-<li>Modifier le style des couches pour obtenir le résultat suivant :<ul>
-<li>Utilisation d’un pictogramme d’avion pour les aéroports</li>
-<li>Utilisation d’un fond de couleur beige/jaune pour les pays du monde.</li>
+<li><p>De manière similaire, charger la couche <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.shp</span></code>.</p></li>
+<li><p>Modifier le style des couches pour obtenir le résultat suivant :</p>
+<ul>
+<li><p>Utilisation d’un pictogramme d’avion pour les aéroports</p></li>
+<li><p>Utilisation d’un fond de couleur beige/jaune pour les pays du monde.</p></li>
 </ul>
 </li>
 </ul>
 <blockquote class="pull-quote">
-<div>Rappel: Le style de chacune des couches peut-être modifié depuis le gestionnaire de couches, en sélectionannt une couche puis en faisant <code class="docutils literal notranslate"><span class="pre">clic</span> <span class="pre">droit</span> <span class="pre">&gt;</span> <span class="pre">Propriétés</span></code> puis sélection de l’onglet <em>«&nbsp;Symbologie&nbsp;»</em>.
-QGIS offre de nombreux modes de rendu des couches (catégorisé, gradué, etc.) en fonction du type de couche et du type d’information à représenter.</div></blockquote>
-<div class="figure align-center" style="width: 98%">
+<div><p>Rappel: Le style de chacune des couches peut-être modifié depuis le gestionnaire de couches, en sélectionannt une couche puis en faisant <code class="docutils literal notranslate"><span class="pre">clic</span> <span class="pre">droit</span> <span class="pre">&gt;</span> <span class="pre">Propriétés</span></code> puis sélection de l’onglet <em>« Symbologie »</em>.
+QGIS offre de nombreux modes de rendu des couches (catégorisé, gradué, etc.) en fonction du type de couche et du type d’information à représenter.</p>
+</div></blockquote>
+<figure class="align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/1_qgis_ouverture_style.png"><img alt="_images/1_qgis_ouverture_style.png" src="_images/1_qgis_ouverture_style.png" style="width: 100%;" /></a>
-</div>
-<div class="figure align-center" style="width: 98%">
+</figure>
+<figure class="align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/2_qgis_apres_style.png"><img alt="_images/2_qgis_apres_style.png" src="_images/2_qgis_apres_style.png" style="width: 100%;" /></a>
-</div>
+</figure>
 <ul class="simple">
-<li>Utiliser l’outil «&nbsp;Identifier&nbsp;» pour visualiser les attributs de chacune des entités. Cet outil s’applique uniquement à la couche active.</li>
+<li><p>Utiliser l’outil « Identifier » pour visualiser les attributs de chacune des entités. Cet outil s’applique uniquement à la couche active.</p></li>
 </ul>
-<div class="figure align-center" style="width: 98%">
+<figure class="align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/3_qgis_identifier.png"><img alt="_images/3_qgis_identifier.png" src="_images/3_qgis_identifier.png" style="width: 100%;" /></a>
-</div>
+</figure>
 <ul class="simple">
-<li>Pour voir l’ensemble de la table de données relative à cette couche on peut ouvrir sa «&nbsp;table attributaire&nbsp;».</li>
+<li><p>Pour voir l’ensemble de la table de données relative à cette couche on peut ouvrir sa « table attributaire ».</p></li>
 </ul>
-<div class="figure align-center" style="width: 98%">
+<figure class="align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/4_qgis_table_attributaire.png"><img alt="_images/4_qgis_table_attributaire.png" src="_images/4_qgis_table_attributaire.png" style="width: 100%;" /></a>
-</div>
+</figure>
 <ul>
-<li><p class="first">Ouvrir la console python.</p>
+<li><p>Ouvrir la console python.</p>
 <p>S’assurer que la couche des aéroports est bien celle qui est active.</p>
 <ul>
-<li><p class="first">Parcourir les différentes entités de la couche :</p>
+<li><p>Parcourir les différentes entités de la couche :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
 <span class="c1"># Pour chaque entité dans la couche ...</span>
 <span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
@@ -183,7 +186,7 @@ QGIS offre de nombreux modes de rendu des couches (catégorisé, gradué, etc.) 
 </pre></div>
 </div>
 </li>
-<li><p class="first">Accéder aux attributs de chaque enregistrement :</p>
+<li><p>Accéder aux attributs de chaque enregistrement :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
     <span class="c1"># Avec la notation entre crochet et le nom du champ à utiliser</span>
@@ -191,7 +194,7 @@ QGIS offre de nombreux modes de rendu des couches (catégorisé, gradué, etc.) 
 </pre></div>
 </div>
 </li>
-<li><p class="first">Accéder à la géométrie de chaque enregistrement :</p>
+<li><p>Accéder à la géométrie de chaque enregistrement :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
 <span class="c1"># Pour chaque entité dans la couche active ..</span>
 <span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">():</span>
@@ -205,7 +208,7 @@ QGIS offre de nombreux modes de rendu des couches (catégorisé, gradué, etc.) 
 </pre></div>
 </div>
 </li>
-<li><p class="first">Obtenir les différentes modalités du champ <code class="docutils literal notranslate"><span class="pre">type</span></code> en parcourant les
+<li><p>Obtenir les différentes modalités du champ <code class="docutils literal notranslate"><span class="pre">type</span></code> en parcourant les
 différentes entités dans une liste de compréhension :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">categories</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">ft</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">ft</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">()]))</span>
 <span class="c1"># print(categories)</span>
@@ -214,10 +217,10 @@ différentes entités dans une liste de compréhension :</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Nous savons donc comment accéder aux différentes informations nécessaires pour réaliser l’export souhaité.
+<li><p>Nous savons donc comment accéder aux différentes informations nécessaires pour réaliser l’export souhaité.
 L’export au format CSV va nécessiter de structurer les valeurs relatives à
 chaque enregistrement (ici à chaque aéroport) sous forme d’une liste.
-Le module <code class="docutils literal notranslate"><span class="pre">csv</span></code> de la bibliothèque standard <a class="footnote-reference" href="#f2" id="id3">[2]</a> se chargera d’écrire
+Le module <code class="docutils literal notranslate"><span class="pre">csv</span></code> de la bibliothèque standard <a class="footnote-reference brackets" href="#f2" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> se chargera d’écrire
 correctement les valeurs de chaque enregistrement selon le type de fichier CSV souhaité.
 Étudiez l’exemple suivant qui créé un fichier CSV de tous les aéroports présents dans la couche :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">csv</span>
@@ -242,10 +245,10 @@ correctement les valeurs de chaque enregistrement selon le type de fichier CSV s
 </li>
 </ul>
 </li>
-<li><div class="first line-block">
+<li><div class="line-block">
 <div class="line"><strong>À vous de jouer !</strong></div>
 <div class="line"><strong>Vous devez reprendre le script précédent afin de n’exporter que les aéroports de type</strong> <cite>major</cite> <strong>et</strong> <cite>major and military</cite>.</div>
-<div class="line"><strong>Vous devez également ajouter une nouvelle colonne appellée «&nbsp;type&nbsp;» et contenant le type d’aéroport</strong> (<cite>major</cite> ou <cite>major and military</cite>) pour chacun d’entre eux.</div>
+<div class="line"><strong>Vous devez également ajouter une nouvelle colonne appellée « type » et contenant le type d’aéroport</strong> (<cite>major</cite> ou <cite>major and military</cite>) pour chacun d’entre eux.</div>
 <div class="line">Enregistrer ce script sous le nom <code class="docutils literal notranslate"><span class="pre">export_airports.py</span></code>.</div>
 <div class="line">Exécuter le script pour vérifier son bon fonctionnement.</div>
 <div class="line">Le fichier CSV exporté doit être reconnu correctement par l’OS et s’ouvrir dans le tableur habituel (LibreOffice Calc, Microsoft Excel, etc.).</div>
@@ -254,22 +257,19 @@ correctement les valeurs de chaque enregistrement selon le type de fichier CSV s
 </div>
 </li>
 </ul>
-<hr width="100%" size="18">
-<p class="align-center"><strong>💡 <a href="solutions/s_ex2.html">Solution de l'exercice 2</a></strong></p><p class="rubric">Footnotes</p>
-<table class="docutils footnote" frame="void" id="f1" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://www.naturalearthdata.com/">http://www.naturalearthdata.com/</a>. Consulté le 16/03/2022.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="f2" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3">[2]</a></td><td><a class="reference external" href="https://docs.python.org/3/library/csv.html">https://docs.python.org/3/library/csv.html</a></td></tr>
-</tbody>
-</table>
-</div>
-</div>
+<p class="rubric">Footnotes</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="f1" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="http://www.naturalearthdata.com/">http://www.naturalearthdata.com/</a>. Consulté le 28/02/2023.</p>
+</aside>
+<aside class="footnote brackets" id="f2" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://docs.python.org/3/library/csv.html">https://docs.python.org/3/library/csv.html</a></p>
+</aside>
+</aside>
+</section>
+</section>
 
 
           </div>
@@ -301,7 +301,8 @@ correctement les valeurs de chaque enregistrement selon le type de fichier CSV s
         <li class="right" >
           <a href="ex1.html" title="Exercice 1 : Prise en main"
              >précédent</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2022.03</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2023.03</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Exercice 2 : Manipulation des attributs d’une couche</a></li> 
       </ul>
     </div>
 <script type="text/javascript">
@@ -311,7 +312,7 @@ correctement les valeurs de chaque enregistrement selon le type de fichier CSV s
 </script>
 <script type="text/javascript" src="_static/js/bootstrap.js"></script>
   <div class="footer">
-    &copy; Copyright 2018-2022, Matthieu Viry. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    &copy; Copyright 2018-2023, Matthieu Viry. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
   </div>
   </body>
 </html>

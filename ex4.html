@@ -1,11 +1,11 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<html lang="fr">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
   
   <!-- Licensed under the Apache 2.0 License -->
   <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
@@ -15,20 +15,19 @@
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>Exercice 4 : Ouverture d’un raster et enrichissement d’une couche vecteur &#8212; Documentation PythonQGIS_TP 2022.03</title>
-    <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <title>Exercice 4 : Ouverture d’un raster et enrichissement d’une couche vecteur &#8212; Documentation PythonQGIS_TP 2023.03</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/guzzle.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script type="text/javascript" src="_static/js/custom.js"></script>
-    <script type="text/javascript" src="_static/translations.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/js/custom.js"></script>
+    <script src="_static/translations.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Recherche" href="search.html" />
-    <link rel="next" title="Exercice 5 : Manipulation de couches vecteurs et géotraitements" href="ex5.html" />
+    <link rel="next" title="Cheatsheet" href="cheatsheet.html" />
     <link rel="prev" title="Exercice 3 : Géométries et calcul de champ" href="ex3.html" />
   
    
@@ -41,12 +40,13 @@
           <a href="genindex.html" title="Index général"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="ex5.html" title="Exercice 5 : Manipulation de couches vecteurs et géotraitements"
+          <a href="cheatsheet.html" title="Cheatsheet"
              accesskey="N">suivant</a> |</li>
         <li class="right" >
           <a href="ex3.html" title="Exercice 3 : Géométries et calcul de champ"
              accesskey="P">précédent</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2022.03</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2023.03</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Exercice 4 : Ouverture d’un raster et enrichissement d’une couche vecteur</a></li> 
       </ul>
     </div>
     <div class="container-wrapper">
@@ -76,8 +76,8 @@
   <p class="topless"><a href="ex3.html"
                         title="Chapitre précédent">Exercice 3 : Géométries et calcul de champ</a></p>
   <h4>Sujet suivant</h4>
-  <p class="topless"><a href="ex5.html"
-                        title="Chapitre suivant">Exercice 5 : Manipulation de couches vecteurs et géotraitements</a></p>
+  <p class="topless"><a href="cheatsheet.html"
+                        title="Chapitre suivant">Cheatsheet</a></p>
   <div role="note" aria-label="source link">
     <h3>Cette page</h3>
     <ul class="this-page-menu">
@@ -113,47 +113,43 @@
           
           <div class="document clearer body">
             
-  <div class="section" id="exercice-4-ouverture-d-un-raster-et-enrichissement-d-une-couche-vecteur">
+  <section id="exercice-4-ouverture-d-un-raster-et-enrichissement-d-une-couche-vecteur">
 <h1>Exercice 4 : Ouverture d’un raster et enrichissement d’une couche vecteur<a class="headerlink" href="#exercice-4-ouverture-d-un-raster-et-enrichissement-d-une-couche-vecteur" title="Lien permanent vers ce titre">¶</a></h1>
-<div class="figure align-center" style="width: 98%">
+<figure class="align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/ex5_mnt_color.png"><img alt="_images/ex5_mnt_color.png" src="_images/ex5_mnt_color.png" style="width: 40%;" /></a>
-</div>
-<div class="section" id="objectif">
+</figure>
+<section id="objectif">
 <h2>Objectif<a class="headerlink" href="#objectif" title="Lien permanent vers ce titre">¶</a></h2>
 <p>L’objectif de cet exercice est de <strong>créer le profil longitudinal d’un cours d’eau</strong>.</p>
 <p>Cette opération nécessite de disposer de points à distance régulière le long du cours d’eau.
 Une valeur d’altitude va ensuite être récupérée à partir d’un modèle numérique de terrain.</p>
 <p>La dernière partie de l’exercice aborde la <strong>création d’une nouvelle couche temporaire en mémoire</strong>.</p>
-<div class="figure align-center" style="width: 98%">
+<figure class="align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/ex5_matplotlib.png"><img alt="_images/ex5_matplotlib.png" src="_images/ex5_matplotlib.png" style="width: 40%;" /></a>
-</div>
-</div>
-<div class="section" id="donnees">
+</figure>
+</section>
+<section id="donnees">
 <h2>Données<a class="headerlink" href="#donnees" title="Lien permanent vers ce titre">¶</a></h2>
 <div class="line-block">
-<div class="line">• Tracé du Canal du Furon <code class="docutils literal notranslate"><span class="pre">Canal_Furon.shp</span></code> (Ligne - Source : IGN <a class="footnote-reference" href="#f1" id="id1">[1]</a>) ➜ <a class="reference external" href="https://mthh.github.io/TP_PythonQGIS/_static/CanalFuron.zip">Téléchargement</a></div>
-<div class="line">• Modèle Numérique de terrain <code class="docutils literal notranslate"><span class="pre">DEM_N245E395_l93.tif</span></code> (Raster float 32bits - Source : EAA <a class="footnote-reference" href="#f2" id="id2">[2]</a>) ➜ <a class="reference external" href="https://mthh.github.io/TP_PythonQGIS/_static/Mnt.zip">Téléchargement</a></div>
+<div class="line">• Tracé du Canal du Furon <code class="docutils literal notranslate"><span class="pre">Canal_Furon.shp</span></code> (Ligne - Source : IGN <a class="footnote-reference brackets" href="#f1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>) ➜ <a class="reference external" href="https://mthh.github.io/TP_PythonQGIS/_static/CanalFuron.zip">Téléchargement</a></div>
+<div class="line">• Modèle Numérique de terrain <code class="docutils literal notranslate"><span class="pre">DEM_N245E395_l93.tif</span></code> (Raster float 32bits - Source : EAA <a class="footnote-reference brackets" href="#f2" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>) ➜ <a class="reference external" href="https://mthh.github.io/TP_PythonQGIS/_static/Mnt.zip">Téléchargement</a></div>
 </div>
 <p>Les deux jeux de données utilisent la projection Lambert-93 (EPSG:2154).</p>
-</div>
-<div class="section" id="procedure">
+</section>
+<section id="procedure">
 <h2>Procédure<a class="headerlink" href="#procedure" title="Lien permanent vers ce titre">¶</a></h2>
 <ul>
-<li><p class="first">Ouvrir QGIS.</p>
-</li>
-<li><p class="first">Créer un nouveau projet.</p>
-</li>
-<li><p class="first">Décompresser les deux archives <code class="docutils literal notranslate"><span class="pre">zip</span></code> qui ont été téléchargées et ajouter les couches <code class="docutils literal notranslate"><span class="pre">Canal_Furon.shp</span></code> et <code class="docutils literal notranslate"><span class="pre">DEM_N245E395_l93.tif</span></code>.</p>
-</li>
-<li><p class="first">Ouvrir la console Python.</p>
-</li>
-<li><p class="first">Obtenir la référence de chacune de nos couches :</p>
+<li><p>Ouvrir QGIS.</p></li>
+<li><p>Créer un nouveau projet.</p></li>
+<li><p>Décompresser les deux archives <code class="docutils literal notranslate"><span class="pre">zip</span></code> qui ont été téléchargées et ajouter les couches <code class="docutils literal notranslate"><span class="pre">Canal_Furon.shp</span></code> et <code class="docutils literal notranslate"><span class="pre">DEM_N245E395_l93.tif</span></code>.</p></li>
+<li><p>Ouvrir la console Python.</p></li>
+<li><p>Obtenir la référence de chacune de nos couches :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">line_lyr</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;Canal_Furon&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">dem</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;DEM_N245E395_l93&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Disposer des points à égale distance le long du tracé du cours d’eau :</p>
+<li><p>Disposer des points à égale distance le long du tracé du cours d’eau :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Quelle est la longueur du cours d&#39;eau ?</span>
 <span class="n">ft</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">line_lyr</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">geom</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
@@ -175,7 +171,7 @@ Une valeur d’altitude va ensuite être récupérée à partir d’un modèle n
 </pre></div>
 </div>
 </li>
-<li><p class="first">Récupérer la valeur de la (ou des) bande(s) raster à une coordonnée donnée :</p>
+<li><p>Récupérer la valeur de la (ou des) bande(s) raster à une coordonnée donnée :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dem_pr</span> <span class="o">=</span> <span class="n">dem</span><span class="o">.</span><span class="n">dataProvider</span><span class="p">()</span>
 <span class="n">pt</span> <span class="o">=</span> <span class="n">QgsPointXY</span><span class="p">(</span><span class="mi">925189</span><span class="p">,</span> <span class="mi">6473673</span><span class="p">)</span>
 <span class="n">res</span> <span class="o">=</span> <span class="n">dem_pr</span><span class="o">.</span><span class="n">identify</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -189,7 +185,7 @@ Une valeur d’altitude va ensuite être récupérée à partir d’un modèle n
 </pre></div>
 </div>
 </li>
-<li><p class="first"><strong>«&nbsp;Putting it all together&nbsp;»</strong></p>
+<li><p><strong>« Putting it all together »</strong></p>
 <p>1. Vous disposez des briques essentielles pour créer un objet python de type <code class="docutils literal notranslate"><span class="pre">list</span></code>,
 contenant, pour une cinquantaine de points répartis à égale distance le long du cours d’eau,
 <strong>la distance à la source</strong> et <strong>l’altitude</strong> de chacun d’entre eux, par exemple sous la forme
@@ -200,28 +196,27 @@ et en ordonnées, pour tracer le profil du cours d’eau.</p>
 <p>2. Lisez le tutoriel <a class="reference external" href="https://futurestud.io/tutorials/matplotlib-simple-line-plots">https://futurestud.io/tutorials/matplotlib-simple-line-plots</a>
 et essayez de mobiliser ces nouvelles notions pour utiliser la liste obtenue à l’étape (1)
 afin d’obtenir le résultat suivant :</p>
-<div class="figure align-center" style="width: 98%">
+<figure class="align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/ex5_matplotlib.png"><img alt="_images/ex5_matplotlib.png" src="_images/ex5_matplotlib.png" style="width: 40%;" /></a>
-</div>
+</figure>
 </li>
-<li><p class="first"><strong>Déjà fini ? Utilisez maintenant ces points pour créer une couche de point 3D</strong>
+<li><p><strong>Déjà fini ? Utilisez maintenant ces points pour créer une couche de point 3D</strong>
 Dans cet exercice et contrairement à l’exemple précédent, les coordonnées de chaque nouveau point
 nous intéressent : elles vont être enrichie de l’altitude du point.
 Ces points devront être ajoutés à <strong>une nouvelle couche en mémoire</strong> qui aura
 précédemment été créée avec <strong>deux champs attributaires</strong>,
 l’un pour l’identifiant du point (de type <em>entier</em>) et l’autre pour
-la distance à la source (de type <em>double flottant</em>).</p>
-</li>
+la distance à la source (de type <em>double flottant</em>).</p></li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>L’API exposée par PyQgis n’est pas toujours très «&nbsp;pythonique&nbsp;».
+<p class="admonition-title">Note</p>
+<p>L’API exposée par PyQgis n’est pas toujours très « pythonique ».
 Certaines fonctions relative à la manipulation des données raster ou vecteur ne vont pas générer une <code class="docutils literal notranslate"><span class="pre">Exception</span></code>
 comme c’est la convention en Python mais vont retourner une valeur booléenne qu’il
 faudra lire pour s’assurer de la bonne exécution de la fonction en question (pensez aux exercices précédent lorsque
 vous avez pu voir <code class="docutils literal notranslate"><span class="pre">True</span></code> - ou <code class="docutils literal notranslate"><span class="pre">False</span></code> - affiché dans l’interpréteur lors de certaines opérations
 telles que l’appel de la méthode <code class="docutils literal notranslate"><span class="pre">updateFeature</span></code>).</p>
-<div class="last highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="k">for</span> <span class="n">ix</span><span class="p">,</span> <span class="n">dist</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">length</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">step</span><span class="p">))):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="k">for</span> <span class="n">ix</span><span class="p">,</span> <span class="n">dist</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">length</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">step</span><span class="p">))):</span>
      <span class="n">pt</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span><span class="o">.</span><span class="n">asPoint</span><span class="p">()</span>
 <span class="hll">     <span class="n">alt</span><span class="p">,</span> <span class="n">valid</span> <span class="o">=</span> <span class="n">data_pr</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </span><span class="hll">     <span class="k">if</span> <span class="n">valid</span><span class="p">:</span>
@@ -231,30 +226,28 @@ telles que l’appel de la méthode <code class="docutils literal notranslate"><
          <span class="n">feat</span><span class="o">.</span><span class="n">setAttributes</span><span class="p">([</span><span class="n">ix</span><span class="p">,</span> <span class="n">dist</span><span class="p">])</span>
          <span class="n">ok</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">addFeature</span><span class="p">(</span><span class="n">feat</span><span class="p">)</span>
 <span class="hll">         <span class="k">if</span> <span class="ow">not</span> <span class="n">ok</span><span class="p">:</span>
-</span><span class="hll">             <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Erreur lors de la création de l&#39;entité {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ix</span><span class="p">))</span>
+</span><span class="hll">             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Erreur lors de la création de l&#39;entité </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ix</span><span class="p">))</span>
 </span>     <span class="k">else</span><span class="p">:</span>
-         <span class="k">print</span><span class="p">(</span>
-           <span class="s2">&quot;Erreur lors de la récupération de l&#39;altitude pour l&#39;entité {}&quot;</span>
+         <span class="nb">print</span><span class="p">(</span>
+           <span class="s2">&quot;Erreur lors de la récupération de l&#39;altitude pour l&#39;entité </span><span class="si">{}</span><span class="s2">&quot;</span>
            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ix</span><span class="p">)</span><span class="s2">&quot;)</span>
 </pre></div>
 </div>
-</div>
+</aside>
 <hr width="100%" size="18">
 <p class="align-center"><strong>💡 <a href="solutions/s_ex4.html">Solution de l'exercice 4</a></strong></p><p class="rubric">Footnotes</p>
-<table class="docutils footnote" frame="void" id="f1" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Institut national de l’information géographique et forestière : <a class="reference external" href="http://professionnels.ign.fr/bdtopo">http://professionnels.ign.fr/bdtopo</a>. Données téléchargées le 28/02/2019.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="f2" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>European Environment Agency : <a class="reference external" href="https://www.eea.europa.eu/data-and-maps/data/copernicus-land-monitoring-service-eu-dem">https://www.eea.europa.eu/data-and-maps/data/copernicus-land-monitoring-service-eu-dem</a>. Données téléchargées le 28/02/2019.</td></tr>
-</tbody>
-</table>
-</div>
-</div>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="f1" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Institut national de l’information géographique et forestière : <a class="reference external" href="http://professionnels.ign.fr/bdtopo">http://professionnels.ign.fr/bdtopo</a>. Données téléchargées le 28/02/2019.</p>
+</aside>
+<aside class="footnote brackets" id="f2" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>European Environment Agency : <a class="reference external" href="https://www.eea.europa.eu/data-and-maps/data/copernicus-land-monitoring-service-eu-dem">https://www.eea.europa.eu/data-and-maps/data/copernicus-land-monitoring-service-eu-dem</a>. Données téléchargées le 28/02/2019.</p>
+</aside>
+</aside>
+</section>
+</section>
 
 
           </div>
@@ -266,7 +259,7 @@ telles que l’appel de la méthode <code class="docutils literal notranslate"><
       </div>
     
       <div class="pull-right">
-        <a class="btn btn-default" href="ex5.html" title="Chapitre suivant (use the right arrow)">Exercice 5 : Manipulation de couches vecteurs et géotraitements</a>
+        <a class="btn btn-default" href="cheatsheet.html" title="Chapitre suivant (use the right arrow)">Cheatsheet</a>
       </div>
     </div>
     <div class="clearer"></div>
@@ -281,12 +274,13 @@ telles que l’appel de la méthode <code class="docutils literal notranslate"><
           <a href="genindex.html" title="Index général"
              >index</a></li>
         <li class="right" >
-          <a href="ex5.html" title="Exercice 5 : Manipulation de couches vecteurs et géotraitements"
+          <a href="cheatsheet.html" title="Cheatsheet"
              >suivant</a> |</li>
         <li class="right" >
           <a href="ex3.html" title="Exercice 3 : Géométries et calcul de champ"
              >précédent</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2022.03</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2023.03</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Exercice 4 : Ouverture d’un raster et enrichissement d’une couche vecteur</a></li> 
       </ul>
     </div>
 <script type="text/javascript">
@@ -296,7 +290,7 @@ telles que l’appel de la méthode <code class="docutils literal notranslate"><
 </script>
 <script type="text/javascript" src="_static/js/bootstrap.js"></script>
   <div class="footer">
-    &copy; Copyright 2018-2022, Matthieu Viry. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    &copy; Copyright 2018-2023, Matthieu Viry. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
   </div>
   </body>
 </html>

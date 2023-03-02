@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Rappels Python &#8212; Documentation PythonQGIS_TP 2023.03</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/guzzle.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/js/custom.js"></script>
+    <script src="_static/translations.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="next" title="Exercice 1 : Prise en main" href="ex1.html" />
+    <link rel="prev" title="Introduction QGIS" href="intro2.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ex1.html" title="Exercice 1 : Prise en main"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="intro2.html" title="Introduction QGIS"
+             accesskey="P">précédent</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2023.03</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Rappels Python</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Contenu</h2>
+    <div class="sidebar-localtoc">
+      <ul>
+<li><a class="reference internal" href="#">Rappels Python</a><ul>
+<li><a class="reference internal" href="#generalites">Généralités</a></li>
+<li><a class="reference internal" href="#formater-une-chaine-de-caracteres">Formater une chaîne de caractères</a></li>
+<li><a class="reference internal" href="#objets-de-type-dictionnaire">Objets de type « dictionnaire »</a></li>
+<li><a class="reference internal" href="#liste-en-comprehension">Liste en compréhension</a></li>
+<li><a class="reference internal" href="#des-listes-de-dictionnaires">Des listes de dictionnaires ?</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+</div>
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="intro2.html"
+                        title="Chapitre précédent">Introduction QGIS</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="ex1.html"
+                        title="Chapitre suivant">Exercice 1 : Prise en main</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/rappels-python.rst.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="index.html">Docs</a></li>
+              
+              <li>Rappels Python</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <section id="rappels-python">
+<h1>Rappels Python<a class="headerlink" href="#rappels-python" title="Lien permanent vers ce titre">¶</a></h1>
+<section id="generalites">
+<h2>Généralités<a class="headerlink" href="#generalites" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Lors de l’utilisation interactive de la console Python, la fonction native <code class="docutils literal notranslate"><span class="pre">dir()</span></code> pourra s’avérer très utile : en
+effet elle permet d’obtenir une liste d’attributs valides pour l’objet qui lui est donné en argument.</p>
+<p>Par exemple, la liste des attributs d’une variable (ici de type <code class="docutils literal notranslate"><span class="pre">list</span></code>) peut être récupérée
+de la manière suivante :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">li</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="nb">dir</span><span class="p">(</span><span class="n">li</span><span class="p">)</span> <span class="c1"># Retourne une liste contenant les attributs de &#39;li&#39;</span>
+<span class="c1"># On y retrouve des noms de méthodes que vous connaissez comme &#39;append&#39;</span>
+<span class="c1"># qui permet d&#39;ajouter un élément à la liste</span>
+</pre></div>
+</div>
+<p>Par ailleurs il est possible de connaitre le type de cette variable en utilisant
+la fonction native <code class="docutils literal notranslate"><span class="pre">type()</span></code> :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">iface</span><span class="p">)</span>
+<span class="c1"># &lt;class &#39;qgis._gui.QgisInterface&#39;&gt;</span>
+</pre></div>
+</div>
+<p>Cette fonctionnalité pourra être utile pour aller chercher des informations
+dans la <a class="reference external" href="https://qgis.org/pyqgis/3.16/">documentation de l’API PyQgis</a>
+(ici à propos des objets de type <code class="docutils literal notranslate"><span class="pre">QgisInterface</span></code>).</p>
+</section>
+<section id="formater-une-chaine-de-caracteres">
+<h2>Formater une chaîne de caractères<a class="headerlink" href="#formater-une-chaine-de-caracteres" title="Lien permanent vers ce titre">¶</a></h2>
+<p>En utilisant la méthode <code class="docutils literal notranslate"><span class="pre">format</span></code> des objets de type <code class="docutils literal notranslate"><span class="pre">str</span></code> (chaîne de caractères) :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">age</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">prenom</span> <span class="o">=</span> <span class="s1">&#39;Jack&#39;</span>
+<span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;La personne nommée </span><span class="si">{}</span><span class="s1"> a </span><span class="si">{}</span><span class="s1"> ans&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prenom</span><span class="p">,</span> <span class="n">age</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Pour en savoir plus : <a class="reference external" href="https://www.docstring.fr/blog/le-formatage-des-chaines-de-caracteres-avec-python/#la-methode-format">https://www.docstring.fr/blog/le-formatage-des-chaines-de-caracteres-avec-python/#la-methode-format</a>.</p>
+</section>
+<section id="objets-de-type-dictionnaire">
+<h2>Objets de type « dictionnaire »<a class="headerlink" href="#objets-de-type-dictionnaire" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Un objet de type <code class="docutils literal notranslate"><span class="pre">dict</span></code> (un dictionnaire) est une collection permettant de rassembler des
+éléments qui sont identifiés par une <strong>clé</strong>, associée à une <strong>valeur</strong> (on parle souvent de paires clé/valeur).</p>
+<p>Il ne s’agit pas d’objets séquentiels comme les listes, mais plutôt d’objets dits de correspondance (<em>mapping objects</em> en anglais) ou tableaux associatifs (<em>associative array</em>).</p>
+<p>La syntaxe qui permet de créer un dictionnaire utilise des <strong>accolades</strong>
+(là où les listes utilisent des crochets) et chaque élément est spécifié au travers de sa clé
+et de sa valeur associée (clé et valeur sont séparées par <code class="docutils literal notranslate"><span class="pre">:</span></code>).</p>
+<p>On peut ensuite accéder à une valeur du dictionnaire en utilisant la clé entourée par des crochets, comme dans l’exemple qui suit :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Création d&#39;un dictionnaire avec deux éléments :</span>
+<span class="n">mon_dico</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">&quot;prenom&quot;</span><span class="p">:</span> <span class="s2">&quot;Jack&quot;</span><span class="p">}</span>
+
+<span class="c1"># Accéder aux élément :</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mon_dico</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mon_dico</span><span class="p">[</span><span class="s2">&quot;prenom&quot;</span><span class="p">])</span>
+
+<span class="c1"># Construction en partant d&#39;un dictionnaire vide</span>
+<span class="n">mon_dico</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">mon_dico</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">mon_dico</span><span class="p">[</span><span class="s2">&quot;prenom&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Jack&quot;</span>
+
+<span class="c1"># On peut donc modifier la valeur associée à une clé</span>
+<span class="c1"># ou ajouter de nouvelles paires de clé/valeur</span>
+<span class="n">mon_dico</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">31</span>
+<span class="n">mon_dico</span><span class="p">[</span><span class="s2">&quot;nom&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Dupont&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">mon_dico</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Attention, si vous demandez la valeur associée à une clé qui n’existe pas, une erreur de type <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> sera renvoyée.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mon_dico</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">&quot;prenom&quot;</span><span class="p">:</span> <span class="s2">&quot;Jack&quot;</span><span class="p">}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">mon_dico</span><span class="p">[</span><span class="s1">&#39;taille&#39;</span><span class="p">])</span> <span class="c1"># Renvoi &quot;KeyError: &#39;taille&#39;&quot;</span>
+</pre></div>
+</div>
+<p>Il est possible de vérifier si une clé est présente dans un dictionnaire, ou même de demander la valeur d’une clé en précisant une
+valeur par défaut si la clé n’existe pas :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mon_dico</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">&quot;prenom&quot;</span><span class="p">:</span> <span class="s2">&quot;Jack&quot;</span><span class="p">}</span>
+
+<span class="c1"># Vérifier si une clé existe dans un dictionnaire donné :</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;taille&#39;</span> <span class="ow">in</span> <span class="n">mon_dico</span><span class="p">)</span> <span class="c1"># Affiche &#39;False&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;age&#39;</span> <span class="ow">in</span> <span class="n">mon_dico</span><span class="p">)</span> <span class="c1"># Affiche &#39;True&#39;</span>
+
+<span class="c1"># Demander la valeur d&#39;une clé avec une valeur par défaut</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mon_dico</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">))</span> <span class="c1"># Affiche 30, la valeur correspondant à la clé</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mon_dico</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;taille&#39;</span><span class="p">))</span> <span class="c1"># Affiche None, la valeur par défaut</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mon_dico</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;taille&#39;</span><span class="p">,</span> <span class="mi">170</span><span class="p">))</span> <span class="c1"># Affiche 170, la valeur par défaut qu&#39;on a spécifié</span>
+</pre></div>
+</div>
+<p><strong>Retenez principalement les aspects liés à la construction d’un dictionnaire (vide ou avec des éléments) ainsi que la manière d’accéder (lecture / modification) aux éléments d’un dictionnaire</strong>.</p>
+<p>Pour en savoir plus :</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://fr.wikipedia.org/wiki/Tableau_associatif">https://fr.wikipedia.org/wiki/Tableau_associatif</a></p></li>
+<li><p><a class="reference external" href="https://docs.python.org/fr/3/tutorial/datastructures.html#dictionaries">https://docs.python.org/fr/3/tutorial/datastructures.html#dictionaries</a></p></li>
+<li><p><a class="reference external" href="https://python.sdv.univ-paris-diderot.fr/13_dictionnaires_tuples_sets/#132-dictionnaires">https://python.sdv.univ-paris-diderot.fr/13_dictionnaires_tuples_sets/#132-dictionnaires</a></p></li>
+<li><p><a class="reference external" href="https://gayerie.dev/docs/python/python3/dict.html">https://gayerie.dev/docs/python/python3/dict.html</a></p></li>
+</ul>
+</section>
+<section id="liste-en-comprehension">
+<h2>Liste en compréhension<a class="headerlink" href="#liste-en-comprehension" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Voyons comment faire une action simple sur les éléments d’une liste : multiplier
+chacun de ses éléments par 2.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ma_liste</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="n">resultat</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">nb</span> <span class="ow">in</span> <span class="n">ma_liste</span><span class="p">:</span>
+    <span class="n">resultat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nb</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">resultat</span><span class="p">)</span> <span class="c1"># va afficher [2, 6, 10]</span>
+</pre></div>
+</div>
+<p>Ce type de construction peut-être raccourcie en utilisant une <strong>liste en compréhension</strong> :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ma_liste</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="n">resultat</span> <span class="o">=</span> <span class="p">[</span><span class="n">nb</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">nb</span> <span class="ow">in</span> <span class="n">ma_liste</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">resultat</span><span class="p">)</span> <span class="c1"># va afficher [2, 6, 10]</span>
+</pre></div>
+</div>
+<p>Ainsi les listes en compréhension permettent de construire des listes de manière très concise.
+Une classique consiste à construire une liste dont les éléments sont les résultats d’une opération appliquée à chaque élément d’une autre liste ;
+une autre consiste à créer une sous-séquence des éléments respectant une condition donnée.</p>
+</section>
+<section id="des-listes-de-dictionnaires">
+<h2>Des listes de dictionnaires ?<a class="headerlink" href="#des-listes-de-dictionnaires" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Maintenant que nous savons manipuler dictionnaires et listes en compréhension,
+voyons un exemple permettant d’extraire
+toute les valeurs pour un clé spécifique (<code class="docutils literal notranslate"><span class="pre">age</span></code>) des dictionnaires présents
+dans une liste.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># une liste de 3 dictionnaires</span>
+<span class="n">ma_liste</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">&quot;prenom&quot;</span><span class="p">:</span> <span class="s2">&quot;Jack&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">33</span><span class="p">,</span> <span class="s2">&quot;prenom&quot;</span><span class="p">:</span> <span class="s2">&quot;Emma&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">26</span><span class="p">,</span> <span class="s2">&quot;prenom&quot;</span><span class="p">:</span> <span class="s2">&quot;Pierre&quot;</span><span class="p">}</span>
+<span class="p">]</span>
+
+<span class="c1"># boucle traditionnelle</span>
+<span class="n">les_ages</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">ma_liste</span><span class="p">:</span>
+  <span class="n">les_ages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">])</span>
+
+<span class="c1"># liste de compréhension</span>
+<span class="n">les_ages</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">ma_liste</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">les_ages</span><span class="p">)</span> <span class="c1"># va afficher [30, 33, 26]</span>
+</pre></div>
+</div>
+<p>Et un exemple permettant de récupérer tous les dictionnaires dont la clé « age »
+est supérieur ou égale à 30 (<em>filtrage</em>) :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># une liste de 3 dictionnaires</span>
+<span class="n">ma_liste</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">&quot;prenom&quot;</span><span class="p">:</span> <span class="s2">&quot;Jack&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">33</span><span class="p">,</span> <span class="s2">&quot;prenom&quot;</span><span class="p">:</span> <span class="s2">&quot;Emma&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">26</span><span class="p">,</span> <span class="s2">&quot;prenom&quot;</span><span class="p">:</span> <span class="s2">&quot;Pierre&quot;</span><span class="p">}</span>
+<span class="p">]</span>
+
+<span class="c1"># boucle traditionnelle</span>
+<span class="n">personne_audessus_30</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">ma_liste</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">30</span><span class="p">:</span>
+        <span class="n">personne_audessus_30</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+
+<span class="c1"># liste de compréhension</span>
+<span class="n">personne_audessus_30</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">ma_liste</span> <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">30</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">personne_audessus_30</span><span class="p">)</span>
+<span class="c1"># va afficher</span>
+<span class="c1"># [{&quot;age&quot;: 30, &quot;prenom&quot;: &quot;Jack&quot;}, {&quot;age&quot;: 33, &quot;prenom&quot;: &quot;Emma&quot;}]</span>
+</pre></div>
+</div>
+<p>Ou alors de faire la moyenne des âges des personnes décrites dans notre liste :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ma_liste</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">&quot;prenom&quot;</span><span class="p">:</span> <span class="s2">&quot;Jack&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">33</span><span class="p">,</span> <span class="s2">&quot;prenom&quot;</span><span class="p">:</span> <span class="s2">&quot;Emma&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">26</span><span class="p">,</span> <span class="s2">&quot;prenom&quot;</span><span class="p">:</span> <span class="s2">&quot;Pierre&quot;</span><span class="p">}</span>
+<span class="p">]</span>
+
+<span class="n">age_moy</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">ma_liste</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">ma_liste</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Pour en savoir plus :</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://code.tutsplus.com/fr/tutorials/list-comprehensions-in-python--cms-26836">https://code.tutsplus.com/fr/tutorials/list-comprehensions-in-python–cms-26836</a></p></li>
+<li><p><a class="reference external" href="https://docs.python.org/fr/3/tutorial/datastructures.html#list-comprehensions">https://docs.python.org/fr/3/tutorial/datastructures.html#list-comprehensions</a></p></li>
+</ul>
+<p>Si l’utilisation des listes en compréhension n’est pas indispensable (il est toujours possible
+d’effectuer la même opération avec une boucle traditionnelle), il s’agit d’une construction
+qui est souvent rencontrée dans le code Python et elle figure dans la correction
+de certains des exercices de cette série de TP.</p>
+</section>
+</section>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="intro2.html" title="Chapitre précédent (use the left arrow)">Introduction QGIS</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="ex1.html" title="Chapitre suivant (use the right arrow)">Exercice 1 : Prise en main</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="ex1.html" title="Exercice 1 : Prise en main"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="intro2.html" title="Introduction QGIS"
+             >précédent</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2023.03</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Rappels Python</a></li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2018-2023, Matthieu Viry. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>

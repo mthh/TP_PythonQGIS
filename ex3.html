@@ -1,11 +1,11 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<html lang="fr">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
   
   <!-- Licensed under the Apache 2.0 License -->
   <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
@@ -15,17 +15,16 @@
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>Exercice 3 : Géométries et calcul de champ &#8212; Documentation PythonQGIS_TP 2022.03</title>
-    <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <title>Exercice 3 : Géométries et calcul de champ &#8212; Documentation PythonQGIS_TP 2023.03</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/guzzle.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script type="text/javascript" src="_static/js/custom.js"></script>
-    <script type="text/javascript" src="_static/translations.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/js/custom.js"></script>
+    <script src="_static/translations.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Recherche" href="search.html" />
     <link rel="next" title="Exercice 4 : Ouverture d’un raster et enrichissement d’une couche vecteur" href="ex4.html" />
@@ -46,7 +45,8 @@
         <li class="right" >
           <a href="ex2.html" title="Exercice 2 : Manipulation des attributs d’une couche"
              accesskey="P">précédent</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2022.03</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2023.03</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Exercice 3 : Géométries et calcul de champ</a></li> 
       </ul>
     </div>
     <div class="container-wrapper">
@@ -113,12 +113,12 @@
           
           <div class="document clearer body">
             
-  <div class="section" id="exercice-3-geometries-et-calcul-de-champ">
+  <section id="exercice-3-geometries-et-calcul-de-champ">
 <h1>Exercice 3 : Géométries et calcul de champ<a class="headerlink" href="#exercice-3-geometries-et-calcul-de-champ" title="Lien permanent vers ce titre">¶</a></h1>
-<div class="figure align-center" style="width: 98%">
+<figure class="align-center" style="width: 98%">
 <a class="reference internal image-reference" href="_images/ex3_intro.png"><img alt="_images/ex3_intro.png" src="_images/ex3_intro.png" style="width: 30%;" /></a>
-</div>
-<div class="section" id="objectif">
+</figure>
+<section id="objectif">
 <h2>Objectif<a class="headerlink" href="#objectif" title="Lien permanent vers ce titre">¶</a></h2>
 <p>L’objectif de cet exercice est double : manipuler les géométries relatives à chaque
 entités et éditer une couche pour l’enrichir.</p>
@@ -126,35 +126,36 @@ entités et éditer une couche pour l’enrichir.</p>
 à trouver tous les polygones limitrophes à chaque polygone <em>(tous les voisins de chaque pays)</em>.</p>
 <p>La couche d’entrée va être enrichie de deux nouveaux champs, l’un contenant
 le noms des voisins et l’autre contenant la population totale de ces voisins.</p>
-</div>
-<div class="section" id="donnees">
+</section>
+<section id="donnees">
 <h2>Données<a class="headerlink" href="#donnees" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Les données proviennent de Natural Earth <a class="footnote-reference" href="#f1" id="id1">[1]</a> :</p>
+<p>Les données proviennent de Natural Earth <a class="footnote-reference brackets" href="#f1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> :</p>
 <div class="line-block">
 <div class="line">• <code class="docutils literal notranslate"><span class="pre">ne_10m_admin_0_countries.shp</span></code> (Polygones - Pays du monde) ➜ <a class="reference external" href="https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip">Téléchargement</a></div>
 </div>
-</div>
-<div class="section" id="procedure">
+</section>
+<section id="procedure">
 <h2>Procédure<a class="headerlink" href="#procedure" title="Lien permanent vers ce titre">¶</a></h2>
 <p>La méthode à utiliser peut être décrite de la manière suivante :</p>
 <blockquote>
 <div><p>Pour chaque pays <strong>P</strong>:</p>
 <blockquote>
 <div><ul class="simple">
-<li>trouver les polygones qui intersectent sa bounding box</li>
-<li>parmis ces polygones :<ul>
-<li>trouver ceux qui sont réelement voisins du pays <strong>P</strong></li>
+<li><p>trouver les polygones qui intersectent sa bounding box</p></li>
+<li><p>parmis ces polygones :</p>
+<ul>
+<li><p>trouver ceux qui sont réelement voisins du pays <strong>P</strong></p></li>
 </ul>
 </li>
-<li>enregistrer le nom des voisins de <strong>P</strong> dans le champ <code class="docutils literal notranslate"><span class="pre">NEIGHBORS</span></code></li>
-<li>enregistrer la somme de la population de ces voisins dans le champ <code class="docutils literal notranslate"><span class="pre">SUM</span></code></li>
+<li><p>enregistrer le nom des voisins de <strong>P</strong> dans le champ <code class="docutils literal notranslate"><span class="pre">NEIGHBORS</span></code></p></li>
+<li><p>enregistrer la somme de la population de ces voisins dans le champ <code class="docutils literal notranslate"><span class="pre">SUM</span></code></p></li>
 </ul>
 </div></blockquote>
 </div></blockquote>
 <p>Cet exerice mobilise plusieurs notions nouvelles :</p>
 <blockquote>
 <div><ul class="simple">
-<li>édition d’une couche</li>
+<li><p>édition d’une couche</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Au début de l&#39;édition :</span>
 <span class="n">layer</span><span class="o">.</span><span class="n">startEditing</span><span class="p">()</span>
@@ -167,9 +168,9 @@ le noms des voisins et l’autre contenant la population totale de ces voisins.<
 </pre></div>
 </div>
 <ul class="simple">
-<li>création de nouveaux champs attributaires</li>
+<li><p>création de nouveaux champs attributaires</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="k">import</span> <span class="n">QVariant</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">QVariant</span>
 
 <span class="c1"># La couche `layer` doit être en cours d&#39;édition !</span>
 <span class="c1"># Création d&#39;un champ de chacun des 3 principaux types</span>
@@ -182,7 +183,7 @@ le noms des voisins et l’autre contenant la population totale de ces voisins.<
 </pre></div>
 </div>
 <ul class="simple">
-<li>mise à jour d’une entité après l’avoir modifiée</li>
+<li><p>mise à jour d’une entité après l’avoir modifiée</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># La couche `layer` doit être en cours d&#39;édition !</span>
 <span class="c1"># `ft` est une variable de type QgsFeature</span>
@@ -190,7 +191,7 @@ le noms des voisins et l’autre contenant la population totale de ces voisins.<
 </pre></div>
 </div>
 <ul class="simple">
-<li>utilisation de prédicats spatiaux (intersects, disjoint, etc.)</li>
+<li><p>utilisation de prédicats spatiaux (intersects, disjoint, etc.)</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Obtenir la géométrie d&#39;une entité :</span>
 <span class="n">geom1</span> <span class="o">=</span> <span class="n">feature1</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
@@ -203,7 +204,7 @@ le noms des voisins et l’autre contenant la population totale de ces voisins.<
 </pre></div>
 </div>
 <ul class="simple">
-<li>utilisation d’un <a class="reference external" href="https://fr.wikipedia.org/wiki/Index_spatial">index spatial</a></li>
+<li><p>utilisation d’un <a class="reference external" href="https://fr.wikipedia.org/wiki/Index_spatial">index spatial</a></p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Création de l&#39;index :</span>
 <span class="n">index</span> <span class="o">=</span> <span class="n">QgsSpatialIndex</span><span class="p">()</span>
@@ -230,12 +231,13 @@ le noms des voisins et l’autre contenant la population totale de ces voisins.<
 <p>Parcours des entités de la couche, pour chaque pays <strong>P</strong>:</p>
 <blockquote>
 <div><ul class="simple">
-<li>trouver les polygones qui intersectent sa bounding box (grace à l’index spatial)</li>
-<li>parmis ces polygones :<ul>
-<li>trouver ceux qui sont réelement voisins du pays <strong>P</strong></li>
-<li>enregistrer le nom des voisins de <strong>P</strong> dans le champ <code class="docutils literal notranslate"><span class="pre">NEIGHBORS</span></code></li>
-<li>enregistrer la somme de la population de ces voisins dans le champ <code class="docutils literal notranslate"><span class="pre">SUM</span></code></li>
-<li>mettre à jour l’entité en question</li>
+<li><p>trouver les polygones qui intersectent sa bounding box (grace à l’index spatial)</p></li>
+<li><p>parmis ces polygones :</p>
+<ul>
+<li><p>trouver ceux qui sont réelement voisins du pays <strong>P</strong></p></li>
+<li><p>enregistrer le nom des voisins de <strong>P</strong> dans le champ <code class="docutils literal notranslate"><span class="pre">NEIGHBORS</span></code></p></li>
+<li><p>enregistrer la somme de la population de ces voisins dans le champ <code class="docutils literal notranslate"><span class="pre">SUM</span></code></p></li>
+<li><p>mettre à jour l’entité en question</p></li>
 </ul>
 </li>
 </ul>
@@ -244,16 +246,15 @@ le noms des voisins et l’autre contenant la population totale de ces voisins.<
 </div></blockquote>
 <p><strong>➜ Quelle est la population des pays voisins de la Hongrie ?</strong></p>
 <p><strong>➜ Combien de pays n’ont aucun voisin ?</strong></p>
-<hr width="100%" size="18">
-<p class="align-center"><strong>💡 <a href="solutions/s_ex3.html">Solution de l'exercice 3</a></strong></p><p class="rubric">Footnotes</p>
-<table class="docutils footnote" frame="void" id="f1" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://www.naturalearthdata.com/">http://www.naturalearthdata.com/</a>. Consulté le 16/03/2022.</td></tr>
-</tbody>
-</table>
-</div>
-</div>
+<p class="rubric">Footnotes</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="f1" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="http://www.naturalearthdata.com/">http://www.naturalearthdata.com/</a>. Consulté le 28/02/2023.</p>
+</aside>
+</aside>
+</section>
+</section>
 
 
           </div>
@@ -285,7 +286,8 @@ le noms des voisins et l’autre contenant la population totale de ces voisins.<
         <li class="right" >
           <a href="ex2.html" title="Exercice 2 : Manipulation des attributs d’une couche"
              >précédent</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2022.03</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2023.03</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Exercice 3 : Géométries et calcul de champ</a></li> 
       </ul>
     </div>
 <script type="text/javascript">
@@ -295,7 +297,7 @@ le noms des voisins et l’autre contenant la population totale de ces voisins.<
 </script>
 <script type="text/javascript" src="_static/js/bootstrap.js"></script>
   <div class="footer">
-    &copy; Copyright 2018-2022, Matthieu Viry. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    &copy; Copyright 2018-2023, Matthieu Viry. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
   </div>
   </body>
 </html>
