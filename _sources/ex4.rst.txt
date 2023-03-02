@@ -147,12 +147,6 @@ Procédure
                 .format(ix)")
 
 
-.. raw:: html
-
-   <hr width="100%" size="18">
-   <p class="align-center"><strong>💡 <a href="solutions/s_ex4.html">Solution de l'exercice 4</a></strong></p>
-
-
 .. rubric:: Footnotes
 
 .. [#f1] Institut national de l'information géographique et forestière : http://professionnels.ign.fr/bdtopo. Données téléchargées le 28/02/2019.
