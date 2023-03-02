@@ -89,7 +89,7 @@ Tester les actions suivantes dans la console
 
    <hr width="100%" size="18">
    <p class="align-center"><strong>💡 <a href="solutions/s_ex1.html">Solution de l'exercice 1</a></strong></p>
-
+   <hr width="100%" size="18">
 
 .. rubric:: Footnotes
 
