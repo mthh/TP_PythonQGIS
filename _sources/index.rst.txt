@@ -41,8 +41,8 @@ LP ESSIG (2022-2023) - Université Grenoble Alpes
 
 .. rst-class:: intro
 
-- 1 exercice à faire à la maison (50% de la note)
-- 1 test final de 50 minutes (50% de la note)
+- 1 exercice à faire à la maison (100% de la note)
+
 
 .. raw:: html
 
