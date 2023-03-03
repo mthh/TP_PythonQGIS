@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Exercice 5 : Manipulation de couches vecteurs et géotraitements &#8212; Documentation PythonQGIS_TP 2023.03</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/guzzle.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/js/custom.js"></script>
+    <script src="_static/translations.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="next" title="Exercice 6 : Automatisation d’actions répétitives" href="ex6.html" />
+    <link rel="prev" title="Exercice 4 : Ouverture d’un raster et enrichissement d’une couche vecteur" href="ex4.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ex6.html" title="Exercice 6 : Automatisation d’actions répétitives"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="ex4.html" title="Exercice 4 : Ouverture d’un raster et enrichissement d’une couche vecteur"
+             accesskey="P">précédent</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2023.03</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Exercice 5 : Manipulation de couches vecteurs et géotraitements</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Contenu</h2>
+    <div class="sidebar-localtoc">
+      <ul>
+<li><a class="reference internal" href="#">Exercice 5 : Manipulation de couches vecteurs et géotraitements</a><ul>
+<li><a class="reference internal" href="#objectif">Objectif</a></li>
+<li><a class="reference internal" href="#donnees">Données</a></li>
+<li><a class="reference internal" href="#procedure">Procédure</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+</div>
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="ex4.html"
+                        title="Chapitre précédent">Exercice 4 : Ouverture d’un raster et enrichissement d’une couche vecteur</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="ex6.html"
+                        title="Chapitre suivant">Exercice 6 : Automatisation d’actions répétitives</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ex5.rst.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="index.html">Docs</a></li>
+              
+              <li>Exercice 5 : Manipulation de couches vecteurs et géotraitements</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <section id="exercice-5-manipulation-de-couches-vecteurs-et-geotraitements">
+<h1>Exercice 5 : Manipulation de couches vecteurs et géotraitements<a class="headerlink" href="#exercice-5-manipulation-de-couches-vecteurs-et-geotraitements" title="Lien permanent vers ce titre">¶</a></h1>
+<figure class="align-center" style="width: 98%">
+<a class="reference internal image-reference" href="_images/ex6_intro.png"><img alt="_images/ex6_intro.png" src="_images/ex6_intro.png" style="width: 40%;" /></a>
+</figure>
+<section id="objectif">
+<h2>Objectif<a class="headerlink" href="#objectif" title="Lien permanent vers ce titre">¶</a></h2>
+<p>L’objectif de cet exercice est de continuer à se familiariser avec :</p>
+<ul class="simple">
+<li><p>la manipulation des couches dans l’interface de QGIS</p></li>
+<li><p>la réalisation de géotraitements</p></li>
+</ul>
+</section>
+<section id="donnees">
+<h2>Données<a class="headerlink" href="#donnees" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="line-block">
+<div class="line">• La couche des communes de France Métropolitaine (Polygone - Source : ADMIN EXPRESS COG 2.0 2019, IGN <a class="footnote-reference brackets" href="#f1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>) ➜ <a class="reference external" href="https://cloud.univ-grenoble-alpes.fr/index.php/s/CoiH6M7sfzEGyms">Téléchargement</a></div>
+<div class="line">• Tracé du Canal du Furon <code class="docutils literal notranslate"><span class="pre">Canal_Furon.shp</span></code> (Ligne - Source : BD TOPO 2.0, IGN <a class="footnote-reference brackets" href="#f2" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>) ➜ <a class="reference external" href="https://mthh.github.io/TP_PythonQGIS/_static/CanalFuron.zip">Téléchargement</a></div>
+</div>
+</section>
+<section id="procedure">
+<h2>Procédure<a class="headerlink" href="#procedure" title="Lien permanent vers ce titre">¶</a></h2>
+<ul class="simple">
+<li><p>Ouvrir QGIS.</p></li>
+<li><p>Ouvrir la console Python.</p></li>
+</ul>
+<ul>
+<li><p>Ajouter la couche <code class="docutils literal notranslate"><span class="pre">Canal_Furon.shp</span></code> et la couche <code class="docutils literal notranslate"><span class="pre">COMMUNES.shp</span></code> et obtenir l’objet Python
+correspondant à chacune des couches.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">furon</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;Canal_Furon&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">communes</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">mapLayersByName</span><span class="p">(</span><span class="s2">&quot;COMMUNE&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p>La couche <code class="docutils literal notranslate"><span class="pre">Canal_Furon.shp</span></code> ne contient qu’une entité, on accède directement à sa géométrie de la façon suivante :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ft_furon</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">furon</span><span class="o">.</span><span class="n">getFeatures</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">geom_furon</span> <span class="o">=</span> <span class="n">ft_furon</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Q1. Quel est le type de l’objet</strong> <code class="docutils literal notranslate"><span class="pre">geom_furon</span></code> <strong>?</strong></p>
+<div class="spoiler blq docutils container">
+<p>Solution</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">geom_furon</span><span class="p">))</span>
+<span class="c1"># Il s&#39;agit d&#39;un objet de type `QgsGeometry`.</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p><strong>Q2</strong>.Étant-donné les deux couches d’informations dont on dispose, <strong>quel prédicat
+spatial peut-on utiliser</strong> pour répondre à la question suivante : <strong>Quelle sont les communes traversées par le Canal du Furon ?</strong></p>
+<div class="spoiler blq docutils container">
+<p>Solution</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># On peut utiliser le prédicat spatial `intersects`.</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p><strong>Q3. Comment ce problème pourrait-il être formulé d’un point de vue algorithmique ?</strong></p>
+<div class="spoiler blq docutils container">
+<p>Solution</p>
+<blockquote>
+<div><p>Soit <strong>L</strong> une liste vide</p>
+<p>Pour chaque entité <strong>FT</strong> de la couche <em>communes</em> :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Si la <em>geometrie</em> de <strong>FT</strong> intersecte la <em>géometrie</em> du <strong>cours d’eau</strong> :</p>
+<ul>
+<li><p>Ajout du nom de <strong>FT</strong> à la liste <strong>L</strong>.</p></li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</div>
+</li>
+<li><p><strong>Q4. Créer une liste qui contient le nom des communes traversées par le canal du Furon.</strong></p></li>
+<li><p>Les objets <code class="docutils literal notranslate"><span class="pre">QgsGeometry</span></code> disposent d’une méthode buffer qui retourne une nouvelle <code class="docutils literal notranslate"><span class="pre">QgsGeometry</span></code>.
+On peut créer une zone tampon de 250m autour du cours d’eau de la manière suivante :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">geom_buffer</span> <span class="o">=</span> <span class="n">geom_furon</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mf">250.</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Q5. Quelle type de géométrie est obtenu en résultat ? Écrivez l’instruction qui permet d’afficher cette information.</strong></p></li>
+<li><p><strong>Q6. Créer une nouvelle liste contenant le nom des communes qui croisent cette zone tampon. Combien sont-elles ?</strong></p></li>
+<li><p>Bien que nous aillons pu manipuler la zone tampon précédemment créée, elle n’a pas encore été ajoutée à la carte.
+En effet cette géométrie n’appartient pour l’instant à aucune entité ni à aucune couche.</p>
+<p><strong>Q7. Quelles étapes peuvent-être mises en oeuvres pour afficher cette zone sur la carte ? Écrivez le code nécessaire créer une nouvelle couche contenant cette zone tampon et pour l’ajouter sur la carte.</strong></p>
+</li>
+<li><p><strong>Q8. En utilisant les éléments vus précédemment, la documentation PyQgis ainsi que les ressources présentes sur le Web :</strong></p>
+<ul class="simple">
+<li><p><strong>1) Créer une nouvelle sélection sur la couche des communes : celles qui intersectent la couche de la zone tampon créée dans la question précédente</strong> <em>(les entités sélectionnées doivent s’afficher en jaune sur la carte)</em></p></li>
+<li><p><strong>2) Sauvegarder uniquement les entités sélectionnés dans une nouvelle couche au format Shapefile.</strong></p></li>
+</ul>
+</li>
+</ul>
+<hr width="100%" size="18"><ul class="simple">
+<li><p><strong>Déjà terminé !?</strong></p></li>
+</ul>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Faites vérifier vos résultats.</p></li>
+<li><p>Prenez connaissance de la documentation de PyQgis sur la communication avec l’utilisateur : <a class="reference external" href="https://docs.qgis.org/3.22/en/docs/pyqgis_developer_cookbook/communicating.html">Communicating with the user</a>. Testez et modifiez les différents exemples qui sont proposés (jusqu’à la partie <em>13.2. Showing progress</em>) de façon à bien les comprendre : ces aspects seront utiles si vous souhaitez développer un plugin pour QGIS en Python.</p></li>
+</ol>
+</div></blockquote>
+<p class="rubric">Footnotes</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="f1" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Institut national de l’information géographique et forestière : <a class="reference external" href="https://geoservices.ign.fr/documentation/diffusion/telechargement-donnees-libres.html#admin-express">https://geoservices.ign.fr/documentation/diffusion/telechargement-donnees-libres.html#admin-express</a>. Données téléchargées le 10/03/2020.</p>
+</aside>
+<aside class="footnote brackets" id="f2" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>Institut national de l’information géographique et forestière : <a class="reference external" href="http://professionnels.ign.fr/bdtopo">http://professionnels.ign.fr/bdtopo</a>. Données téléchargées le 28/02/2019.</p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="ex4.html" title="Chapitre précédent (use the left arrow)">Exercice 4 : Ouverture d’un raster et enrichissement d’une couche vecteur</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="ex6.html" title="Chapitre suivant (use the right arrow)">Exercice 6 : Automatisation d’actions répétitives</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="ex6.html" title="Exercice 6 : Automatisation d’actions répétitives"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="ex4.html" title="Exercice 4 : Ouverture d’un raster et enrichissement d’une couche vecteur"
+             >précédent</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2023.03</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Exercice 5 : Manipulation de couches vecteurs et géotraitements</a></li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2018-2023, Matthieu Viry. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>

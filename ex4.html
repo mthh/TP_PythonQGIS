@@ -27,7 +27,7 @@
     <script src="_static/translations.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Recherche" href="search.html" />
-    <link rel="next" title="Cheatsheet" href="cheatsheet.html" />
+    <link rel="next" title="Exercice 5 : Manipulation de couches vecteurs et géotraitements" href="ex5.html" />
     <link rel="prev" title="Exercice 3 : Géométries et calcul de champ" href="ex3.html" />
   
    
@@ -40,7 +40,7 @@
           <a href="genindex.html" title="Index général"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="cheatsheet.html" title="Cheatsheet"
+          <a href="ex5.html" title="Exercice 5 : Manipulation de couches vecteurs et géotraitements"
              accesskey="N">suivant</a> |</li>
         <li class="right" >
           <a href="ex3.html" title="Exercice 3 : Géométries et calcul de champ"
@@ -76,8 +76,8 @@
   <p class="topless"><a href="ex3.html"
                         title="Chapitre précédent">Exercice 3 : Géométries et calcul de champ</a></p>
   <h4>Sujet suivant</h4>
-  <p class="topless"><a href="cheatsheet.html"
-                        title="Chapitre suivant">Cheatsheet</a></p>
+  <p class="topless"><a href="ex5.html"
+                        title="Chapitre suivant">Exercice 5 : Manipulation de couches vecteurs et géotraitements</a></p>
   <div role="note" aria-label="source link">
     <h3>Cette page</h3>
     <ul class="this-page-menu">
@@ -174,7 +174,7 @@ Une valeur d’altitude va ensuite être récupérée à partir d’un modèle n
 <li><p>Récupérer la valeur de la (ou des) bande(s) raster à une coordonnée donnée :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dem_pr</span> <span class="o">=</span> <span class="n">dem</span><span class="o">.</span><span class="n">dataProvider</span><span class="p">()</span>
 <span class="n">pt</span> <span class="o">=</span> <span class="n">QgsPointXY</span><span class="p">(</span><span class="mi">925189</span><span class="p">,</span> <span class="mi">6473673</span><span class="p">)</span>
-<span class="n">res</span> <span class="o">=</span> <span class="n">dem_pr</span><span class="o">.</span><span class="n">identify</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">dem_pr</span><span class="o">.</span><span class="n">identify</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
 <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">isValid</span><span class="p">():</span>
     <span class="n">_values</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">results</span><span class="p">()</span> <span class="c1"># Retourne un dictionnaire</span>
     <span class="c1"># Affiche la valeur pour la première bande</span>
@@ -208,6 +208,18 @@ précédemment été créée avec <strong>deux champs attributaires</strong>,
 l’un pour l’identifiant du point (de type <em>entier</em>) et l’autre pour
 la distance à la source (de type <em>double flottant</em>).</p></li>
 </ul>
+<p class="rubric">Footnotes</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="f1" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Institut national de l’information géographique et forestière : <a class="reference external" href="http://professionnels.ign.fr/bdtopo">http://professionnels.ign.fr/bdtopo</a>. Données téléchargées le 28/02/2019.</p>
+</aside>
+<aside class="footnote brackets" id="f2" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>European Environment Agency : <a class="reference external" href="https://www.eea.europa.eu/data-and-maps/data/copernicus-land-monitoring-service-eu-dem">https://www.eea.europa.eu/data-and-maps/data/copernicus-land-monitoring-service-eu-dem</a>. Données téléchargées le 28/02/2019.</p>
+</aside>
+</aside>
+<p><br>Quelques mots supplémentaires sur l'API PyQGIS<br></p><div class="spoiler blq docutils container">
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>L’API exposée par PyQgis n’est pas toujours très « pythonique ».
@@ -234,18 +246,8 @@ telles que l’appel de la méthode <code class="docutils literal notranslate"><
 </pre></div>
 </div>
 </aside>
-<p class="rubric">Footnotes</p>
-<aside class="footnote-list brackets">
-<aside class="footnote brackets" id="f1" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
-<p>Institut national de l’information géographique et forestière : <a class="reference external" href="http://professionnels.ign.fr/bdtopo">http://professionnels.ign.fr/bdtopo</a>. Données téléchargées le 28/02/2019.</p>
-</aside>
-<aside class="footnote brackets" id="f2" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
-<p>European Environment Agency : <a class="reference external" href="https://www.eea.europa.eu/data-and-maps/data/copernicus-land-monitoring-service-eu-dem">https://www.eea.europa.eu/data-and-maps/data/copernicus-land-monitoring-service-eu-dem</a>. Données téléchargées le 28/02/2019.</p>
-</aside>
-</aside>
-</section>
+</div>
+<p><br><br></p></section>
 </section>
 
 
@@ -258,7 +260,7 @@ telles que l’appel de la méthode <code class="docutils literal notranslate"><
       </div>
     
       <div class="pull-right">
-        <a class="btn btn-default" href="cheatsheet.html" title="Chapitre suivant (use the right arrow)">Cheatsheet</a>
+        <a class="btn btn-default" href="ex5.html" title="Chapitre suivant (use the right arrow)">Exercice 5 : Manipulation de couches vecteurs et géotraitements</a>
       </div>
     </div>
     <div class="clearer"></div>
@@ -273,7 +275,7 @@ telles que l’appel de la méthode <code class="docutils literal notranslate"><
           <a href="genindex.html" title="Index général"
              >index</a></li>
         <li class="right" >
-          <a href="cheatsheet.html" title="Cheatsheet"
+          <a href="ex5.html" title="Exercice 5 : Manipulation de couches vecteurs et géotraitements"
              >suivant</a> |</li>
         <li class="right" >
           <a href="ex3.html" title="Exercice 3 : Géométries et calcul de champ"

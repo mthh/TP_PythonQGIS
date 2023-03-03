@@ -16,7 +16,7 @@ Le langage connaît un fort succès depuis plusieurs années [#f1]_ aussi bien
 pour le développement web (scripts CGI, Django, frameworks asynchrones, etc.)
 que pour le traitement et l'analyse de données (packages Numpy_, Pandas_, Scipy_, scikit-learn_, etc.).
 
-Comme il s'agit d'un language interpreté, c'est un candidat de choix comme langage
+Comme il s'agit d'un language interprété, c'est un candidat de choix comme langage
 de script au sein d'applications lourdes (et généralement développées dans un
 langage de plus bas niveau).
 On le retrouve ainsi dans des logiciels de modélisation 3d (*Autodesk Maya*, *Blender*),
@@ -54,7 +54,7 @@ du C ou du Java dans lesquels on peut retrouver des instructions de ce type :
 
   int ma_valeur = 12;
 
-Par oppposition, Python présente la particularité d'offrir un typage dynamique :
+Par opposition, Python présente la particularité d'offrir un typage dynamique :
 lorsqu'une variable est affectée, l'interpréteur trouvera automatiquement son
 type sans que l'utilisateur ait besoin de le préciser :
 ::
@@ -75,7 +75,7 @@ typé : le langage garantit que le type des données employé décrit correcteme
 | - l'interdiction des conversions implicites de types.
 
 
-Langage interpreté
+Langage interprété
 ^^^^^^^^^^^^^^^^^^
 
 Python est dynamique : l'interpréteur peut évaluer des chaînes de caractères
@@ -85,14 +85,14 @@ Il s'agit d'un langage *interprété* (comme le Java ou le Perl)
 
 Les langages compilés vont nécessiter de transformer le code source en code binaire
 (langage machine) lors d'une opération appelée la *compilation*.
-Cette opération produit un fichier éxécutable dépendant du système d'exploitation
+Cette opération produit un fichier exécutable dépendant du système d'exploitation
 et est à effectuer à chaque modification du code source.
 
 Dans le cas d'un langage interprété (l'expression "langage de script" est synonyme),
 les instructions (le code source) sont "transcrites"
 par un *interpréteur* en langage machine au fur et à mesure de leur lecture.
-L'éxécution d'un script écrit en Python est donc conditionnée par la présence
-de l'intepréteur Python (comme le serait du code Java avec la JVM par exemple).
+L'exécution d'un script écrit en Python est donc conditionnée par la présence
+de l'interpréteur Python (comme le serait du code Java avec la JVM par exemple).
 
 Bloc d'instructions et indentation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

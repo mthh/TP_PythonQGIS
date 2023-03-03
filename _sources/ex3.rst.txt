@@ -11,7 +11,7 @@ Objectif
 --------
 
 L'objectif de cet exercice est double : manipuler les géométries relatives à chaque
-entités et éditer une couche pour l'enrichir.
+entité et éditer une couche pour l'enrichir.
 
 À partir de la couche vectorielle contenant les pays du monde, nous cherchons
 à trouver tous les polygones limitrophes à chaque polygone *(tous les voisins de chaque pays)*.

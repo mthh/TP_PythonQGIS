@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Exercice 6 : Automatisation d’actions répétitives &#8212; Documentation PythonQGIS_TP 2023.03</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/guzzle.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/js/custom.js"></script>
+    <script src="_static/translations.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="next" title="Cheatsheet" href="cheatsheet.html" />
+    <link rel="prev" title="Exercice 5 : Manipulation de couches vecteurs et géotraitements" href="ex5.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="cheatsheet.html" title="Cheatsheet"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="ex5.html" title="Exercice 5 : Manipulation de couches vecteurs et géotraitements"
+             accesskey="P">précédent</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2023.03</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Exercice 6 : Automatisation d’actions répétitives</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Contenu</h2>
+    <div class="sidebar-localtoc">
+      <ul>
+<li><a class="reference internal" href="#">Exercice 6 : Automatisation d’actions répétitives</a><ul>
+<li><a class="reference internal" href="#objectif">Objectif</a></li>
+<li><a class="reference internal" href="#donnees">Données</a></li>
+<li><a class="reference internal" href="#probleme">Problème</a></li>
+<li><a class="reference internal" href="#procedure">Procédure</a></li>
+<li><a class="reference internal" href="#sauvegarder-votre-projet">Sauvegarder votre projet</a></li>
+<li><a class="reference internal" href="#autres-exemples-d-utilisation-du-python-dans-qgis">Autres exemples d’utilisation du Python dans QGIS</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+</div>
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="ex5.html"
+                        title="Chapitre précédent">Exercice 5 : Manipulation de couches vecteurs et géotraitements</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="cheatsheet.html"
+                        title="Chapitre suivant">Cheatsheet</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Cette page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ex6.rst.txt"
+            rel="nofollow">Montrer le code source</a></li>
+    </ul>
+   </div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="index.html">Docs</a></li>
+              
+              <li>Exercice 6 : Automatisation d’actions répétitives</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <section id="exercice-6-automatisation-d-actions-repetitives">
+<h1>Exercice 6 : Automatisation d’actions répétitives<a class="headerlink" href="#exercice-6-automatisation-d-actions-repetitives" title="Lien permanent vers ce titre">¶</a></h1>
+<figure class="align-center" style="width: 98%">
+<a class="reference internal image-reference" href="_images/ex4_osm.png"><img alt="_images/ex4_osm.png" src="_images/ex4_osm.png" style="width: 40%;" /></a>
+</figure>
+<section id="objectif">
+<h2>Objectif<a class="headerlink" href="#objectif" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Cet exercice a pour objectif de montrer l’intérêt de la console Python pour automatiser des actions répétitives.</p>
+</section>
+<section id="donnees">
+<h2>Données<a class="headerlink" href="#donnees" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="line-block">
+<div class="line">• <code class="docutils literal notranslate"><span class="pre">malta-latest.shp.zip</span></code> : Données <strong>OpenStreetMap</strong> (transformées en Shapefile par GeoFabrik) pour Malte <a class="footnote-reference brackets" href="#f1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>  ➜ <a class="reference external" href="http://download.geofabrik.de/europe/malta-latest-free.shp.zip">Téléchargement</a></div>
+<div class="line">• <code class="docutils literal notranslate"><span class="pre">StylesQgisOsm.zip</span></code> : Une collection de styles QGIS pour données OSM <a class="footnote-reference brackets" href="#f2" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> ➜ <a class="reference external" href="https://mthh.github.io/TP_PythonQGIS/_static/StylesQgisOsm.zip">Téléchargement</a></div>
+</div>
+</section>
+<section id="probleme">
+<h2>Problème<a class="headerlink" href="#probleme" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Lors de la décompression de l’archive <code class="docutils literal notranslate"><span class="pre">malta-latest.shp.zip</span></code> on peut constater
+que de nombreux fichiers sont extraits (16 couches). Seules 11 d’entres elles vont
+nous être utile.</p>
+<dl class="simple">
+<dt>Pour appliquer les styles téléchargés, en l’absence de projet <code class="docutils literal notranslate"><span class="pre">.qgs</span></code> nous devrons effectuer les étapes suivantes.</dt><dd><ul class="simple">
+<li><p>charger les différentes couches nécessaires,</p></li>
+<li><p>appliquer le style téléchargé (par exemple : double-click sur la couche <code class="docutils literal notranslate"><span class="pre">gis_osm_water_a_free_1.shp</span></code>
+pour ouvrir les propriétés de style, puis click sur <code class="docutils literal notranslate"><span class="pre">Style</span> <span class="pre">..</span> <span class="pre">&gt;</span> <span class="pre">Charger</span> <span class="pre">style</span> <span class="pre">..</span></code> et sélection du style
+ayant le nom <code class="docutils literal notranslate"><span class="pre">gis_osm_water_a_free_1.qml</span></code>),</p></li>
+<li><p>… en faisant attention à l’ordre des couches !</p></li>
+<li><p>… et en répétant l’opération pour chacune des couches !</p></li>
+</ul>
+</dd>
+</dl>
+<figure class="align-center" id="id4" style="width: 98%">
+<img alt="_images/ex4_consignes_GH.png" class="m12" src="_images/ex4_consignes_GH.png" />
+<figcaption>
+<p><span class="caption-text"><em>Exemple d’instructions trouvées sur internet (1)</em></span><a class="headerlink" href="#id4" title="Lien permanent vers cette image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id5" style="width: 98%">
+<img alt="_images/ex4_consignes_GH2.png" class="m12 w100" src="_images/ex4_consignes_GH2.png" />
+<figcaption>
+<p><span class="caption-text"><em>Exemple d’instructions trouvées sur internet (2)</em></span><a class="headerlink" href="#id5" title="Lien permanent vers cette image">¶</a></p>
+</figcaption>
+</figure>
+<p>N’étant pas satisfait par les propriétés de transparence, nous verrons
+comment la changer sur toutes les couches qui contiennent des polygones.</p>
+<p>On va tout effectuer en Python pour voir le gain de temps que ça peut représenter.</p>
+</section>
+<section id="procedure">
+<h2>Procédure<a class="headerlink" href="#procedure" title="Lien permanent vers ce titre">¶</a></h2>
+<ul>
+<li><p><strong>Décompresser l’archive “StylesQgisOsm.zip” dans un dossier de votre choix (“exercice4” par exemple)</strong>. L’archive contenant les couches de données sera à décompresser en Python.</p></li>
+<li><p><strong>Ouvrir QGIS</strong>.</p></li>
+<li><p><strong>Ouvrir la console Python (les fichiers seront extraits de l’archive et ajoutés à la carte en Python)</strong>.</p></li>
+<li><p><strong>Lire les rappels et les nouveaux éléments qui suivent :</strong>.</p>
+<ul>
+<li><p>Rappel concernant les dossiers en Python :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># On accède à la majorité des fonctions relatives à la navigation</span>
+<span class="c1"># dans l&#39;arborescence du système de fichier à part du module &#39;os&#39;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># Connaitre le dossier actuel de travail</span>
+<span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="c1"># getcwd -&gt; get current working directory</span>
+
+<span class="c1"># Se rendre dans le dossier approprié (attention à le modifier)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;exercice4&#39;</span><span class="p">)</span>
+
+<span class="c1"># Lister le contenu d&#39;un dossier (ici le dossier &#39;Styles&#39;)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;Styles&#39;</span><span class="p">)</span> <span class="c1"># On utilise &#39;.&#39; pour le dossier actuel</span>
+</pre></div>
+</div>
+</li>
+<li><p>On peut ainsi effectuer des opérations de filtrage lors du listage du dossier</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lister les fichiers d&#39;un type particulier au sein d&#39;un dossier</span>
+<span class="c1"># en utilisant une liste de compréhension</span>
+<span class="n">names_svg</span> <span class="o">=</span> \
+    <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;/home/mthh/Images&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;.svg&#39;</span> <span class="ow">in</span> <span class="n">name</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p>Rappel sur les chaines de caractères</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remplacer/supprimer une sous-chaine de caractères :</span>
+<span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;filename.svg&#39;</span>
+<span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.svg&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>  <span class="c1"># &#39;filename&#39;</span>
+<span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.svg&#39;</span><span class="p">,</span> <span class="s1">&#39;.png&#39;</span><span class="p">)</span>  <span class="c1"># &#39;filename.png&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Extraire une archive <code class="docutils literal notranslate"><span class="pre">.zip</span></code> dans le dossier courant depuis l’interpréteur Python :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">zipfile</span>
+
+<span class="n">zip_ref</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s1">&#39;malta-latest-free.shp.zip&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">zip_ref</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">zip_ref</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+<li><p>Nouvelles notions en PyQgis concernant l’interface (<code class="docutils literal notranslate"><span class="pre">QgisInterface</span></code>) ou le projet (<code class="docutils literal notranslate"><span class="pre">QgsProject</span></code>) en cours :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Obtenir une référence au projet en cours :</span>
+<span class="n">project</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+
+<span class="c1"># Enlever les couches existantes dans le projet actuel :</span>
+<span class="n">project</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="c1"># Zoomer la carte sur une couche (ici sur la couche active) :</span>
+<span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
+<span class="n">canvas</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span>
+<span class="n">canvas</span><span class="o">.</span><span class="n">setExtent</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">extent</span><span class="p">())</span>
+<span class="n">canvas</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+
+<span class="c1"># Changer l&#39;étendue du canvas en utilisant</span>
+<span class="c1"># des coordonnées xmin, ymin, xmax, ymax :</span>
+<span class="n">rect</span> <span class="o">=</span> <span class="n">QgsRectangle</span><span class="p">(</span><span class="n">QgsRectangle</span><span class="p">(</span><span class="mi">1599940</span><span class="p">,</span> <span class="mi">4284653</span><span class="p">,</span> <span class="mi">1617650</span><span class="p">,</span> <span class="mi">4284653</span><span class="p">))</span>
+<span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">setExtent</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+<span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+
+<span class="c1"># Régler la projection du projet sur &quot;Web-Mercator&quot; :</span>
+<span class="n">project</span><span class="o">.</span><span class="n">setCrs</span><span class="p">(</span><span class="n">QgsCoordinateReferenceSystem</span><span class="p">(</span><span class="s1">&#39;EPSG:3857&#39;</span><span class="p">))</span>
+<span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+<li><p>Nouvelles notions en PyQgis concernant les couches vecteurs (<code class="docutils literal notranslate"><span class="pre">QgsVectorLayer</span></code>)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ajouter une couche :</span>
+<span class="n">layer</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">addVectorLayer</span><span class="p">(</span><span class="s1">&#39;path/to/layer.shp&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s1">&#39;ogr&#39;</span><span class="p">)</span>
+
+<span class="c1"># Charger un style et le lui appliquer :</span>
+<span class="n">layer</span><span class="o">.</span><span class="n">loadNamedStyle</span><span class="p">(</span><span class="s1">&#39;path/to/style.qml&#39;</span><span class="p">)</span>
+<span class="n">layer</span><span class="o">.</span><span class="n">triggerRepaint</span><span class="p">()</span>
+
+<span class="c1"># Si on ajoute plusieurs couches à la suite et que la mise en cache</span>
+<span class="c1"># n&#39;est pas active on évitera d&#39;appeler la méthode &#39;triggerRepaint&#39;</span>
+<span class="c1"># sur chaque couche et on préférera rafraichir</span>
+<span class="c1"># l&#39;ensemble du canvas une fois l&#39;opération terminée :</span>
+<span class="k">if</span> <span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">isCachingEnabled</span><span class="p">():</span>
+    <span class="n">layer</span><span class="o">.</span><span class="n">triggerRepaint</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">iface</span><span class="o">.</span><span class="n">mapCanvas</span><span class="p">()</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p><strong>À vous de jouer !</strong>
+En utilisant les éléments vu au-dessus, écrivez un script permettant de :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>se rendre dans le dossier dans lequel vous avez décompresser la première archive,</p></li>
+<li><p>y dézipper la seconde (<code class="docutils literal notranslate"><span class="pre">malta-latest.shp.zip</span></code>) dans le même dossier,</p></li>
+<li><p>lister les styles disponibles (fichiers <code class="docutils literal notranslate"><span class="pre">.qml</span></code> dans le dossier <code class="docutils literal notranslate"><span class="pre">Styles</span></code>),</p></li>
+<li><p>utiliser leurs noms pour charger les fichiers <em>Shapefile</em> correspondants,</p></li>
+<li><p>appliquer le style approprié à chacune des couches.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Et l’ordre des couches ? Voici l’ordre optimal pour ce projet <em>(la première couche de la liste est celle qui doit apparaître
+au-dessus de toutes les autres à l’affichage, c’est le même ordre que dans le panneau de gestion des couches de QGIS)</em>.
+Utiliser cette variable pour obtenir l’ordre souhaité dans votre projet !</p>
+<p><strong>À vous de jouer !</strong> <em>(La cheatsheet de ce TP, un moteur de recherche et/ou la documentation PyQgis
+seront utiles)</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ordre</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;gis_osm_traffic_a_free_1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gis_osm_pofw_a_free_1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gis_osm_places_free_1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gis_osm_natural_free_1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gis_osm_roads_free_1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gis_osm_buildings_a_free_1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gis_osm_pois_a_free_1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gis_osm_water_a_free_1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gis_osm_waterways_free_1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gis_osm_landuse_a_free_1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gis_osm_natural_a_free_1&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p>Nous devons maintenant régler l’opacité de chacune des couches de
+type <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> à 90%.</p>
+<p><strong>À vous de jouer !</strong> <em>(La cheatsheet de ce TP, un moteur de recherche et/ou la documentation PyQgis
+seront utiles)</em></p>
+</li>
+</ul>
+</section>
+<section id="sauvegarder-votre-projet">
+<h2>Sauvegarder votre projet<a class="headerlink" href="#sauvegarder-votre-projet" title="Lien permanent vers ce titre">¶</a></h2>
+<ul>
+<li><p>Il est nécessaire de récupérer une référence au projet actuel :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">project</span> <span class="o">=</span> <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+<span class="c1"># Attention au chemin du fichier que vous sauvegardez !</span>
+<span class="n">project</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;osm_malta.qgs&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="autres-exemples-d-utilisation-du-python-dans-qgis">
+<h2>Autres exemples d’utilisation du Python dans QGIS<a class="headerlink" href="#autres-exemples-d-utilisation-du-python-dans-qgis" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Qu’en est-il des actions qu’il pourrait être nécessaire d’effectuer à chaque ouverture d’un projet
+spécifique ? Il est possible de définir des fonctions Python qui seront appelées à l’ouverture, à l’enregistrement ou
+à la fermeture d’un projet.</p>
+<figure class="align-center" style="width: 98%">
+<a class="reference internal image-reference" href="_images/ex4_macros.png"><img alt="_images/ex4_macros.png" src="_images/ex4_macros.png" style="width: 100%;" /></a>
+</figure>
+<ul>
+<li><p>Nous souhaitons par exemple afficher un message d’avertissement à l’ouverture d’un projet :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">openProject</span><span class="p">():</span>
+    <span class="n">msg_bar</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">messageBar</span><span class="p">()</span>
+    <span class="n">msg_bar</span><span class="o">.</span><span class="n">pushMessage</span><span class="p">(</span>
+      <span class="s1">&#39;WARNING&#39;</span><span class="p">,</span> <span class="c1"># Le titre du message</span>
+      <span class="s1">&#39;Le projet contient des données sensibles.&#39;</span><span class="p">,</span> <span class="c1"># Son contenu</span>
+      <span class="n">Qgis</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span> <span class="c1"># Le type de message</span>
+      <span class="mi">15</span><span class="p">,</span> <span class="c1"># Le délai d&#39;affichage</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<hr width="100%" size="18"><p class="rubric">Footnotes</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="f1" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://www.openstreetmap.org/copyright">© les contributeurs d’OpenStreetMap</a>. Source : <a class="reference external" href="http://download.geofabrik.de/europe/malta.html">http://download.geofabrik.de/europe/malta.html</a>. Données téléchargées le 01/03/2020.</p>
+</aside>
+<aside class="footnote brackets" id="f2" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>Adaptés depuis les styles de <a class="reference external" href="https://github.com/MrXsquared/">MrXsquared</a>, maintenant maintenus <a class="reference external" href="https://github.com/mkoenigb/OSM-Geofabrik_Universal-QML-Style">ici</a>. Données téléchargées le 01/03/2020.</p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="ex5.html" title="Chapitre précédent (use the left arrow)">Exercice 5 : Manipulation de couches vecteurs et géotraitements</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="cheatsheet.html" title="Chapitre suivant (use the right arrow)">Cheatsheet</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="cheatsheet.html" title="Cheatsheet"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="ex5.html" title="Exercice 5 : Manipulation de couches vecteurs et géotraitements"
+             >précédent</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Documentation PythonQGIS_TP 2023.03</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Exercice 6 : Automatisation d’actions répétitives</a></li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2018-2023, Matthieu Viry. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>

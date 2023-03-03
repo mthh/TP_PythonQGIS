@@ -79,7 +79,7 @@ Procédure
 
     dem_pr = dem.dataProvider()
     pt = QgsPointXY(925189, 6473673)
-    res = dem_pr.identify(pt, 1)
+    res = dem_pr.identify(pt)
     if res.isValid():
         _values = res.results() # Retourne un dictionnaire
         # Affiche la valeur pour la première bande
@@ -119,35 +119,46 @@ Procédure
   la distance à la source (de type *double flottant*).
 
 
-.. note::
-  L'API exposée par PyQgis n'est pas toujours très "pythonique".
-  Certaines fonctions relative à la manipulation des données raster ou vecteur ne vont pas générer une ``Exception``
-  comme c'est la convention en Python mais vont retourner une valeur booléenne qu'il
-  faudra lire pour s'assurer de la bonne exécution de la fonction en question (pensez aux exercices précédent lorsque
-  vous avez pu voir ``True`` - ou ``False`` - affiché dans l'interpréteur lors de certaines opérations
-  telles que l'appel de la méthode ``updateFeature``).
-
-  .. code-block:: python
-     :emphasize-lines: 3,4,10,11
-
-      for ix, dist in enumerate(range(0, int(length), int(step))):
-          pt = geom.interpolate(dist).asPoint()
-          alt, valid = data_pr.sample(pt, 1)
-          if valid:
-              new_pt = QgsPoint(pt.x(), pt.y(), alt)
-              feat = QgsFeature()
-              feat.setGeometry(QgsGeometry(new_pt))
-              feat.setAttributes([ix, dist])
-              ok = pr.addFeature(feat)
-              if not ok:
-                  print("Erreur lors de la création de l'entité {}".format(ix))
-          else:
-              print(
-                "Erreur lors de la récupération de l'altitude pour l'entité {}"
-                .format(ix)")
-
-
 .. rubric:: Footnotes
 
 .. [#f1] Institut national de l'information géographique et forestière : http://professionnels.ign.fr/bdtopo. Données téléchargées le 28/02/2019.
 .. [#f2] European Environment Agency : https://www.eea.europa.eu/data-and-maps/data/copernicus-land-monitoring-service-eu-dem. Données téléchargées le 28/02/2019.
+
+
+.. raw:: html
+
+   <p><br>Quelques mots supplémentaires sur l'API PyQGIS<br></p>
+
+.. container:: spoiler blq
+
+     .. note::
+       L'API exposée par PyQgis n'est pas toujours très "pythonique".
+       Certaines fonctions relative à la manipulation des données raster ou vecteur ne vont pas générer une ``Exception``
+       comme c'est la convention en Python mais vont retourner une valeur booléenne qu'il
+       faudra lire pour s'assurer de la bonne exécution de la fonction en question (pensez aux exercices précédent lorsque
+       vous avez pu voir ``True`` - ou ``False`` - affiché dans l'interpréteur lors de certaines opérations
+       telles que l'appel de la méthode ``updateFeature``).
+
+       .. code-block:: python
+          :emphasize-lines: 3,4,10,11
+
+           for ix, dist in enumerate(range(0, int(length), int(step))):
+               pt = geom.interpolate(dist).asPoint()
+               alt, valid = data_pr.sample(pt, 1)
+               if valid:
+                   new_pt = QgsPoint(pt.x(), pt.y(), alt)
+                   feat = QgsFeature()
+                   feat.setGeometry(QgsGeometry(new_pt))
+                   feat.setAttributes([ix, dist])
+                   ok = pr.addFeature(feat)
+                   if not ok:
+                       print("Erreur lors de la création de l'entité {}".format(ix))
+               else:
+                   print(
+                     "Erreur lors de la récupération de l'altitude pour l'entité {}"
+                     .format(ix)")
+
+
+.. raw:: html
+
+   <p><br><br></p>
