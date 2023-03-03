@@ -124,6 +124,11 @@ Procédure
 .. [#f1] Institut national de l'information géographique et forestière : http://professionnels.ign.fr/bdtopo. Données téléchargées le 28/02/2019.
 .. [#f2] European Environment Agency : https://www.eea.europa.eu/data-and-maps/data/copernicus-land-monitoring-service-eu-dem. Données téléchargées le 28/02/2019.
 
+.. raw:: html
+
+   <hr width="100%" size="18">
+   <p class="align-center"><strong>💡 <a href="solutions/s_ex4.html">Solution de l'exercice 4</a></strong></p>
+   <hr width="100%" size="18">
 
 .. raw:: html
 
@@ -158,7 +163,3 @@ Procédure
                      "Erreur lors de la récupération de l'altitude pour l'entité {}"
                      .format(ix)")
 
-
-.. raw:: html
-
-   <p><br><br></p>
